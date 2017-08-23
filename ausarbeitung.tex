@@ -8,14 +8,14 @@
 \usepackage{epsfig}
 \usepackage[latin1]{inputenc}
 \usepackage{fancyhdr}
-\usepackage{biblatex}
+\usepackage[style=numeric,natbib=true,giveninits=true]{biblatex}
 \usepackage{caption}
 \usepackage{tikz}
 \usepackage{iflang}
 
 % set image-path
 \graphicspath{{images/}}
-\include{makros}
+%\include{makros.tex}
 
 % Dimensions of...
 % ...site
@@ -32,6 +32,7 @@
 
 % Bibliography
 \bibliography{bibliography/source_tracking.bib}
+\bibstyle{plain}
 
 
 \renewcommand{\baselinestretch}{1.5}
@@ -61,6 +62,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  D O C U M E N T  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\RequirePackage[l2tabu, orthodox]{nag} % gives warnings, when deprecated latex stuff is used
 \begin{document}
 
 % TITLE
@@ -172,7 +174,8 @@
 
 % LITERATURVERZEICHNIS
 %nicht referenzierte Literaturstellen
-\nocite{}
+\nocite{*}
+\printbibliography
 
 % Literaturverzeichnis einbinden, alpha, plain, unsrt, abbrv
 \newpage
@@ -180,9 +183,6 @@
 \addtocounter{page}{1}
 \addcontentsline{toc}{chapter}{Literaturverzeichnis}
 \addtocounter{page}{-1}
-\bibstyle{plain}
-\cite{Schwartz2014}
-\citation{Schwartz2014}
 
 
 \end{document}
