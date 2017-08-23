@@ -8,6 +8,7 @@
 \usepackage{epsfig}
 \usepackage[latin1]{inputenc}
 \usepackage{fancyhdr}
+\usepackage{biblatex}
 \usepackage{caption}
 \usepackage{tikz}
 \usepackage{iflang}
@@ -28,6 +29,9 @@
 
 % Language
 \selectlanguage{english}
+
+% Bibliography
+\bibliography{bibliography/source_tracking.bib}
 
 
 \renewcommand{\baselinestretch}{1.5}
@@ -167,7 +171,6 @@
 \listoftables
 
 % LITERATURVERZEICHNIS
-
 %nicht referenzierte Literaturstellen
 \nocite{}
 
@@ -177,7 +180,9 @@
 \addtocounter{page}{1}
 \addcontentsline{toc}{chapter}{Literaturverzeichnis}
 \addtocounter{page}{-1}
-%\bibliographystyle{alphadin}%{alpha}
-%\bibliography{da}
+\bibstyle{plain}
+\cite{Schwartz2014}
+\citation{Schwartz2014}
+
 
 \end{document}
