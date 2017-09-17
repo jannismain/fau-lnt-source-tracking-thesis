@@ -1,0 +1,68 @@
+\documentclass[12pt,twoside,a4paper]{report}
+
+%\makeindex
+%\usepackage{german,a4}
+\usepackage{color}
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\usepackage[latin1]{inputenc}
+\usepackage{fancyhdr}
+\usepackage[backend=biber,style=numeric,natbib=true,giveninits=true,doi=true]{biblatex}
+\usepackage{caption}
+\usepackage[english]{babel}
+\usepackage{tikz}
+\usepackage{iflang}
+
+% set image-path
+\graphicspath{{images/}}
+%\include{makros.tex}
+
+% Dimensions of...
+% ...site
+\setlength{\textwidth}{15.5 true cm}
+\setlength{\textheight}{22 true cm}
+% ...margin
+\oddsidemargin  0.5 cm
+\evensidemargin 0.5 cm
+\topmargin      0 cm
+\parindent 		0 cm
+
+% Language
+\selectlanguage{english}
+
+% Bibliography
+\bibliography{bibliography/source_tracking.bib}
+
+\renewcommand{\baselinestretch}{1.5}
+\renewcommand{\captionfont}{\linespread{1}\normalsize}
+\renewcommand{\textfraction}{0}
+
+% Fancyhdr
+\setlength{\headheight}{0.75cm}
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyhead[EL,OR]{\thepage}
+	\fancyhead[ER]{\leftmark}
+	\fancyhead[OL]{\leftmark}
+}
+\fancypagestyle{newfancy}{
+	\fancyhf{}
+	\fancyhead[EL,OR]{\thepage}
+%	\fancyhead[ER]{\rightmark}
+	\fancyhead[OL]{\rightmark}
+	}
+\pagestyle{newfancy}
+
+\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
+\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thesection.\ #1}}{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    C O N F I G    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  D O C U M E N T  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[l2tabu, orthodox]{nag} % gives warnings, when deprecated latex stuff is used
+\begin{document}
+
+\input{structure/_integration.tex}
+
+\end{document}
