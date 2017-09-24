@@ -1,0 +1,74 @@
+\chapter[Testbed]{Testbed}
+\chaptermark{Testbed}
+\label{chap:Testbed}
+This is a section, where LaTeX functionality can be tested!
+\section{Graphics}
+\subsection{Including .eps-files}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{static/gaussian}
+\caption{Multiple three-dimensional gaussian distributions...}
+\label{fig:mog}
+\end{figure}
+
+
+This is the text beneath an included picture. Figure \ref{fig:mog} shows an example of how to include eps-figures in this document.
+
+\subsection{Including tikz-figures}
+Graphs can be included, like is shown in figure \ref{fig:sin}, using the input-method.
+\tikzset{every picture/.style={scale=0.9}}
+\begin{figure}[H]
+	\centering
+	\input{plots/static/sin-tikz}
+	\caption{A sine wave}
+	\label{fig:sin}
+\end{figure}
+
+As figure \ref{fig:sin} was a little big, we now try to scale this output somehow:
+
+\tikzset{every picture/.style={scale=0.6}}
+\begin{figure}[H]
+	\centering
+	\input{plots/static/sin-tikz}
+	\caption{A second sine wave}
+	\label{fig:sin2}
+\end{figure}
+
+But, in doing this, scaling the tikz output might not be as easy as with the includegraphics-method. This is where the standalone package comes in handy.
+
+\subsection{Grouping plots on page}
+\subsubsection{2 tikz-figures}
+\tikzset{every picture/.style={scale=0.5}}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\includestandalone[width=\textwidth]{plots/static/sin-tikz}
+		\caption{A sine wave}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\includestandalone[width=\textwidth]{plots/static/cos-tikz}
+		\caption{A cosine wave}
+	\end{subfigure}
+	\caption{Sine and cosine waves}
+	\label{fig:sin}
+\end{figure}
+
+\subsubsection{2 .eps figures}
+\begin{figure}[H]
+ \centering
+ \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{gaussian}
+    \caption{Sub caption}
+ \end{subfigure}
+ \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{gaussian}
+    \caption{Sub caption}
+ \end{subfigure}
+ \caption{Main caption}
+\end{figure}
+
+\newpage
+\section{Citations}
+\subsection{Simple Citations}
+The EM-Algorithm is covered in depth by Bishop "EM algorithm, is a general technique for finding maximum likelihood solutions for probabilistic models having latent variables (Dempster et al., 1977; McLachlan and Krishnan, 1997). \cite[p. 472]{Bishop2006}. Reverberant environments, secondary reflections, may result in biased location estimates \cite[p.1]{Schwartz2014}

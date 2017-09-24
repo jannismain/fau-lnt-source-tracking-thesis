@@ -3,18 +3,29 @@
 %\makeindex
 %\usepackage{german,a4}
 \usepackage{color}
-\usepackage[dvips]{graphicx}
-\usepackage{epsfig}
+\usepackage{graphicx}
 \usepackage[latin1]{inputenc}
 \usepackage{fancyhdr}
 \usepackage[backend=biber,style=ieee,natbib=true,giveninits=true,doi=true]{biblatex} % also: style=ieee[1], style=numeric-comp ([1-3]), style=authoryear-comp, style=alphabetic
 \usepackage{caption}
+\usepackage{subcaption}
 \usepackage[english]{babel}
 \usepackage{tikz}
 \usepackage{iflang}
 
+% enable tikz plots
+\usepackage{pgfplots}
+  \pgfplotsset{compat=newest}
+  %% the following commands are needed for some matlab2tikz features
+  \usetikzlibrary{plotmarks}
+  \usetikzlibrary{arrows.meta}
+  \usepgfplotslibrary{patchplots}
+  \usepackage{grffile}
+  \usepackage{amsmath}
+  \usepackage{standalone}
+\usepackage{float} % needed to force figures into their place
 % set image-path
-\graphicspath{{images/}}
+\graphicspath{{plots/static/}, {plots/dynamic/}, {plots/}}
 
 % Dimensions of...
 % ...site
