@@ -7,79 +7,13 @@ This is a section, where LaTeX functionality can be tested!
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{static/gaussian}
+\includegraphics[width=0.5\textwidth]{gaussian}
 \caption{Multiple three-dimensional gaussian distributions...}
 \label{fig:mog}
 \end{figure}
 
 
 This is the text beneath an included picture. Figure \ref{fig:mog} shows an example of how to include eps-figures in this document.
-
-\subsection{Including tikz-figures}
-\subsubsection{Two-dimensional figures}
-Graphs can be included, like is shown in figure \ref{fig:sin}, using the input-method.
-\tikzset{every picture/.style={scale=0.9}}
-\begin{figure}[H]
-	\centering
-	\input{plots/static/sin-tikz}
-	\caption{A sine wave}
-	\label{fig:sin}
-\end{figure}
-
-As figure \ref{fig:sin} was a little big, we now try to scale this output somehow:
-
-\tikzset{every picture/.style={scale=0.6}}
-\begin{figure}[H]
-	\centering
-	\input{plots/static/sin-tikz}
-	\caption{A second sine wave}
-	\label{fig:sin2}
-\end{figure}
-
-We can also display more than one lineplot in one row:
-
-\tikzset{every picture/.style={scale=0.5}}
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}{0.49\textwidth}
-		\includestandalone[width=\textwidth]{plots/static/sin-tikz}
-		\caption{A sine wave}
-	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
-		\includestandalone[width=\textwidth]{plots/static/cos-tikz}
-		\caption{A cosine wave}
-	\end{subfigure}
-	\caption{Sine and cosine waves}
-	\label{fig:sin}
-\end{figure}
-
-\subsubsection{Three-dimensional figures}
-\tikzset{every picture/.style={scale=1}}
-\begin{figure}[H]
-	\centering
-	\input{plots/static/gaussian-tikz}
-	\caption{A three-dimensional representation of multiple, gaussian distributions}
-	\label{fig:gaussian}
-\end{figure}
-
-Let's see, whether this also works for 3D-plots:
-
-\tikzset{every picture/.style={scale=0.5}}
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}{0.49\textwidth}
-		\includestandalone[width=\textwidth]{plots/static/gaussian-tikz}
-		\caption{A 3D plot}
-	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
-		\includestandalone[width=\textwidth]{plots/static/gaussian-tikz}
-		\caption{Another 3D plot}
-	\end{subfigure}
-	\caption{More than one 3D plot in a row}
-	\label{fig:gaussian3}
-\end{figure}
-
-With the previous method to include tikz-figures, scaling the tikz output might not be as easy as with the includegraphics-method. This is where the standalone package comes in handy.
 
 \subsubsection{Displaying two eps-figures side-by-side}
 \begin{figure}[H]
@@ -93,6 +27,80 @@ With the previous method to include tikz-figures, scaling the tikz output might 
     \caption{Sub caption}
  \end{subfigure}
  \caption{Main caption}
+\end{figure}
+
+\subsection{Including tikz-figures}
+\subsubsection{Two-dimensional figures}
+Graphs can be included, like is shown in figure \ref{fig:sin}, using the input-method.
+\tikzset{every picture/.style={scale=0.9}}
+\begin{figure}[H]
+	\centering
+	\input{plots/sin-tikz}
+	\caption{A sine wave}
+	\label{fig:sin}
+\end{figure}
+
+As figure \ref{fig:sin} was a little big, we now try to scale this output somehow:
+
+\tikzset{every picture/.style={scale=0.6}}
+\begin{figure}[H]
+	\centering
+	\input{plots/sin-tikz}
+	\caption{A second sine wave}
+	\label{fig:sin2}
+\end{figure}
+
+We can also display more than one lineplot in one row:
+
+\tikzset{every picture/.style={scale=0.5}}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\includestandalone[width=\textwidth]{plots/sin-tikz}
+		\caption{A sine wave}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\includestandalone[width=\textwidth]{plots/cos-tikz}
+		\caption{A cosine wave}
+	\end{subfigure}
+	\caption{Sine and cosine waves}
+	\label{fig:sin}
+\end{figure}
+
+\subsubsection{Three-dimensional figures}
+\tikzset{every picture/.style={scale=1}}
+\begin{figure}[H]
+	\centering
+	\input{plots/gaussian-tikz}
+	\caption{A three-dimensional representation of multiple, gaussian distributions}
+	\label{fig:gaussian}
+\end{figure}
+
+With the previous method to include tikz-figures, scaling the tikz output might not be as easy as with the includegraphics-method. This is where the standalone package comes in handy.
+
+Let's see, whether this also works for 3D-plots:
+
+\tikzset{every picture/.style={scale=0.5}}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\includestandalone[width=\textwidth]{plots/gaussian-tikz}
+		\caption{A 3D plot}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\includestandalone[width=\textwidth]{plots/gaussian-tikz}
+		\caption{Another 3D plot}
+	\end{subfigure}
+	\caption{More than one 3D plot in a row}
+	\label{fig:gaussian3}
+\end{figure}
+
+Now let's try some real output from our Matlab scripts:
+\begin{figure}[H]
+	\centering
+	\input{plots/static/2017-09-25-14-34-53_sources_2_mindistance_0.5_trial_1_of_2_fig}
+	\caption{2 Sources, 0.5m minimal distance, Trial 1/2}
+	\label{fig:trial1}
 \end{figure}
 
 \newpage
