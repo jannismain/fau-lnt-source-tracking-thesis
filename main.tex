@@ -29,6 +29,11 @@
   \usepackage{grffile}
   \usepackage{amsmath}
   \usepackage{standalone}
+
+% \usepgflibrary{profiler}
+% \pgfprofilenewforenvironment{tikzpicture}
+% \pgfprofilenewforcommand{\pgfkeys}{1}
+
 \usepackage{float} % needed to force figures into their place
 % set image-path
 \graphicspath{{plots/static/}, {plots/dynamic/}, {plots/}}
@@ -52,6 +57,7 @@
 \renewcommand{\baselinestretch}{1.5}
 \renewcommand{\captionfont}{\linespread{1}\normalsize}
 \renewcommand{\textfraction}{0}
+\newcommand{\inputTikZ}[2]{\scalebox{#1}{\input{#2}}}
 
 % Fancyhdr
 \setlength{\headheight}{0.75cm}
