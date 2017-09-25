@@ -16,6 +16,7 @@ This is a section, where LaTeX functionality can be tested!
 This is the text beneath an included picture. Figure \ref{fig:mog} shows an example of how to include eps-figures in this document.
 
 \subsection{Including tikz-figures}
+\subsubsection{Two-dimensional figures}
 Graphs can be included, like is shown in figure \ref{fig:sin}, using the input-method.
 \tikzset{every picture/.style={scale=0.9}}
 \begin{figure}[H]
@@ -35,10 +36,8 @@ As figure \ref{fig:sin} was a little big, we now try to scale this output someho
 	\label{fig:sin2}
 \end{figure}
 
-But, in doing this, scaling the tikz output might not be as easy as with the includegraphics-method. This is where the standalone package comes in handy.
+We can also display more than one lineplot in one row:
 
-\subsection{Grouping plots on page}
-\subsubsection{2 tikz-figures}
 \tikzset{every picture/.style={scale=0.5}}
 \begin{figure}[H]
 	\centering
@@ -54,7 +53,35 @@ But, in doing this, scaling the tikz output might not be as easy as with the inc
 	\label{fig:sin}
 \end{figure}
 
-\subsubsection{2 .eps figures}
+\subsubsection{Three-dimensional figures}
+\tikzset{every picture/.style={scale=1}}
+\begin{figure}[H]
+	\centering
+	\input{plots/static/gaussian-tikz}
+	\caption{A three-dimensional representation of multiple, gaussian distributions}
+	\label{fig:gaussian}
+\end{figure}
+
+Let's see, whether this also works for 3D-plots:
+
+\tikzset{every picture/.style={scale=0.5}}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\includestandalone[width=\textwidth]{plots/static/gaussian-tikz}
+		\caption{A 3D plot}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\includestandalone[width=\textwidth]{plots/static/gaussian-tikz}
+		\caption{Another 3D plot}
+	\end{subfigure}
+	\caption{More than one 3D plot in a row}
+	\label{fig:gaussian3}
+\end{figure}
+
+With the previous method to include tikz-figures, scaling the tikz output might not be as easy as with the includegraphics-method. This is where the standalone package comes in handy.
+
+\subsubsection{Displaying two eps-figures side-by-side}
 \begin{figure}[H]
  \centering
  \begin{subfigure}{0.49\textwidth}
