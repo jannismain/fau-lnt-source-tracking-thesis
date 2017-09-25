@@ -1,10 +1,16 @@
+% !TEX encoding = UTF-8 Unicode
 \documentclass[12pt,twoside,a4paper]{report}
 
 %\makeindex
 %\usepackage{german,a4}
 \usepackage{color}
 \usepackage{graphicx}
-\usepackage[latin1]{inputenc}
+
+% enable rendering of umlaute
+%\usepackage[latin1]{inputenc} % to be used with pdfLaTeX
+%\usepackage[utf8]{luainputenc} % to be used with LuaLaTeX
+\usepackage{fontspec-luatex}
+
 \usepackage{fancyhdr}
 \usepackage[backend=biber,style=ieee,natbib=true,giveninits=true,doi=true]{biblatex} % also: style=ieee[1], style=numeric-comp ([1-3]), style=authoryear-comp, style=alphabetic
 \usepackage{caption}
@@ -15,7 +21,7 @@
 
 % enable tikz plots
 \usepackage{pgfplots}
-  \pgfplotsset{compat=newest}
+  \pgfplotsset{compat=1.8}
   %% the following commands are needed for some matlab2tikz features
   \usetikzlibrary{plotmarks}
   \usetikzlibrary{arrows.meta}
@@ -41,7 +47,7 @@
 \selectlanguage{english}
 
 % Bibliography
-\bibliography{bibliography/source_tracking.bib}
+\bibliography{bibliography/source_tracking_citavi.bib}
 
 \renewcommand{\baselinestretch}{1.5}
 \renewcommand{\captionfont}{\linespread{1}\normalsize}
