@@ -1,0 +1,5 @@
+\chapter{Theoretical Background}
+\chaptermark{Theoretical Background}
+\sectionmark{Theoretical Background}
+\label{chap:theory}
+In this section, the main theoretical concepts needed for audio source localization and tracking, as it is implemented here, are laid out and put into context. First, the signal model is defined and it is shown, which features of the signal are exploited to estimate the location of it's origin. As we are simulating the received signal, instead of using recordings, the approach used for simulating a received signal, that is influenced by room acoustics and noise, is shown and it's limitations are discussed. Next, the Gaussian Mixture Model (GMM\footnote{in the literature also called *Multiple of Gaussian (MoG)*} is introduced as a mathematical representation of the possible locations of the audio sources, that are to be estimated. Last, the Expectation-Maximization-Algorithm (EM-Algorithm) is explained and it is shown, how it can be used to estimate and optimize the parameters of the GMM to yield the most likely source locations.
