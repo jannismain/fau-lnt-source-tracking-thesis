@@ -66,34 +66,31 @@
 \input{chapters/1.intro}
 
 \renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thesection.\ #1}}{}}
-\input{chapters/2.theoretical background}
-\input{chapters/3.algorithms.tex}
-\input{chapters/4.implementation.tex}
-\input{chapters/5.results.tex}
-\input{chapters/6.conclusion.tex}
+\include{chapters/2.theoretical_background}
+\include{chapters/3.algorithms}
+\include{chapters/4.implementation}
+\include{chapters/5.results}
+\include{chapters/6.conclusion}
 
 
 
-%\input{chapters/testbed.tex}
+%\include{chapters/testbed}
+%\include{chapters/testbed-text}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  D O C U M E N T  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  A P P E N D I X  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % ANHANG
-\begin{appendix}
+\appendix
 	\renewcommand{\chaptermark}[1]{\markboth{\uppercase{Appendix \thechapter:\ #1}}{}}
 	
-	\chapter{First Appendix Chapter}
-	\chaptermark{First Appendix Chapter}
-	
-	\section{First Appendix Section}
-	\label{sec:AAbschnitt}
+	\newchapter{First Appendix Chapter}
 	% \input{}
 	\clearpage
 	\newpage
 	\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
-\end{appendix}
 
 % LIST OF FIGURES
 \addcontentsline{toc}{chapter}{List of Figures}

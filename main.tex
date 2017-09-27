@@ -58,6 +58,8 @@
 \renewcommand{\captionfont}{\linespread{1}\normalsize}
 \renewcommand{\textfraction}{0}
 \newcommand{\inputTikZ}[2]{\scalebox{#1}{\input{#2}}}
+\newcommand{\newchapter}[1]{\chapter{#1}\chaptermark{#1}\sectionmark{#1}\label{chap:#1}}
+
 
 % Fancyhdr
 \setlength{\headheight}{0.75cm}
