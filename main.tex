@@ -11,6 +11,8 @@
 %\usepackage[utf8]{luainputenc} % to be used with LuaLaTeX
 \usepackage{fontspec-luatex}
 
+\usepackage{hyperref}  % enable links in PDF file  
+
 \usepackage{fancyhdr}
 \usepackage[backend=biber,style=ieee,natbib=true,giveninits=true,doi=true]{biblatex} % also: style=ieee[1], style=numeric-comp ([1-3]), style=authoryear-comp, style=alphabetic
 \usepackage{caption}
@@ -18,6 +20,9 @@
 \usepackage[english]{babel}
 \usepackage{tikz}
 \usepackage{iflang}
+
+% better math input
+\usepackage{mathtools}  % this also loads amsmath
 
 % enable tikz plots
 \usepackage{pgfplots}
@@ -27,8 +32,11 @@
   \usetikzlibrary{arrows.meta}
   \usepgfplotslibrary{patchplots}
   \usepackage{grffile}
-  \usepackage{amsmath}
   \usepackage{standalone}
+
+% for automatically generated List of Abbreviations
+\usepackage[acronym,toc,nopostdot,nonumberlist,style=super,nogroupskip]{glossaries}
+\makeglossaries
 
 % \usepgflibrary{profiler}
 % \pgfprofilenewforenvironment{tikzpicture}
