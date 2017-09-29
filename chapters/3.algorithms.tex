@@ -7,9 +7,19 @@
 
 \section{Source Tracking}
 \label{sec:algSrcTrack}
-To integrate data from prior steps into each \gls{em} iteration, recursive variations of the \gls{em} algorithm have been developed. These will be called\newacronym{rem}{REM}{Recursive \acrfull{em}} \gls{rem} algorithms in the upcoming sections.
 
-In \cite{Schwartz2014}, two different \gls{rem} algorithms for speaker tracking are proposed. The first one is based on \citeauthor{Cappe2009}'s \gls{rem} and will be referenced as \newacronym{crem}{CREM}{\citeauthor{Cappe2009}'s Recursive Expectation-Maximisation}\gls{crem}. The second one is based on \citeauthor{Titterington1984}'s \gls{rem} algorithm and will be called \newacronym{trem}{TREM}{\citeauthor{Titterington1984}'s Recursive Expectation-Maximisation}\gls{trem}
+\newacronym{rem}{REM}{Recursive \acrfull{em}}
+\newacronym{crem}{CREM}{\citeauthor{Cappe2009}'s Recursive Expectation-Maximisation}
+\newacronym{trem}{TREM}{\citeauthor{Titterington1984}'s Recursive Expectation-Maximisation}
+
+To integrate data from prior steps into each \gls{em} iteration, recursive variations of the \gls{em} algorithm have been developed. These will be called \gls{rem} algorithms in the upcoming sections.
+
+In \cite{Schwartz2014}, two different \gls{rem} algorithms for speaker tracking are proposed. The first one is based on \citeauthor{Cappe2009}'s \gls{rem} and will be referenced as \acrshort{crem}, whereas the second one is based on \citeauthor{Titterington1984}'s \gls{rem} algorithm and will be called \acrshort{trem}.
 
 \subsection{CREM algorithm}
+\label{sec:crem}
+\import{equations/}{alg-crem}
+
 \subsection{TREM algorithm}
+\label{sec:trem}
+\import{equations/}{alg-trem}

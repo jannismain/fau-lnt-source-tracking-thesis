@@ -1,0 +1,15 @@
+\begin{algorithm}
+\caption{\acrshort{crem} algorithm for source tracking}
+\label{alg:trem}
+\begin{algorithmic}
+\State \textbf{initialize} $\theta^{(0)}_R$
+\For{$t=1$ \textbf{to} $T$}
+\State \textbf{E-Step}
+\begin{align*}
+	\bar\eta(\phi_t,x_t)&=E\left\{\eta(\phi_t,x_t)\mid\phi_t;\theta_R^{(t-1)} \right\}\\
+\eta^R(\phi_t,x_t)&=\eta^R(\phi_{t-1},x_{t-1})+\gamma_t\big(\bar\eta(\phi_t,x_t)-\eta^R(\phi_{t-1},x_{t-1})\big)\\
+\intertext{\State\textbf{M-Step}}
+\theta^{(t)}_R&=\arg \max_\theta\big\langle\eta^R(\phi_t,x_t),\xi(\theta)\big\rangle
+\end{align*}\EndFor
+\end{algorithmic}
+\end{algorithm}
