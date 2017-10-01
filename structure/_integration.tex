@@ -44,7 +44,7 @@
 \addcontentsline{toc}{chapter}{List of Symbols}
 \input{structure/symbols}
 \clearpage
-\input{helpers/empty-page}
+%\input{helpers/empty-page}
 
 
 %%%%%%%%%%%%%%%%%%%  Main Text  %%%%%%%%%%%%%%%%%%%
@@ -66,24 +66,23 @@
 \include{chapters/6.conclusion}
 
 
-
 %\include{chapters/testbed}
 %\include{chapters/testbed-text}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  D O C U M E N T  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  A P P E N D I X  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  D O C U M E N T  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  A P P E N D I X  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % ANHANG
 \appendix
 	\renewcommand{\chaptermark}[1]{\markboth{\uppercase{Appendix \thechapter:\ #1}}{}}
+%	\todos
 	
-	\newchapter{First Appendix Chapter}
-	% \input{}
+	\chapter{Appendix}
+	\input{code/code}
 	\clearpage
 	\newpage
-	\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
 
 % LIST OF FIGURES
 \addcontentsline{toc}{chapter}{List of Figures}
