@@ -1,0 +1,21 @@
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=black,fill=yellow!20]
+\tikzstyle{optional}=[dashed,fill=gray!50]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node [selected]{src} 
+    child { node {config-update}}		
+    child { node {simulate}}
+    child { node {stft}}
+    child { node {estimate-location}}
+    child { node {estimation-error}}		
+%    child { node {example}
+%      child { node [selected] {generic}}
+%      child { node [optional] {latex}}
+%      child [missing] {}	
+%      child { node {plain}}
+%    }
+;
+\end{tikzpicture}
