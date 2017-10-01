@@ -1,0 +1,11 @@
+The \gls{em} algorithm was first described by \citeauthor{Dempster1977} in \citeyear{Dempster1977}. From then on, it has been used in various applications \cite{?}. The algorithm allows to determine most likelihood estimates (MLEs), where only incomplete data is available \cite[p.1]{Dempster1977}.
+
+\subsubsection*{E-Step}
+\begin{equation}
+	Q(\theta,\hat\theta^{(l)})=E_{\hat\theta^{(l)}}\left\{ \log{f_{Y}(y;\theta)\mid z} \right\}
+\end{equation}
+
+\subsubsection*{M-Step}
+\begin{equation}
+	\hat\theta^{(l+1)}=\arg \max_\theta Q\left ( \theta,\hat\theta^{(l)}\right )
+\end{equation}

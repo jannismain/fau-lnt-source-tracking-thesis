@@ -1,5 +1,10 @@
 \chapter{Theoretical Background}
-In this section, the main theoretical concepts needed for audio source localisation and tracking, as it is implemented here, are laid out and put into context. First, the signal model is defined and it is shown, which features of the signal are exploited to estimate the location of it's origin. As we are simulating the received signal, instead of using recordings, the approach used for simulating a received signal, that is influenced by room acoustics and noise, is shown and it's limitations are discussed. Next, the \newacronym{gmm}{GMM}{Gaussian Mixture Model} \gls{gmm} is introduced as a mathematical representation of the possible locations of the audio sources, that are to be estimated. Last, the \newacronym{em}{EM}{Expectation-Maximization} \gls{em} Algorithm is explained and it is shown, how it can be used to estimate and optimise the parameters of the \gls{gmm} to yield the most likely source locations.
+\label{chap:theory}
+
+\newacronym{gmm}{GMM}{Gaussian Mixture Model}
+\newacronym{em}{EM}{Expectation-Maximisation} 
+
+In this section, the main theoretical concepts needed for audio source localisation and tracking, as it is implemented here, are laid out and put into context. First, the signal model is defined and it is shown, which features of the signal are exploited to estimate the location of it's origin. As we are simulating the received signal, instead of using recordings, the approach used for simulating a received signal, that is influenced by room acoustics and noise, is shown and it's limitations are discussed. Next, the \gls{gmm} is introduced as a mathematical representation of the possible locations of the audio sources, that are to be estimated. Last, the \gls{em} algorithm is explained and it is shown, how it can be used to estimate and optimise the parameters of the \gls{gmm} to yield the most likely source locations.
 
 \section{Signal Model}
 \label{sec:signal}
@@ -9,11 +14,11 @@ Received signal:
 \end{equation}
 Acoustic transfer function:
 \begin{equation}
-	a_{sm}^i(t,k)\approx\frac{1}{\|\mathbf{p}_s-\mathbf{p}_m^i\|}\cdot\exp{\left(-j\frac{2\pi k}{K}\frac{\tau^i_{sm}}{T_s}\right)}
+	a_{sm}^i(t,k)\approx\frac{1}{\|\mathbf{p}_s-\vect{p}_m^i\|}\cdot\exp{\left(-j\frac{2\pi k}{K}\frac{\tau^i_{sm}}{T_s}\right)}
 \end{equation}
 Signal travel time:
 \begin{equation}
-	\tau^i_{sm}=\frac{1}{c}\cdot\left(\|\mathbf{p}_s-\mathbf{p}_m^i\|\right)
+	\tau^i_{sm}=\frac{1}{c}\cdot\left(\|\vect{p}_s-\vect{p}_m^i\|\right)
 \end{equation}
 
 \section{Simulation of Room Acoustics}
@@ -23,9 +28,9 @@ To simulate the setup described in \ref{sec:setup}, the image method for simulat
 \section{\acrfull{gmm}}
 \label{sec:gmm}
 \begin{equation}
-	\phi(t,k)\sim\sum_{s,\mathbf{p}}\psi_{s\mathbf{p}}\cdot\big(\phi(t,k);\tilde\phi^k(\mathbf{p}),\Sigma_s\big)
+	\phi(t,k)\sim\sum_{s,\vect{p}}\psi_{s\vect{p}}\cdot\big(\phi(t,k);\tilde\phi^k(\vect{p}),\Sigma_s\big)
 \end{equation}
 
-\section{EM-Algorithm}
+\section{\acrfull{em}}
 \label{sec:em}
-The \acrfull{em} algorithm is an important algorithm in probabilistic theory \cite{Schwartz2014}.
+\input{chapters/2.theory/theory}
