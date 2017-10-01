@@ -1,0 +1,79 @@
+\usepackage{color}
+\usepackage{graphicx}
+
+% Fonts, enable rendering of umlaute
+%\usepackage[latin1]{inputenc} % to be used with pdfLaTeX
+%\usepackage[utf8]{luainputenc} % to be used with LuaLaTeX
+%\usepackage{german,a4}
+\usepackage{fontspec-luatex}
+\usepackage{csquotes}
+
+% Enable links
+\usepackage{hyperref}
+
+% enable fancy header
+\usepackage{fancyhdr}
+\setlength{\headheight}{0.75cm}
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyhead[EL,OR]{\thepage}
+	\fancyhead[ER]{\leftmark}
+	\fancyhead[OL]{\leftmark}
+}
+\fancypagestyle{newfancy}{
+	\fancyhf{}
+	\fancyhead[EL,OR]{\thepage}
+	\fancyhead[ER]{\rightmark}
+	\fancyhead[OL]{\rightmark}
+	}
+\pagestyle{newfancy}
+
+% bibliography
+\usepackage[backend=biber,style=ieee,natbib=true,giveninits=true,doi=true]{biblatex} % also: style=ieee[1], style=numeric-comp ([1-3]), style=authoryear-comp, style=alphabetic
+
+% captions for figures
+\usepackage{caption}
+\usepackage{subcaption}
+
+% localisation / multilingual files
+\usepackage{iflang}
+\usepackage[english]{babel}
+
+% better math input
+\usepackage{mathtools}  % this also loads amsmath
+
+% format algorithm summaries
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% include files without using 'include'
+\usepackage{import}  % circumvent "nested include" error  
+
+% Reference TODO's in latex files
+%\usepackage{todo} % many crashes since using this!
+
+% plot figures and matlab output
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}  % only compat=1.8 solved compilation issues
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{chains,positioning,shapes.symbols}
+\usetikzlibrary{shapes}
+\usetikzlibrary{trees}
+\usepgfplotslibrary{patchplots}
+
+% for automatically generated List of Abbreviations
+\usepackage[acronym,toc,nopostdot,nonumberlist,style=super,nogroupskip]{glossaries}
+\makeglossaries
+
+% Display matlab code
+\usepackage[numbered,framed,autolinebreaks,useliterate]{mcode}
+
+% force position of figures
+\usepackage{float} 
+
+% % Profiling of LaTeX Code
+% \usepgflibrary{profiler}
+% \pgfprofilenewforenvironment{tikzpicture}
+% \pgfprofilenewforcommand{\pgfkeys}{1}
