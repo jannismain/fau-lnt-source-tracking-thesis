@@ -1,20 +1,41 @@
 \chapter{Description of algorithms}
 \label{chap:algorithms}
-
+The following algorithms are mainly adopted from \cite{Schwartz2014}. Different from the implementation outlined in \cite{Schwartz2014}, there is only one single probability matrix $\psi$, instead of one matrix per source $\psi_{s}$
+\begin{itemize}
+	\item Summarize sources of Schwartz2014
+	\item Describe alterations to the algorithms
+\end{itemize}
 
 \section{Location estimation}
 \label{sec:algLocEst}
+\begin{itemize}
+	\item Hidden Data
+	\item Observations
+	\item Target Parameters
+\end{itemize}
 
-\section{Source Tracking}
+The \gls{em} algorithm requires three datasets: the \emph{target parameters}, the \emph{observations} and the \emph{hidden data}. For the source localisation algorithm, the hidden data is defined as an indicator-variable $x$, that a certain time-frequency bin $(t,f)$ belongs to an active source at the position $\vect{p}$. 
+\begin{equation}
+	x=(t,f,\vect{p})
+\end{equation}
+
+The target parameters are the gaussian's standard deviation $\sigma^2$ and it's probability of being assigned to an active source $\psi_{s,vect{p}}$, and will henceforth be referenced as:
+\begin{equation}
+	\theta=[\psi, \sigma^2]
+\end{equation}
+
+Localisation in this context simply means estimating, which $n$ gaussians best resemble the active sources $s$.
+
+\section{Source tracking}
 \label{sec:algSrcTrack}
 
 \newacronym{rem}{REM}{Recursive \acrfull{em}}
 \newacronym{crem}{CREM}{\citeauthor{Cappe2009}'s Recursive Expectation-Maximisation}
-\newacronym{trem}{TREM}{\citeauthor{Titterington1984}'s Recursive Expectation-Maximisation}
+\newacronym{trem}{TREM}{Titterington Recursive Expectation-Maximisation}
 
 To integrate data from prior steps into each \gls{em} iteration, recursive variations of the \gls{em} algorithm have been developed. These will be called \gls{rem} algorithms in the upcoming sections.
 
-In \cite{Schwartz2014}, two different \gls{rem} algorithms for speaker tracking are proposed. The first one is based on \citeauthor{Cappe2009}'s \gls{rem} and will be referenced as \acrshort{crem}, whereas the second one is based on \citeauthor{Titterington1984}'s \gls{rem} algorithm and will be called \acrshort{trem}.
+In \cite{Schwartz2014}, two different \gls{rem} algorithms for speaker tracking are proposed. The first one is based on \citeauthor{Cappe2009}'s \gls{rem} and will be referenced as \acrshort{crem}, whereas the second one is based on \citeauthor{Titterington1984}'s \gls{rem} algorithm and will be referenced as \acrshort{trem}.
 
 \subsection{CREM algorithm}
 \label{sec:crem}
