@@ -1,16 +1,25 @@
 \chapter{Introduction}
-Here comes the introduction...
+TODO: Put an interesting introduction here!
 \section{Application scenarios}
-Examples for possible applications of audio source localisation and tracking are teleconferencing, automated multimedia capture, smart meeting rooms, lecture theatres \cite{Lehmann2007}
+Examples for possible applications of audio source localisation and tracking are:
+\begin{itemize}
+\setlength\itemsep{0cm}
+	\item teleconferencing
+	\item automated multimedia capture
+	\item smart meeting rooms
+	\item lecture theatres \cite{Lehmann2007}
+\end{itemize}
+
 \section{Overview of Existing Literature}
 \section{Research Problem}
 \section{Setting Constraints}
+This thesis is approaching the problem of source localisation and tracking using the \gls{em} algorithm to estimate the parameters of a \gls{gmm}. Other methods, like particle filters or Kalman filters, that are often used in this context and provide promising results (see \cite{Lehmann2007} for source tracking using a particle filter and \cite{Gannot2012} for source tracking using a Kalman filter), are not subject of this thesis.
 \begin{itemize}
 	\item Number of speakers a-priori known
 	\item ?
 \end{itemize}
 \section{Structure of Thesis}
-	In the beginning, chapter \ref{chap:theory} will introduce the theoretical concepts, that the algorithms for location estimation and tracking reviewed in this thesis are based upon. Chapter \ref{chap:algorithms} then will formally define these algorithms. In chapter \ref{chap:implementation} the implementation of these algorithms in \matlab is shown and test scenarios to evaluate these implementations are defined. All relevant code is included in \ref{sec:appCode}. The results of these tests are presented and discussed in chapter \ref{chap:results}. Finally, the findings of this thesis are summarized in chapter \ref{chap:concl} and a conclusion towards the applicability of these findings to the general performance of the reviewed algorithms is drawn.
+	In the beginning, chapter \ref{chap:theory} will introduce the theoretical concepts, that the algorithms for location estimation and tracking reviewed in this thesis are based upon. Chapter \ref{chap:algorithms} then will formally define these algorithms. In chapter \ref{chap:implementation} the implementation of these algorithms in \matlab is shown and test scenarios to evaluate these implementations are defined (all relevant code is included in \ref{sec:appCode}). The results of these tests are presented and discussed in chapter \ref{chap:results}. Finally, the findings of this thesis are summarized in chapter \ref{chap:concl} and a conclusion towards the applicability of these findings to the general performance of the reviewed algorithms is drawn.
 \section{Notation}
 \newcommand{\vect}[1]{\mathbf{#1}}
 For easier understanding of the mathematical terms included within this thesis, the norms of mathematical notation are followed. A bold font indicates vectors ($\vect{p}$, $\vect{v}$, \dots).
