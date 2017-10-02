@@ -1,24 +1,17 @@
 % !TEX encoding = UTF-8 Unicode
 \documentclass[12pt,twoside,a4paper]{report}
 
-% All packages are included there:
-\include{structure/packages}
-\usepackage{enumitem}
-\usepackage{grffile}
-\usepackage{standalone}
-
-% set image-path
-\graphicspath{{plots/static/}, {plots/dynamic/}, {plots/}}
-
-% Dimensions of...
-% ...site
+% Setting dimensions of...
 \setlength{\textwidth}{15.5 true cm}
 \setlength{\textheight}{22 true cm}
-% ...margin
 \oddsidemargin  0.5 cm
 \evensidemargin 0.5 cm
 \topmargin      0 cm
 \parindent 		0 cm
+
+% All packages are included there:
+%\import{structure/packages}
+\input{structure/packages}
 
 % Language
 \selectlanguage{english}
@@ -26,18 +19,11 @@
 % Bibliography
 \bibliography{bibliography/source_tracking_citavi.bib}
 
-\renewcommand{\baselinestretch}{1.5}
-\renewcommand{\captionfont}{\linespread{1}\normalsize}
-\renewcommand{\textfraction}{0}
-\newcommand{\inputTikZ}[2]{\scalebox{#1}{\input{#2}}}
-\newcommand{\newchapter}[1]{\chapter{#1}\chaptermark{#1}\sectionmark{#1}\label{chap:#1}}
-\newcommand{\matlab}{Matlab\textsuperscript{\textregistered} }
-\newcommand{\mathgloss}[2]{%
-    \newglossaryentry{#1}{name={#1},description={#2}}%
-    \begin{description}[labelwidth=3em]%
-      \item[\gls{#1}]#2%
-    \end{description}%
-}
+% set image-path
+\graphicspath{{plots/static/}, {plots/dynamic/}, {plots/}}
+
+% Makros
+\include{structure/makros}
 
 \renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
 \renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thesection.\ #1}}{}}

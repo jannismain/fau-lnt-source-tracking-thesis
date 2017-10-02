@@ -1,0 +1,10 @@
+\renewcommand{\baselinestretch}{1.5}
+\renewcommand{\captionfont}{\linespread{1}\normalsize}
+\renewcommand{\textfraction}{0}
+\newcommand{\matlab}{Matlab\textsuperscript{\textregistered} }
+\newcommand{\mathgloss}[2]{%
+    \newglossaryentry{#1}{name={#1},description={#2}}%
+    \begin{description}[labelwidth=3em]%
+      \item[\gls{#1}]#2%
+    \end{description}%
+}
