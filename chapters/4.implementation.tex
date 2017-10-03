@@ -10,13 +10,25 @@ Before any results can be produced, the described algorithms and setup have to b
 \end{figure}
 
 
-
-
 \section{Setup}
 \label{sec:setup}
 \import{chapters/4.implementation/}{setup}
 
 \section{Simulation framework}
+\newglossaryentry{RIR}
+{
+  name={RIR},
+  description={room impulse response},
+  first={\glsentrydesc{RIR} (\glsentrytext{RIR})},
+  plural={RIRs},
+  descriptionplural={room impulse responses},
+  firstplural={\glsentrydescplural{RIR} (\glsentryplural{RIR})}
+} 
+
+\paragraph{Simulation of RIRs}
+For the simulation of the \glspl{RIR} for the static location estimation case, the \emph{RIR-Generator} by \citeauthor{Habets2014} is used \cite{Habets2014}.
+
+For the source trajectory simulation, execution time of the RIR-Generator increases drastically. Therefore, the \emph{fastISM} package by \citeauthor{Lehmann2010} is used \cite{Lehmann2010}.
 \begin{figure}[H]
 	\centering
 	\input{chapters/4.implementation/diagram-simulation-framework}
