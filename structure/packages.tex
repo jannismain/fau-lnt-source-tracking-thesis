@@ -6,6 +6,7 @@
 %\usepackage[utf8]{luainputenc} % to be used with LuaLaTeX
 %\usepackage{german,a4}
 \usepackage{fontspec-luatex}
+%\usepackage[T1]{fontenc}  % this breaks matlab code's \textquotesingle
 \usepackage{csquotes}
 
 % Enable links
@@ -62,6 +63,7 @@
 \usetikzlibrary{chains,positioning,shapes.symbols}
 \usetikzlibrary{shapes}
 \usetikzlibrary{trees}
+\usetikzlibrary{calc}
 \usepgfplotslibrary{patchplots}
 
 % for automatically generated List of Abbreviations
@@ -79,6 +81,7 @@
 % \pgfprofilenewforenvironment{tikzpicture}
 % \pgfprofilenewforcommand{\pgfkeys}{1}
 
+\usepackage{booktabs}  % required by pandas.DataFrame.to_latex() 
 \usepackage{enumitem}
 \usepackage{grffile}
 \usepackage{standalone}
