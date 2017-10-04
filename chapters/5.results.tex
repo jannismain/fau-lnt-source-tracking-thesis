@@ -2,9 +2,34 @@
 \label{chap:results}
 
 \section{Location estimation}
-\begin{table}
-	\import{../matlab/evaluation/results/}{static1}
-\end{table}
+\subsection*{Varying the number of sources}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.50\textwidth}
+		\includestandalone[width=\textwidth]{data/plots/mean-err-n-sources}	
+	\end{subfigure}
+	\begin{subfigure}{0.35\textwidth}
+		\includestandalone[width=\textwidth]{data/tables/mean-err-n-sources}	
+	\end{subfigure}
+%	\import{data/tables/}{mean-err-n-sources}
+	\label{Mean localisation error across number of sources}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\import{data/plots/}{mean-err-n-sources-scatter}
+	\label{Mean localisation error across number of sources}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\import{data/plots/}{mean-err-n-sources-box}
+	\label{Mean localisation error across number of sources}
+\end{figure}
+
+
+
 
 
 
