@@ -8,18 +8,7 @@ In this section, the main theoretical concepts needed for audio source localisat
 
 \section{Signal Model}
 \label{sec:signal}
-Received signal:
-\begin{equation}
-	z_m^i(t,k)=\sum_{s=1}^{S}a_{sm}^i(t,k)\cdot v_s(t,k)+n_m^i(t,k)
-\end{equation}
-Acoustic transfer function:
-\begin{equation}
-	a_{sm}^i(t,k)\approx\frac{1}{\|\mathbf{p}_s-\vect{p}_m^i\|}\cdot\exp{\left(-j\frac{2\pi k}{K}\frac{\tau^i_{sm}}{T_s}\right)}
-\end{equation}
-Signal travel time:
-\begin{equation}
-	\tau^i_{sm}=\frac{1}{c}\cdot\left(\|\vect{p}_s-\vect{p}_m^i\|\right)
-\end{equation}
+\input{chapters/2.theory/sigmodel}
 
 \section{Simulation of Room Acoustics}
 \label{sec:simulation}
@@ -33,4 +22,4 @@ To simulate the setup described in \ref{sec:setup}, the image method for simulat
 
 \section{\acrfull{em}}
 \label{sec:em}
-\input{chapters/2.theory/theory}
+\input{chapters/2.theory/em}
