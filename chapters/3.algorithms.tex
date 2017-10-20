@@ -1,4 +1,4 @@
-\chapter{Description of algorithms}
+\chapter{Description of Algorithms}
 \label{chap:algorithms}
 The following algorithms are mainly adopted from \cite{Schwartz2014}. Different from the implementation outlined there, there is only one single probability matrix $\psi$, instead of one matrix per source $\psi_{s}$
 \begin{itemize}
@@ -6,7 +6,7 @@ The following algorithms are mainly adopted from \cite{Schwartz2014}. Different 
 	\item Describe alterations to the algorithms
 \end{itemize}
 
-\section{Location estimation}
+\section{Location Estimation}
 \label{sec:algLocEst}
 \begin{itemize}
 	\item Hidden Data
@@ -26,7 +26,7 @@ The target parameters are the gaussian's standard deviation $\sigma^2$ and it's 
 
 Localisation in this context simply means estimating, which $n$ gaussians best resemble the active sources $s$.
 
-\section{Source tracking}
+\section{Source Tracking}
 \label{sec:algSrcTrack}
 
 \newacronym{rem}{REM}{Recursive \acrfull{em}}
@@ -37,10 +37,10 @@ To integrate data from prior steps into each \gls{em} iteration, recursive varia
 
 In \cite{Schwartz2014}, two different \gls{rem} algorithms for speaker tracking are proposed. The first one is based on \citeauthor{Cappe2009}'s \gls{rem} and will be referenced as \acrshort{crem}, whereas the second one is based on \citeauthor{Titterington1984}'s \gls{rem} algorithm and will be referenced as \acrshort{trem}.
 
-\subsection{CREM algorithm}
+\subsection{CREM Algorithm}
 \label{sec:crem}
 \import{equations/}{alg-crem}
 
-\subsection{TREM algorithm}
+\subsection{TREM Algorithm}
 \label{sec:trem}
 \import{equations/}{alg-trem}
