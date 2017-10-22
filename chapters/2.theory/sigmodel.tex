@@ -1,10 +1,15 @@
-Received signal:
+\newacronym{stft}{STFT}{Short-Time Fourier Transformation}
+The received signal $z^i_m$ at each microphone can be described as a linear combination of the acoustic transfer functions $a^i_{sm}$ multiplied with the source signal $v_s$ in the \acrfull{stft} domain. For later evaluation of the localisation and tracking performance in a possibly noisy environment, there is additional noise $n^i_m$ added to each channel.
 \begin{equation}
 	z_m^i(t,k)=\sum_{s=1}^{S}a_{sm}^i(t,k)\cdot v_s(t,k)+n_m^i(t,k)
+	\label{eq:received_signal}
 \end{equation}
-Acoustic transfer function:
+
+	a
+
 \begin{equation}
 	a_{sm}^i(t,k)\approx\frac{1}{\|\mathbf{p}_s-\vect{p}_m^i\|}\cdot\exp{\left(-j\frac{2\pi k}{K}\frac{\tau^i_{sm}}{T_s}\right)}
+	\label{eq:acoustic_transfer_function}
 \end{equation}
 Signal travel time:
 \begin{equation}
