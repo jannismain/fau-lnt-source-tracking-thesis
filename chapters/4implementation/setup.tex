@@ -1,0 +1,14 @@
+%\begin{figure}[H]
+%	\centering
+%	\input{data/plots/setup/simulation-environment}
+%	\caption{Simulation Setup}
+%	\label{fig:setup}
+%\end{figure}
+%TODO: Add setup figure
+
+The setup, that is going to be simulated, consists of a rectangular room with sides of 6 metres length in all 3 dimensions.\alt{, that is 6m wide, 6m long and 6m high.} Figure \ref{fig:setup} shows the room in blue color from a top-down perspective. Placed in this room, there are a total of 12 microphone pairs, 3 of them on each wall, shown in green. The sources are shown in red. The white dot matrix represents the discrete locations a source can be placed within the room. They also represent the mean of each component of the gaussian mixture model introduced in section \ref{sec:gmm}.
+
+% Reason for the positions of microphones and possible source positions
+Originally, the microphones had been placed adjacent to the walls, but first trials have shown that the reflections from the wall decreased localisation performance. Therefore, to be able to evaluate the other parameters independent from the influence a close wall has on the received signal, the microphone pairs have been inset by 10 points (or 1 metre) from the walls. The same decision had to be made in regards to the possible locations a source could be in. First results indicated, that localisation performance was significantly impaired, when sources were located in the border area behind the microphones. In order to create reasonable base conditions, the location of the sources was therefore restricted to the inside of the area the microphone pairs enclose. Further examination showed, that the same was true for positions very close to the microphones as well as positions on the lines crossing through the microphones, which is why the area of possible source locations had to be further decreased by 2 points (or 20 centimetres).
+
+\alt{are going to be placed within this room with fixed or random positions, depending on the evaluation scenario, and are described using one-dimensional position vectors with x-, y- and z-coordinates (i.e. $\begin{bmatrix} 2&3&3  \end{bmatrix}$ describes a source at the position $x=3, y=3$ and $z=3$)}

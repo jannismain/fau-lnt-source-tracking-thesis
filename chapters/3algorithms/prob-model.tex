@@ -1,0 +1,48 @@
+\section{Probabilistic Model} \label{sec:prob_model}
+
+To have discrete location estimates, a set of location vectors $\bm p$ is introduced, that addresses all possible positions either a source or a receiver can be in. % TODO: Introduce grid properly
+
+As described in Section \ref{sec:signal}, rather then using the received signal $x$ as observed feature directly, we defined the \gls{prp} readings in \eqref{eq:prp} as our observations, which will be modelled as a mixture of complex Gaussian distributions
+\begin{equation}
+	\bm\phi(t,k)\sim\sum_{\bm p}\psi_{\bm p}\cdot\mathcal{N}^c\big(\phi(t,k);\tilde\phi^k(\bm p),\Sigma\big),
+\label{eq:phi_gmm}
+\end{equation}
+
+where $\psip$ denotes the probability or weight of the Gaussian distribution at gridpoint $\bm p$ to be associated with an active source and $\tilde\phi^k_m$ describes the \gls{prp} in all possible gridpoints $\bm p$ for microphone pair $m$
+
+\begin{equation}
+    \tilde\phi^k_m(\bm p)=\exp{\left (-j\frac{2\pi k}{K}\cdot\frac{\|\bm p-\bm p^2_m\|-\|\bm p-\bm p^1_m\|}{c\ T_s}\right )}.
+\label{eq:phi_tilde}
+\end{equation}
+
+As the \glspl{prp} of the different sensor nodes $m$ are subject to different reverberation effects, they are assumed to be independent. This way, the covariance matrix can be simplified to $\bm\Sigma=\text{diag}(\sigma^2_{1}, \sigma^2_{2}, \dots, \sigma^2_{M})$, which lets us replace the covariance matrix by its diagonal elements when computing the product over all receiver pairs $M$
+\begin{equation}
+    \mathcal{N}^c(\phi_m(t,k);\tilde\phi^k_m(\bm p),\bm\Sigma)=\prod_m \mathcal{N}^c(\phi_m(t,k);\tilde\phi^k_m(\bm p),\sigma^2_m).
+\end{equation}
+
+Inserting the definition for the complex Gaussian distribution \eqref{eg:complexGaussianDef} yields
+\begin{equation}
+    \mathcal{N}^c\big(\phi_m(t,k);\tilde\phi_m^k(\bm p),\sigma_{m}^2\big)=\prod_m\frac{1}{\pi\sigma_{m}^2}\cdot\exp\left (-\frac{\left|\phi_m(t,k)-\tilde\phi_m^k(\bm p)\right|^2}{\sigma_{m}^2} \right ).
+\label{eq:gaussian}
+\end{equation}
+
+%TODO: erkläre, was varianz constraint bedeutet
+In \cite{Schwartz2014}, the variance has been further simplified to $\sigma_{m}^2=\sigma^2\ \forall\ m$. As this formula has to be evaluated for each observed \gls{prp} per time-frequency-bin and speakers display $w$-disjoint orthogonal activity in the \gls{stft}-domain, the complete observation set is defined by:
+\begin{equation}
+    p(\bm\phi; \bm\psip,\sigma^2)=\prod_{t,k}\sum_{\bm p}\psi_{\bm p}\prod_m\mathcal{N}^c\big(\phi_m(t,k);\tilde\phi^k_m(\bm p),\sigma^2_{s}\big)
+\end{equation}
+
+The optimization problem to be solved can be stated as:
+\begin{equation}
+    \left\{\hat{\bm\psi}_{\bm p},\hat\sigma^2\right\}=\argmax_{\psi, \sigma^2}\ln f(\phi_m;\bm\psip,\sigma^2)
+\label{eq:mle}
+\end{equation}
+
+%TODO: Kapitel ausweiten
+\begin{itemize}
+    \item Herleitung, mehr Erklärung der einzelen Schritte
+    \item mehr Intuition
+    \item Wo steckt die Position drin?
+    \item Warum machen wir das?
+    \item Was ist $\tilde\phi_m^k$
+\end{itemize}

@@ -1,15 +1,15 @@
 \usepackage{color}
 \usepackage{graphicx}
 
-% Fonts, enable rendering of umlaute
-%\usepackage[latin1]{inputenc} % to be used with pdfLaTeX
-%\usepackage[utf8]{luainputenc} % to be used with LuaLaTeX
-%\usepackage{german,a4}
-\usepackage{fontspec-luatex}
-%\usepackage[T1]{fontenc}  % this breaks matlab code's \textquotesingle
-\usepackage{csquotes}
+% FONTS
+\usepackage[utf8]{luainputenc} % to be used with LuaLaTeX
+\usepackage{fontspec}
+\usepackage[T1]{fontenc}  % this breaks matlab code's 
+%\textquotesingle
+%\usepackage[utf8]{inputenc} % to be used with pdfLaTeX 
 
-% Enable links
+
+% LINKS
 \usepackage{hyperref}
 
 % enable fancy header
@@ -40,9 +40,13 @@
 % localisation / multilingual files
 \usepackage{iflang}
 \usepackage[english]{babel}
+\usepackage{csquotes} % required by polyglossia/babel
+\selectlanguage{english}
 
 % better math input
 \usepackage{mathtools}  % this also loads amsmath
+\usepackage{bm} % to be able to have bold mathematical symbols
+\usepackage{amssymb} % to be able to use \mathbb
 
 % format algorithm summaries
 \usepackage{algorithm}
@@ -52,7 +56,7 @@
 \usepackage{import}  % circumvent "nested include" error  
 
 % Reference TODO's in latex files
-%\usepackage{todo} % many crashes since using this!
+% \usepackage{todo} % many crashes since using this!
 
 % plot figures and matlab output
 \usepackage{tikz}
@@ -67,11 +71,14 @@
 \usepgfplotslibrary{patchplots}
 
 % for automatically generated List of Abbreviations
+% add 'nonumberlist,' to options to see, how often you used acronym (remove ones only used once!)
+% add 'sort=use' for sorting by first use
 \usepackage[acronym,toc,nopostdot,nonumberlist,style=super,nogroupskip]{glossaries}
+\setlength{\glsdescwidth}{0.8\linewidth}  % prevent lineb
 \makeglossaries
 
 % Display matlab code
-\usepackage[numbered,framed,autolinebreaks,useliterate]{mcode}
+\usepackage[numbered,autolinebreaks,useliterate]{mcode}
 
 % force position of figures
 \usepackage{float} 
@@ -85,3 +92,4 @@
 \usepackage{enumitem}
 \usepackage{grffile}
 \usepackage{standalone}
+\usepackage{chngcntr}  % required to reset chapter-wise counters

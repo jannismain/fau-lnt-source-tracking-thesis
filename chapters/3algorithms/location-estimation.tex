@@ -1,0 +1,150 @@
+\section{Location Estimation}
+\label{sec:algLocEst}
+%\begin{itemize}
+%\item mehr Zwischenschritte
+%\item Erklärung der Ergebnisse, Annahmen, roter Faden der Herleitung... Was machen wir und warum?
+%\item Was ist die Intuition dahinter? Was bedeuten die Größen? Was ist die interessierende Größe? Was sind Hilfsgrößen?
+%\end{itemize}
+
+If the likelihood function of the observed data \eqref{eq:mle} were to be maximised directly, the following equation would have to be solved
+\begin{equation}
+    \ln f(\phi;\psip,\sigma^2) = \ln\prod_{t,k}\sum_{\bm p}\psi_{\bm p}\prod_m\mathcal{N}^c\big(\phi(t,k);\tilde\phi^k(\bm p),\sigma^2_{s}\big).
+\end{equation}
+Because the sum over all possible gridpoints $\bm p$ prevents the logarithm from acting directly on the exponential term, solving this function results in a complicated expression, which should be avoided. This is where a so-called \textit{latent variable} is introduced. Here, the latent variable is defined as an indicator $z$, that a certain time-frequency bin $(t,k)$ belongs to an active source at position $\vect{p}$ 
+\begin{equation}
+	\z=\begin{cases}
+	    1& \text{source at $\vect{p}$ active in $(t,k)$-bin},\\
+       0& \text{otherwise}.
+	\end{cases}
+\end{equation}
+
+The expectation of the hidden variable is equal to the probability of a source to exist at position $\bm p$ and to have shown activity in time-frequency bin $(t, k)$ 
+\begin{equation}
+    E\{\z\}=\psi_{\bm p}.
+\end{equation}
+
+As sparsity of the source signals is assumed, meaning there is only one source active in each time-frequency bin, the latent variable is a 1-of-$|\mathcal{P}|$ representation, where $|\mathcal{P}|$ denotes the cardinality of the set of all gridpoints, i.e. there is one $z(t',k',\bm p')=1$ whereas $z(t',k',\bm p)=0\ \forall\ \bm p\in\mathcal{P}\smallsetminus\{\bm p'\}$. The property, that makes indicators in combination with \glspl{gmm} so useful, is their ability to simplify the sum over all components into a product
+\begin{equation}
+\label{eq:indicator-sum-product}
+    \sum_{i}x_i\cdot z_i=\prod_i (x_i)^{z_i}.
+\end{equation}
+%TODO: Define vec()
+The concatenated vector of the indicators of all time-frequency bins and locations is defined as
+\begin{equation}
+    \bm z=\text{vec}_{t,k,\bm p}(\z).
+\end{equation}
+
+The probability density of $\bm z$ can be written as  %TODO: argue this step
+\begin{equation}
+    p(\bm z;\bm\theta)=\prod_{t,k}\sum_{\bm p}\psi_{\bm p}\cdot\z,
+\end{equation}
+
+%TODO: Besser herausarbeiten, das mean = PRP reading
+where $\bm\theta=[\bm\psi,\sigma^2]$ is the set of target parameters. Note, that $\mu$ is not part of this set, as the Gaussian components in this model are evenly spaced throughout the room and each component mean corresponds to one gridpoint. This deviates from the way the \gls{em} algorithm is commonly used together with a \gls{gmm}, where, in addition to the Gaussian component weights $\bm\psi$, generally both mean and covariance are part of the estimation.
+
+As was described in Section \ref{sec:em} and further argued above, due to the complexity involved when maximising the log-likelihood function of the observations $\ln p(\phi;\psi, \sigma^2)$ directly, a tight lower bound at $\theta^{(l-1)}$ is derived and maximised instead. This lower-bound will utilize the latent variable to reduce complexity of the optimisation problem and is given in \eqref{eq:L} . From \eqref{eq:L} one can see, that to evaluate this function, the complete-data likelihood $p(\phi,\bm z; \theta)$ as well as the conditional likelihood $p(\bm z\given{\phi, \theta^{(l-1)}})$ is required. Given the hidden data, the conditional likelihood of the observations is given by:
+\begin{equation}
+    p(\phi |\vect{z};\theta)=\prod_{t,k}\sum_{\bm p}\prod_{m}\gauss\cdot\z.
+\end{equation}
+
+Multiplying the densities of the hidden variable and observations yields the joint probability distribution of the complete data:
+\begin{equation}
+    p(\phi,\vect{z};\theta)=p(\bm z;\theta)\cdot p(\phi |\bm z;\theta)=\prod_{t,k}\sum_{\bm p}\psip\cdot\z\prod_{m}\gauss .
+\end{equation}
+
+The log-likelihood of the complete data is given by
+\begin{align}
+    \ln f(\phi,\bm z; \theta) &= \ln \left [ \lcompl \right ].\\
+    \intertext{First, the logarithm can be moved inside the product using \eqref{eq:log-sum}:}
+    \ln f(\phi,\bm z; \theta) &=\sum_{t,k}\ln \left [\sum_{\bm p}\psip\cdot\z\prod_{m}\gauss\right ].\\
+    \intertext{Now, the property of the indicator stated in \eqref{eq:indicator-sum-product} will be used to simplify the sum, that divides the logarithm and the exponential term, to a product}
+    \ln f(\phi,\bm z; \theta) &=\sum_{t,k}\ln \left [\prod_{\bm p}\Big (\psip\prod_{m}\gauss\Big )^{\z}\right ].\\
+    \intertext{Applying \eqref{eq:log-sum} and \eqref{eq:log-power} yields}
+    \label{eq:complete-data}
+%    &=\sum_{t,k}\z\cdot\ln \left [\prod_{\bm p}\Big (\psip\prod_{m}\gauss\Big )\right ]\\
+%    \intertext{Finally, using $\ln(x\cdot y)=\ln(x)+\ln(y)$ one more time}
+    \ln f(\phi,\bm z; \theta) &=\sum_{t,k,\bm p}\z\cdot\ln \left [\psip\prod_{m}\gauss\right ].
+\end{align}
+
+%TODO: Fix "Das ist der Erwartungswert, keine PDF"
+The conditional probability of $p(\bm z\given{\phi})$ is given by Bayes theorem:
+\begin{equation}
+\label{eq:responsibility}
+    p(\bm z\given{\phi,\bm\theta})=\frac{f(\bm z)\cdot f(\phi\given{\bm z})}{\sum_{\bm z}f(\bm z)\cdot f(\phi\given{\bm z})}=\frac{\pdffunc}{\sum_{\vect{p}}\pdffunc}\triangleq\mulast .
+\end{equation}
+
+This probability can also be interpreted as the responsibility that the Gaussian component at position $\bm p$ takes for explaining the observation $\phi$ in time-frequency-bin $(t,k)$ \cite[p.432]{Bishop2006}.
+
+\subsubsection*{E-Step}
+Copy of Q-function only for reference, will be removed later!
+\begin{equation}
+    \Q=\sum_\vect{Z}p(\vect{Z}\given{\vect{X}, \theta^{(l-1)}})\ln p(\vect{X},\vect{Z}\given{\theta}).
+\end{equation} 
+Inserting \eqref{eq:responsibility} and \eqref{eq:complete-data} into \eqref{eq:e-step} yields the complete $\mathcal{Q}$-function
+\begin{align}
+    \Q &=E\left\{\ln(f(\phi,\vect{z};\theta))\mid \phi;\theta^{\text{old}}\right\}=\\
+       &=\sum_{t,k,\vect{p}}E\left\{z(t,k,\vect{p})\mid\phi(t,k);\theta^{\text{old}}\right\}\cdot\left [ \ln\psi_{\vect{p}}+\sum_{m}\ln\gauss\right]\nonumber\\
+       &= \sum_{t,k,\bm p}\mulast\cdot\left [\ln\psip+\sum_{m}\ln\gauss\right ].
+\end{align}
+%TODO: Erwartungswerte im Bezug auf was? Bezug in subscript!
+
+For the purpose of localisation, it is sufficient to evaluate \eqref{eq:responsibility}.
+%TODO: Argue, why evaluating $\mulast$ is sufficient
+%TODO: Interpret \mulast
+% Das gilt allgemein, deswegen heißt es Expectation Step
+
+\subsubsection*{M-Step}
+As seen in \eqref{eq:m-step}, the M-Step consists of maximizing the $\mathcal{Q}$-function with regard to the elements of the parameter set $\theta$. This is done by computing the gradient of the $\mathcal{Q}$-function
+\begin{equation}
+\label{eq:m_step_theta_derivative}
+    \theta^{(l)}=\nabla_\theta\Q,
+\end{equation}
+
+which means computing the partial derivatives of the target parameters $\psi_{\bm p}^{(l)}$ and $\sigma_s^{2,(l)}$
+\begin{align}
+    \label{eq:m_step_sigma_derivative}
+    \sigma_{s}^{2, (l)}&=\frac{\partial}{\partial \sigma^2}\Q,\\
+    \label{eq:m_step_psi_derivative}
+    \psi_{\bm p}^{(l)}&=\frac{\partial}{\partial \psi_{\bm p}}\Q.
+\end{align}
+
+As $\psi_{\bm p}$ is constrained by $\sum_{\bm p}\psi_{\bm p}=1$, to fulfill the requirements of a probability over grid positions, constrained optimisation using a Lagrange mulitplier has to be applied:
+\begin{equation}
+    g(\lambda,\psi_{\bm p})=\Q+\lambda\left (\sum_{\bm p}\psi_{\bm p}-1\right ).
+\end{equation}
+
+Derivation and setting to zero gives
+\begin{align}
+    \frac{\partial\Q}{\partial\psi_{\bm p}}+\lambda &=0,\\
+    \frac{\sum_{t,k}\mulast}{\psi_{\bm p}}+\lambda &=0,\\
+    -\frac{\sum_{t,k}\mulast}{\lambda}&=\psi_{\bm p}\label{eq:psi-lambda}.
+\end{align}
+
+We compute the sum over $\bm p$ on both sides to solve for $\lambda$
+\begin{align}
+    \sum_{\bm p}\psip &=-\frac{1}{\lambda}\sum_{t,k,\bm p}\mulast,\\
+    1&=-\frac{1}{\lambda}\sum_{t,k}1,\\
+    \lambda &= -TK.\label{eq:lambda}
+\end{align}
+
+Finally, we insert \eqref{eq:lambda} into \eqref{eq:psi-lambda} to get
+\begin{equation}\label{eq:m_step_psi}
+    \psi_{\bm p}^{(l)}=\frac{\sum_{t,k}\mulast}{T\cdot K}
+\end{equation}
+
+Calculating the partial derivate of $\sigma^2$ results in
+
+\begin{equation}\label{eq:m_step_var}
+    \sigma_s^{2,(l)}=\frac{\sum_{t,k,\vect{p}}\mulast\cdot\left | \phi_m(t,k)-\tilde\phi_m^k(\bm p)\right |^2}{M\cdot \sum_{t,k,\bm p}\mu^{(l)}(t,k,\bm p)}.
+\end{equation}
+
+This concludes the M-Step. When all iterations have been carried out, either because convergence was determined or a fixed number of iterations has been reached, the actual estimated source locations can be obtained by selecting the positions $\hat p_s$ associated with the $S$ highest values of $\psip$:
+\begin{equation}\label{eq:find_positions}
+    \hat p_s=\argmax_{\bm p}\psi_{\bm p}^{(L)}\ \forall\ s.
+\end{equation}
+
+\input{data/algorithms/alg-loc}
+
+%TODO: Properly justify, why deviation from original paper
+%TODO: Find out why algorithm index is not compiled
+The above algorithm, summarised in Algorithm \ref{alg:loc}, slightly deviates from \cite{Schwartz2014}, as the likelihood $\psi$ of a Gaussian to resemble an active source is unrelated to the number of sources in this case. This means, that only a single $\psip$ is computed, whereas there are $S$ different $\psi_{s,\bm p}$ present in \cite{Schwartz2014}. Instead, knowledge about the number of sources will be introduced when determining the estimated positions in \eqref{eq:find_positions}. By introducing a threshold value for $\psip^{(L)}$ and selecting all positions with values for $\psi$ above that threshold, the constraint of a-priori knowledge of the total number of sources could be eliminated entirely. However, this threshold would also introduce another parameter to be adjusted for the algorithm to work properly. Also, this threshold would likely depend on the noise and reverberation, which would require some form of live adaptation.

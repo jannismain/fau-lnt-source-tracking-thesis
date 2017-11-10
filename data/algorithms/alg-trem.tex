@@ -1,0 +1,12 @@
+\begin{algorithm}[H]\label{alg:trem}
+\caption{\acrshort{trem} algorithm for source tracking}
+\begin{algorithmic}
+\State \textbf{set} $\tilde\phi^k_m(\vect{p})$ using \eqref{eq:phi_tilde}
+\For{$t=1$ \textbf{to} $T$}
+\State obtain $z_m^1(t,k), z_m^2(t,k)\ \forall\ k,m$
+\State calculate $\phi_m(t,k)$ using \eqref{eq:phi_gmm}
+\State calculate $\psi^{(t)}_{s\vect{p},R}$ using \eqref{eq:m_step_psi}
+\State calculate $\sigma^{2,(t)}_{s,R}$ using \eqref{eq:m_step_var}
+\EndFor
+\end{algorithmic}
+\end{algorithm}

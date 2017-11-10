@@ -1,0 +1,121 @@
+%% TITLE
+%\input{structure/title-page}
+%\input{helpers/empty-page}
+%\addtocounter{page}{-1}
+
+%% Declaration
+%\newpage
+%\chapter*{Declaration of Authorship}
+%\thispagestyle{empty}
+%\input{structure/declaration}
+%\pagenumbering{Roman}
+%\input{helpers/empty-page}
+%\thispagestyle{empty}
+%\cleardoublepage
+
+% Table of Contents
+\addtocounter{page}{-2}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\clearpage
+
+
+%% Summary
+%%\input{helpers/empty-page}
+%\renewcommand{\chaptermark}[1]{}
+%\chaptermark{Abstract}
+
+%\input{helpers/empty-page}
+%\chapter*{Abstract}
+%\addcontentsline{toc}{chapter}{Abstract}
+%\input{structure/abstract}
+%\clearpage
+%\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thechapter \ #1}}{}}
+
+% List of Abbreviations
+\printacronyms[title=List of Abbreviations]
+\clearpage
+
+
+%% List of Symbols
+%\chaptermark{List of Symbols}
+%\sectionmark{List of Symbols}
+%\chapter*{List of Symbols}
+%\addcontentsline{toc}{chapter}{List of Symbols}
+%\input{structure/symbols}
+%\clearpage
+%%\input{helpers/empty-page}
+\input{other/acronyms}
+
+%%%%%%%%%%%%%%%%%%%  Main Text  %%%%%%%%%%%%%%%%%%%
+
+% Formula Margins
+\setlength{\belowdisplayskip}{0.5cm}
+\setlength{\belowdisplayshortskip}{0.5cm}
+\pagenumbering{arabic}
+\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
+%\renewcommand{\chaptermark}[1]{\markright{\uppercase{\thechapter.\ #1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{\uppercase{\thesection.\ #1}}{}}
+
+% CHAPTER 1: INTRODUCTION
+\input{chapters/1intro/intro}
+\input{chapters/1intro/applications}
+\input{chapters/1intro/literature-research}
+\input{chapters/1intro/research-problem}
+\input{chapters/1intro/constraints}
+\input{chapters/1intro/structure}	
+\input{chapters/1intro/notation}
+
+% CHAPTER 2: THEORETICAL BACKGROUND
+\input{chapters/2theory/index}
+\input{chapters/3algorithms/index}
+\input{chapters/4implementation/index}
+\input{chapters/5results/index}
+\input{chapters/6conclusion/index}
+
+
+%\include{chapters/testbed}
+%\include{chapters/testbed-text}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  D O C U M E N T  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  A P P E N D I X  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ANHANG
+\appendix
+	\renewcommand{\chaptermark}[1]{\markboth{\uppercase{Appendix \thechapter:\ #1}}{}}
+%	\todos
+	
+	\chapter{Formulas}
+	\input{chapters/appendix/log-rules}
+	\chapter{Code}
+%	\input{data/code/code}
+    \chapter{Results}
+%	\input{chapters/appendix/trials-tables}
+%    \input{chapters/appendix/general-crem}
+	
+	\clearpage
+	\newpage
+
+% LIST OF FIGURES
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+
+% LIST OF TABLES
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+
+% Glossary
+\setglossarystyle{altlist}
+\printglossary[title=Glossary]
+
+% LITERATURVERZEICHNIS
+%nicht referenzierte Literaturstellen
+\nocite{*}
+\printbibliography
+%\newpage
+%%Eintrag im Inhaltsverzeichnis
+%\addtocounter{page}{1}
+%\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+%\addtocounter{page}{-1}

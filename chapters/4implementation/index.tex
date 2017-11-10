@@ -1,0 +1,57 @@
+\chapter{Implementation Details}
+\label{chap:implementation}
+Before any results can be produced, the described algorithms and setup have to be implemented and tested within a simulation framework, that allows for easy parameter customisation and evaluation. Therefore, what follows is the description of the different parts of the implementation that allows for the evaluation of the algorithms described in chapter \ref{chap:algorithms}. First, the setup is defined and the simulation framework is laid out. Then, the implementation of both source localisation and source tracking are discussed. Last, certain evaluation scenarios are established to analyse the possibilities and limitations of this implementation. This will assist in drawing conclusions about the strengths and shortcomings of the algorithm in this particular setup and may allow for more general findings to be deducted.
+
+As computational complexity, and therefore execution time, is one of the measures to compare different implementations, the hardware on which these evaluations have been executed, needs to be mentioned. All trials and profiling benchmarks have been done on a Retina Macbook Pro 13" (MGX92LL/A), that is equipped with a 2.8 GHz Core i5-4308U CPU and 16GB of DDR3L-1600Mhz RAM. As the implementation is not parallelized, all compuations have been executed solely on a CPU, although \matlab will utilise both cores of the i5 for certain operations.
+
+\section{Setup}
+\label{sec:setup}
+\import{chapters/4implementation/}{setup}
+
+%\section{Simulation Framework}
+%\begin{figure}[H]
+%	\centering
+%	\input{chapters/4implementation/diagram-simulation-framework}
+%	\caption{Functions of the Simulation Framework}
+%	\label{diag:simulationFramework}
+%\end{figure}
+%TODO: Add simulation framework figure
+
+The simulation framework consists of the functions and methods not directly related to the localisation estimation and source tracking. The different parts of this framework are shown in yellow in Figure \ref{diag:simulationFramework} and will be explained in the following subsections.
+
+\subsection{Set Parameters}
+The \code{config_update} function initializes all parameters, variables and constants required by the remaining functions and methods. This is done up front to have easy access to the parameter set and a single file to adjust when a different configuration is needed. It provides a set of default parameters, that can be overriden by input arguments. This way, each evaluation script can call \code{config_update} with it's specific set of adjustments to the default configuration without the need to adjust the function itself or redefine all other values. The list of default parameters is provided in \ref{app:defaultParameters}.
+The function also relies on two helper functions, namely \code{get_random_sources} and \code{get_trajectory_from_source}. The first ensures, that the random positions of the sources comply with the location constraints expressed in section \ref{sec:setup}, whereas the latter takes source positions and movement vectors and returns a trajectory vector, which is needed to compute the \gls{rir} of a moving source.
+
+\subsection{Simulate Environment}
+The \code{simulate} function takes care the simulation of the received signal. Therefore, it first has to acquire the \gls{rir} for each source-receiver combination. For the simulation of the \gls{rir} for the static location estimation case, the \emph{\gls{rir}-Generator}, an implementation of the image method described in chapter \ref{chap:2theory} by Emanuël \citet*{Habets2014}, is used. Although the premise of the image method was to reduce computational complexity and therefore execution time on a CPU, a total of 168 \glspl{rir} (24 microphones for 7 sources) had to be computed for this setup, which added up to significant delays when testing parts of the implementation. The \gls{rir} simulation took about 40 seconds on average for a trial with the base configuration. Choosing \code{T60=1.0s} and the maximum reflection order for 7 sources results in execution times of more than 2 minutes, which is quite long but was deemed acceptable for the static case. For the source trajectory simulation however, execution time of the \gls{rir}-Generator is prohibitively high. Therefore, the \emph{fastISM} package by \citeauthor{Lehmann2010} is used, which achieves reduced computational complexity by statistically approximating the reverberation tail of the \gls{rir} instead of calculating all higher-order reflections according to the image-method. \citeauthor{Lehmann2010} reported a possible speed-up factor of up to 150 with \code{R60=0.9} within his testing environment. For a thorough comparison of this technique and its gains in execution speed compared to the traditional implementations of the image-method across different configurations, see \cite{Lehmann2010}.
+
+After the \gls{rir} is generated, the speech samples are loaded from the filesystem and resampled to the common sample rate chosen in the configuration (default: $f_s=16kHz$). Then, additive white gaussian noise is applied with the \code{SNR} value provided in the configuration. For the simulation to conclude, the source signals are now convoluted with the \gls{rir} and mixed together for each microphone, which results in the received signal $x_m^i(t)$. For the convolution, the \matlab function \code{fftfilt} is used, which implements the overlap-add method using the FFT and providing default parameters for efficient execution.
+
+\subsection{Calculate Estimation Error}
+After the source localisation algorithm has concluded and returned the position estimates, each of these estimates has to be matched to its true location in order to calculate the estimation error. The function \code{assign_estimates(loc_est, loc_true)} does this by choosing a permutation of the estimates $p_s$ that minimises the distance from the estimates to their true positions $p_{\text{true}}$. Whenever an assignment has been found, the respective positions (estimate and true) are removed. This is repeated until all estimates have been assigned.
+%\begin{equation} %TODO: Check, whether this mathematical formulation for random permutations is valid
+%    p_{s, \text{sorted}}=\min_{p_s}{\|p_s-p_{j,\text{true}}\|}\ \forall s,j\ \in\ \{1, 2, \dots, S\}
+%\end{equation}
+
+\section{Source Tracking}
+\section{Evaluation Scenarios}
+There are many parameters that each could have an effect on the performance of the localisation. The ones most often cited in the literature are the amount of reverbaration, given as the time it takes for the reverbaration to decay by 60dB ({\code{T60}), as well as the amount of noise added to the received signals (\code{SNR}). Other factors include the number of simultaneously simulated sources (\code{n\_sources}), which has an impact on the sparsity assumption of the received signal. The number of iterations the \gls{em} algorithm runs through to improve the estimate (\code{em-iterations}) presumably has a positive effect on localisation accuracy, whereas it is also the main driver of computational complexity, as the iterations cannot be executed in parallel due to the data dependency within and across iterations of the \gls{em} algorithm. Further, the individual speech samples might have an effect on the localisation performance, as different samples exhibit different frequency spectra and speech activity over time. After confirming that the order of speech samples used in the evaluation indeed had an effect on the mean error of the location estimates, the order of speech samples used for each trial was randomised for all further trials. The set of speech samples itself consists of 7 anechoic recordings, that can be accessed by visiting the website referenced in \cite{Mainczyk2017}.
+\begin{table}[H]
+\centering
+\begin{tabular}{r|c}
+    \textbf{Parameter}                  & \textbf{Tested Values}     \\
+    \hline
+    \code{n-sources}                    & \textbf{2 - 7}             \\
+    \code{T60 [s]}                      & 0.0, 0.3, \textbf{0.6}, 0.9\\
+    \code{SNR [dB]}                     & \textbf{0dB}, 5, 10, 15, 30\\
+    \code{em-iterations}                & 1, 2, 3, \textbf{5}, 10, 20\\
+    \code{reflect-order}                & 1, 3, \textbf{max(-1)}     \\ 
+    \code{order of speech samples}      & fixed, \textbf{randomized} \\
+\end{tabular}
+  \caption{Parameters and their tested values (default values in bold)}
+\end{table}
+
+
+
+

@@ -1,0 +1,98 @@
+\section{Location Estimation}
+\subsection*{Mean error across different number of sources}
+
+%\begin{figure}[H]
+%	\centering
+%	\includestandalone[width=0.5\textwidth]{data/plots/mean-err-n-sources-bar}	
+%	\caption{Mean localisation error across number of sources}
+%\end{figure}
+%
+\begin{table}[H]
+	\centering
+	\input{data/tables/summary-all}
+	\caption{Base evaluation dataset}
+\end{table}
+
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\setlength{\floatsep}{5pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{5pt plus 2pt minus 2pt}
+\setlength{\intextsep}{5pt plus 2pt minus 2pt}
+
+\subsection*{EM-Iterations}
+\begin{figure}[!htp]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+          \centering
+	       \includestandalone[width=\textwidth]{data/plots/plot_em-iterations_err-mean}
+%            \input{data/plots/plot_em-iterations_err-mean}
+	\end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+          \centering
+	       \includestandalone[width=\textwidth]{data/plots/plot_em-iterations_percent-matched}
+%            \input{data/plots/plot_em-iterations_err-mean}
+	\end{subfigure}
+\caption{Evaluation of EM-Iterations (T60=0.6, SNR=0, refl-ord=3, n=150)}
+\end{figure}
+
+\begin{itemize}
+\item Not surprising, more iterations mean less estimation error and more matched sources
+\item 1 and 2 iterations have considerable worse performance
+\item from 3 on, performance seems to be stable
+\item no difference between 10 and 20
+\item Therefore, Future trials with em=5
+\end{itemize}
+
+\subsection*{T60}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+          \centering
+	       \includestandalone[width=\textwidth]{data/plots/plot_T60_err-mean}
+%            \input{data/plots/plot_em-iterations_err-mean}
+	\end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+          \centering
+	       \includestandalone[width=\textwidth]{data/plots/plot_T60_percent-matched}
+%            \input{data/plots/plot_em-iterations_err-mean}
+	\end{subfigure}
+\caption{Evaluation of T60 (EM-Iterations=10, SNR=0, refl-ord=-1, n=100)}
+\end{figure}
+
+\subsection*{Reflect Order}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+          \centering
+	       \includestandalone[width=\textwidth]{data/plots/plot_reflect-order_err-mean}
+%            \input{data/plots/plot_em-iterations_err-mean}
+	\end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+          \centering
+	       \includestandalone[width=\textwidth]{data/plots/plot_reflect-order_percent-matched}
+%            \input{data/plots/plot_em-iterations_err-mean}
+	\end{subfigure}
+\caption{Evaluation of Reflect Order (EM-Iterations=5, T60=0.6, SNR=0, n=250)}
+\end{figure}
+
+\subsection*{SNR}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+          \centering
+	       \includestandalone[width=\textwidth]{data/plots/plot_snr_err-mean}
+%            \input{data/plots/plot_em-iterations_err-mean}
+	\end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+          \centering
+	       \includestandalone[width=\textwidth]{data/plots/plot_snr_percent-matched}
+%            \input{data/plots/plot_em-iterations_err-mean}
+	\end{subfigure}
+\caption{Evaluation of SNR (EM-Iterations=5, T60=0.3, refl-ord=3, n=200)}
+\end{figure}

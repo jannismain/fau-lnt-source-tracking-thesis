@@ -1,0 +1,14 @@
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=black,fill=yellow!20]
+\tikzstyle{optional}=[dashed,fill=white!50]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+  \node {src} 
+    child { node [selected] {config-update}}
+    child { node [selected] {simulate}}
+    child { node [optional] {em-algorithm}}
+    child { node [optional] {find-maxima}}
+    child { node [selected] {assign-estimates}};
+\end{tikzpicture}
