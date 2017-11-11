@@ -8,13 +8,11 @@
     \label{fig:signal}
 \end{figure}
 
-The basic configuration, as depicted in Figure \ref{fig:signal}, consists of two microphones that constitutes one sensor node. The received signal $x^i_m$ at microphone $i$ of pair $m$ can be described as a linear combination of the transfer function $a^i_{sm}$, multiplied bin-wise with the source signal $v_s$, and additive, spatially white noise $n^i_m$ in the \acrfull{stft} domain
+The basic configuration, as depicted in Figure \ref{fig:signal}, consists of two microphones that constitute one sensor node. The received signal $x^i_m$ at microphone $i$ of pair $m$ can be described as a linear combination of the transfer function $a^i_{sm}$, multiplied bin-wise with the source signal $v_s$, and additive white gaussian noise $n^i_m$ in the \acrfull{stft} domain
 \begin{equation}
 	x_m^i(t,k)=\sum_{s=1}^{S}a_{sm}^i(t,k)\cdot v_s(t,k)+n_m^i(t,k).
 	\label{eq:received_signal}
 \end{equation}
-
-%TODO: describe properties of noise
 
 The direct path of the transfer function, that part corresponding to the line-of-sight, can be described as
 \begin{equation}

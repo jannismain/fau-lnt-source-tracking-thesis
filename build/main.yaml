@@ -1,0 +1,5 @@
+engine: lualatex
+outputDirectory: .build
+jobNames:
+- main
+- main

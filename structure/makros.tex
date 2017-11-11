@@ -3,32 +3,17 @@
 \renewcommand{\textfraction}{0}
 \newcommand{\matlab}{Matlab\textsuperscript{\textregistered} }
 \newcommand{\alt}[1]{}
-%\newcommand{\mathgloss}[2]{%
-%    \newglossaryentry{#1}{name={#1},description={#2}}%
-%    \begin{description}[labelwidth=3em]%
-%      \item[\gls{#1}]#2%
-%    \end{description}%
-%}
-\newcommand{\pdffunc}{\psi_{\bm p}^{(l-1)}\prod_{m}\mathcal{N}^c\left (\phi^k_m(t,k);\tilde\phi^k_m(\bm p),\sigma^{2,(l-1)}\right )}
 
-\newcommand{\pdffuncR}{\psi_{\bm p,R}^{(t-1)}\prod_{m}\mathcal{N}^c\left (\phi^k_m(t,k);\tilde\phi^k_m(\bm p),\sigma_R^{2,(t-1)}\right )}
-
-\newcommand{\gaussian}[1]{\mathcal{N}\left (#1\right )}
-\newcommand{\gauss}{\mathcal{N}^c\big(\phi_m(t,k);\tilde\phi^k_m,\sigma^2\big)}
-\newcommand{\Q}{\mathcal{Q}\left (\theta\vert\theta^{(l-1)}\right )}
-\newcommand{\psip}{\psi_{\bm p}}
-\newcommand{\mulast}{h^{(l)}(t,k,\bm p)}
-\newcommand{\muRlast}{h(t,k,\bm p)}
-\newcommand{\z}{z(t,k,\bm p)}
-\newcommand{\lcompl}{\prod_{t,k}\sum_{\vect{p}}\psip\cdot\z\prod_{m}\gauss}
-\newcommand{\psiRlast}{\bm\psi_R^{(t-1)}}
-\newcommand{\psiRPlast}{\psi_{\bm p,R}^{(t-1)}}
-\newcommand{\psiRnow}{\bm\psi_R^{(t)}}
-\newcommand{\psiRPnow}{\psi_{\bm p,R}^{(t)}}
+\newcommand{\mathgloss}[2]{%
+    \newglossaryentry{#1}{name={#1},description={#2}}%
+    \begin{description}[labelwidth=3em]%
+      \item[\gls{#1}]#2%
+    \end{description}%
+}
 
 %% MATH MAKROS
-\newcommand{\vect}[1]{\mathbf{#1}}
 \counterwithout{equation}{chapter}  % to have consecutive numbers for equations
+
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \newcommand{\given}[1]{\vert #1} % for more expressive parameters

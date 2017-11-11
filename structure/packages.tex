@@ -35,7 +35,8 @@
 
 % captions for figures
 \usepackage{caption}
-\usepackage{subcaption}
+\usepackage{sidecap}  % captions next to figures
+\usepackage{subcaption}  % multiple captions per figure
 
 % localisation / multilingual files
 \usepackage{iflang}
@@ -82,6 +83,8 @@
 
 % force position of figures
 \usepackage{float} 
+\usepackage{longtable}  % allow for tables to break across pages
+%\setlength{\LTleft}{0pt}
 
 % % Profiling of LaTeX Code
 % \usepgflibrary{profiler}

@@ -8,7 +8,7 @@ Although it has been used for parameter estimation of mixture models as early as
 The name \glsentrylong{em} goes back to the algorithm's distinct two steps that both rely on the output of the respective other step. Therefore, prior to the iteration over the E- and M-Step, the estimated parameter set $\bm \theta$ has to be initialised. This initialisation is done randomly in most cases, although one can also include prior knowledge of the estimated parameters by choosing certain initial values for $\theta$ accordingly.
 
 \paragraph{Description} In general, the algorithm allows to determine \gls{ml} estimates or \gls{map} estimates, where only incomplete data is available \cite[p.1]{Dempster1977}. Incomplete data means that there is a \textit{hidden} or \textit{latent} variable $Z$, that cannot be observed directly but might be inferred by some observable variable $X$. The \textit{complete data} is given by combining the (discrete) \textit{hidden variable} and the observations.
-%TODO: erklärender satz, warum latente variable diskret ist
+%TODO: erklärender satz, warum latente variable diskret ist, auf diskreten fall beschränken...
 
 
 \paragraph{Derivation}
@@ -46,6 +46,7 @@ Applying \eqref{eq:defProbProductRule} to $p(\vect{X},\vect{Z})$ in \eqref{eq:L}
 \end{align}
 
 The first summand is equal to $-\text{KL}(q\|p)$, therefore it cancels out when inserting \eqref{eq:Lexpanded} back into \eqref{eq:decomposition}. The second summand can be simplified making use of the fact, that $q(\vect{Z})$ is a probability distribution and therefore $\sum_{\vect{Z}}q(\vect{Z})=1$ holds true
+%TODO: restructure this section!
 \begin{align}
     \mathcal{L}(q,\theta)+\text{KL}(q\|p)&=\sum_{\vect{Z}}q(\vect{Z})\ln p(\vect{X}\given{\theta})-\text{KL}(q\|p)+\text{KL}(q\|p)\\
     &=\ln p(\vect{X}\given{\theta}).
@@ -84,24 +85,27 @@ Computing this lower bound constitutes the E-Step. The M-Step is to find a new v
 
 \begin{figure}[!hb]
 \label{fig:em}
-\centering
-    \includegraphics[scale=1]{data/figures/em-Q3}
-    \caption{EM-Algorithm as iterative lower-bound optimisation}
+    \centering
+    \includegraphics[scale=1]{data/figures/em-Q4}
+    \caption[Short Title for EM-Algorithm]{EM-Algorithm as iterative lower-bound optimisation}
+    \medskip
+    \small
+    Here in a new line a long description about the figure, in a smaller text
 \end{figure}
 
 To summarise, the goal of the E-Step is to find a lower bound for the original, incomplete data likelihood function $p(\vect{X}\vert\theta)$. This lower bound $\mathcal{L}(q,\bm\theta)$ is choosen to be equal to the original likelihood function in $\theta^{(l-1)}$, which is done by selecting $q(\vect{Z})$ to be the posterior probability of the latent variable $\vect{Z}$ given the observation $\vect{X}$. This gives rise to the $\mathcal{Q}$-function, which, in the M-Step, is maximised with respects to the estimated parameter set $\bm\theta$. The result is a new value $\bm\theta^{(l)}$, for which a new lower-bound can be found. This procedure is repeated iteratively either until some fixed number of iterations are reached or some convergence criterion is met. For a full account of the convergence of \gls{em}, see \cite{Wu1983}.\alt{Convergence criteria for the \gls{em} algorithm are shown in \cite{Wu1983}.} It is interesting to note, that the M-Step only states \textit{that} the result of the E-Step is to be maximised, but not \textit{how} this is to be done. Rather than a specific solution for a certain type of problems, the \gls{em} algorithm is therefore more of a template, that can be applied to a variety of different problems, each of them required to individually derive the concrete steps necessary to obtain a lower-bound for the incomplete data log likelihood function and find it's maximum.
 
-\begin{figure}[!htb]
+\begin{SCfigure}
 \centering
 \includegraphics{data/figures/em-flowchart}
 \caption{Steps of the \glsentryshort{em} algorithm}
-\end{figure}
+\end{SCfigure}
 
 \paragraph{Limitations}
 One existing limitation of the \gls{em} algorithm is the possibility of a slow convergence rate, which increases the computational complexity as more iterations have to be carried out before convergence is reached. In this case, the convergence threshold can be increased or a fixed number of iterations can be carried out, although this means that the solution is no longer optimal in the \gls{mmse} sense. Another limitation is, that the algorithm is susceptible to local optima for more than one target parameter, meaning that the determined solution is not necessarily the best solution. This can be alleviated by running the algorithm multiple times with a different, random initialisations and choose the best outcome, a procedure known as \textit{random-restart hill climb}. Another method to circumvent getting stuck in local optima is \textit{simulated annealing}, which is incorporated into an \gls{em} template in \cite{Guo2007}.
 %TODO: define "best outcome"
-%TODO: Describe simulated annealing
-%TODO: "more than one target parameter" ist anscheinend unklar... umformulieren!
+%TODO: Describe simulated annealing on a high-level (1 sentence)
+%TODO: "more than one target parameter" ist unpräzise.. umformulieren!
 %TODO: define "convergence threshold" mathematically
 
 

@@ -1,4 +1,73 @@
-\begin{tabular}{ll}
-	
-$+$		&	Addition \\
-\end{tabular}
+\chaptermark{List of Symbols}
+\sectionmark{List of Symbols}
+\chapter*{List of Symbols}
+\addcontentsline{toc}{chapter}{List of Symbols}
+
+%% DEFINITIONS %%
+
+% Single Symbols
+\newcommand{\prp}{\bm\phi}
+\newcommand{\prpm}{\phi_m}
+
+\newcommand{\pos}{\bm p}
+\newcommand{\poss}{\pos_s}
+\newcommand{\posr}{\pos_m^i}
+\newcommand{\posa}{\mathcal{P}}
+\newcommand{\pinp}{\pos \in \posa}
+
+\newcommand{\psip}{\bm\psi_{\bm p}}
+\newcommand{\psiRlast}{\bm\psi_R^{(t-1)}}
+\newcommand{\psiRPlast}{\psi_{\bm p,R}^{(t-1)}}
+\newcommand{\psiRnow}{\bm\psi_R^{(t)}}
+\newcommand{\psiRPnow}{\psi_{\bm p,R}^{(t)}}
+
+% Functions
+\newcommand{\gaussian}[1]{\mathcal{N}\left (#1\right )}
+\newcommand{\pdffunc}{\psi_{\bm p}^{(l-1)}\prod_{m}\mathcal{N}^c\left (\phi^k_m(t,k);\tilde\phi^k_m(\bm p),\sigma^{2,(l-1)}\right )}
+\newcommand{\pdffuncR}{\psi_{\bm p,R}^{(t-1)}\prod_{m}\mathcal{N}^c\left (\phi^k_m(t,k);\tilde\phi^k_m(\bm p),\sigma_R^{2,(t-1)}\right )}
+\newcommand{\gauss}{\mathcal{N}^c\big(\phi_m(t,k);\tilde\phi^k_m,\sigma^2\big)}
+\newcommand{\Q}{\mathcal{Q}\left (\theta\vert\theta^{(l-1)}\right )}
+\newcommand{\mulast}{h^{(l)}(t,k,\bm p)}
+\newcommand{\muRlast}{h(t,k,\bm p)}
+\newcommand{\z}{z(t,k,\bm p)}
+\newcommand{\lcompl}{\prod_{t,k}\sum_{\vect{p}}\psip\cdot\z\prod_{m}\gauss}
+
+% Other
+\newcommand{\vect}[1]{\mathbf{#1}}
+
+%% TABLE %%
+
+\begin{longtable*}[l]{ll}
+\multicolumn{2}{l}{\textbf{Mathematical Operators}} \\[2pt]
+$|\cdot |$    & Absolute value (when applied to scalar)\\
+$|\cdot |$    & Cardinality (when applied to set)\\
+$\|\cdot \|$  & Length of vector (when applied to vector)\\
+$\|\cdot \|$  & Eucledian distance (when applied to difference of two vectors)\\
+det$(\cdot)$  & Determinant of matrix\\
+diag$(\cdot)$ & Diagonal matrix of vector\\
+
+\multicolumn{2}{l}{\textbf{Indices}} \\[2pt]
+$t$         & Time-bin index \\
+$k$         & Frequency-bin index \\
+$i$         & Receiver index \\
+$m$         & Sensor node index \\
+$s$         & Source index \\
+$l$         & Algorithm iteration index \\[6pt]
+
+\multicolumn{2}{l}{\textbf{Scalars \& Vectors}} \\[2pt]
+$T$         & Number of time-bins \\
+$K$         & Number of frequency-bins \\
+$M$         & Number of sensor nodes \\
+$S$         & Number of sources \\
+$L$         & Number of Iterations \\
+
+$\pos $      & Location vector of gridpoint\\
+$\posa $      & Set of all gridpoints $\pos$\\
+$\poss $      & Location vector of source $s$ \\
+$\posr $      & Location vector of receiver $i$ of sensor node $m$ \\
+
+$\prp$      & Vector of pair-wise relative phase ratios \\
+$\prpm$      & Pair-wise relative phase ratio at sensor node $m$ \\
+$\psi$      & Weight of Gaussian mixture component \\
+$\psip$      & Vector of weights of Gaussian mixture components \\
+\end{longtable*}

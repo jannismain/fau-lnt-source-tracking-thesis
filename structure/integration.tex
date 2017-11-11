@@ -1,14 +1,14 @@
-%% TITLE
-%\input{structure/title-page}
+% TITLE
+\input{structure/title-page}
 %\input{helpers/empty-page}
-%\addtocounter{page}{-1}
+\addtocounter{page}{-1}
 
 %% Declaration
 %\newpage
 %\chapter*{Declaration of Authorship}
 %\thispagestyle{empty}
 %\input{structure/declaration}
-%\pagenumbering{Roman}
+\pagenumbering{Roman}
 %\input{helpers/empty-page}
 %\thispagestyle{empty}
 %\cleardoublepage
@@ -32,20 +32,18 @@
 %\clearpage
 %\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thechapter \ #1}}{}}
 
+\renewcommand{\chaptermark}[1]{ \markboth{ \uppercase{#1}}{}} 
+\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{#1}}{}} 
+
 % List of Abbreviations
-\printacronyms[title=List of Abbreviations]
-\clearpage
-
-
-%% List of Symbols
-%\chaptermark{List of Symbols}
-%\sectionmark{List of Symbols}
-%\chapter*{List of Symbols}
-%\addcontentsline{toc}{chapter}{List of Symbols}
-%\input{structure/symbols}
-%\clearpage
-%%\input{helpers/empty-page}
 \input{other/acronyms}
+
+% List of Symbols
+
+\input{structure/symbols}
+\clearpage
+%\input{helpers/empty-page}
+
 
 %%%%%%%%%%%%%%%%%%%  Main Text  %%%%%%%%%%%%%%%%%%%
 
