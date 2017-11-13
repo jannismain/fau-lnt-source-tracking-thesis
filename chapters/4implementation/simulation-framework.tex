@@ -1,14 +1,4 @@
-\chapter{Implementation Details}
-\label{chap:implementation}
-Before any results can be produced, the described algorithms and setup have to be implemented and tested within a simulation framework, that allows for easy parameter customisation and evaluation. Therefore, what follows is the description of the different parts of the implementation that allows for the evaluation of the algorithms described in chapter \ref{chap:algorithms}. First, the setup is defined and the simulation framework is laid out. Then, the implementation of both source localisation and source tracking are discussed. Last, certain evaluation scenarios are established to analyse the possibilities and limitations of this implementation. This will assist in drawing conclusions about the strengths and shortcomings of the algorithm in this particular setup and may allow for more general findings to be deducted.
-
-As computational complexity, and therefore execution time, is one of the measures to compare different implementations, the hardware on which these evaluations have been executed, needs to be mentioned. All trials and profiling benchmarks have been done on a Retina Macbook Pro 13" (MGX92LL/A), that is equipped with a 2.8 GHz Core i5-4308U CPU and 16GB of DDR3L-1600Mhz RAM. As the implementation is not parallelized, all compuations have been executed solely on a CPU, although \matlab will utilise both cores of the i5 for certain operations.
-
-\section{Setup}
-\label{sec:setup}
-\import{chapters/4implementation/}{setup}
-
-%\section{Simulation Framework}
+\section{Simulation Framework}
 %\begin{figure}[H]
 %	\centering
 %	\input{chapters/4implementation/diagram-simulation-framework}
@@ -32,25 +22,3 @@ After the source localisation algorithm has concluded and returned the position 
 %\begin{equation} %TODO: Check, whether this mathematical formulation for random permutations is valid
 %    p_{s, \text{sorted}}=\min_{p_s}{\|p_s-p_{j,\text{true}}\|}\ \forall s,j\ \in\ \{1, 2, \dots, S\}
 %\end{equation}
-
-\section{Source Tracking}
-\section{Evaluation Scenarios}
-There are many parameters that each could have an effect on the performance of the localisation. The ones most often cited in the literature are the amount of reverbaration, given as the time it takes for the reverbaration to decay by 60dB ({\code{T60}), as well as the amount of noise added to the received signals (\code{SNR}). Other factors include the number of simultaneously simulated sources (\code{n\_sources}), which has an impact on the sparsity assumption of the received signal. The number of iterations the \gls{em} algorithm runs through to improve the estimate (\code{em-iterations}) presumably has a positive effect on localisation accuracy, whereas it is also the main driver of computational complexity, as the iterations cannot be executed in parallel due to the data dependency within and across iterations of the \gls{em} algorithm. Further, the individual speech samples might have an effect on the localisation performance, as different samples exhibit different frequency spectra and speech activity over time. After confirming that the order of speech samples used in the evaluation indeed had an effect on the mean error of the location estimates, the order of speech samples used for each trial was randomised for all further trials. The set of speech samples itself consists of 7 anechoic recordings, that can be accessed by visiting the website referenced in \cite{Mainczyk2017}.
-\begin{table}[H]
-\centering
-\begin{tabular}{r|c}
-    \textbf{Parameter}                  & \textbf{Tested Values}     \\
-    \hline
-    \code{n-sources}                    & \textbf{2 - 7}             \\
-    \code{T60 [s]}                      & 0.0, 0.3, \textbf{0.6}, 0.9\\
-    \code{SNR [dB]}                     & \textbf{0dB}, 5, 10, 15, 30\\
-    \code{em-iterations}                & 1, 2, 3, \textbf{5}, 10, 20\\
-    \code{reflect-order}                & 1, 3, \textbf{max(-1)}     \\ 
-    \code{order of speech samples}      & fixed, \textbf{randomized} \\
-\end{tabular}
-  \caption{Parameters and their tested values (default values in bold)}
-\end{table}
-
-
-
-

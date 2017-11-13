@@ -98,7 +98,9 @@ To summarise, the goal of the E-Step is to find a lower bound for the original, 
 \begin{SCfigure}
 \centering
 \includegraphics{data/figures/em-flowchart}
-\caption{Steps of the \glsentryshort{em} algorithm}
+\caption{Steps of the \glsentryshort{em} algorithm}:
+\small
+The flow-diagram shows the initialisation
 \end{SCfigure}
 
 \paragraph{Limitations}
@@ -106,9 +108,6 @@ One existing limitation of the \gls{em} algorithm is the possibility of a slow c
 %TODO: define "best outcome"
 %TODO: "more than one target parameter" ist unpräzise.. umformulieren!
 %TODO: define "convergence threshold" mathematically
-
-
-TODO: Zusammenfassung von Kapitel 2
 
 %As KL$(q\|p)$ is the Kullback-Leibler divergence between $q(\vect{Z})$ and $p(\vect{Z}\given{\vect{X},\theta})$, it also satisfies KL$(p\|q)\geq 0$ with equality only if $q(\vect{Z})=p(\vect{Z}\given{\vect{X},\theta})$. This means, that, using \eqref{eq:decomposition}, we can state, that $\mathcal{L}(q,\theta)$ is a lower bound for the original likelihood function $\ln p(\vect{X}\given{\theta})$. As the 
 
