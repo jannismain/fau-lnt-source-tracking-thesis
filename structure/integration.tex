@@ -1,36 +1,36 @@
 % TITLE
-\input{structure/title-page}
-%\input{helpers/empty-page}
+ \input{structure/title-page}
+\input{helpers/empty-page}
 \addtocounter{page}{-1}
 
-%% Declaration
-%\newpage
-%\chapter*{Declaration of Authorship}
-%\thispagestyle{empty}
-%\input{structure/declaration}
+% Declaration
+\newpage
+\chapter*{Declaration of Authorship}
+\thispagestyle{empty}
+\input{structure/declaration}
 \pagenumbering{Roman}
-%\input{helpers/empty-page}
-%\thispagestyle{empty}
-%\cleardoublepage
+\input{helpers/empty-page}
+\thispagestyle{empty}
+\cleardoublepage
 
 % Table of Contents
 \addtocounter{page}{-2}
 \setcounter{tocdepth}{1}
 \tableofcontents
-\clearpage
+ \clearpage
 
 
 %% Summary
-%%\input{helpers/empty-page}
-%\renewcommand{\chaptermark}[1]{}
-%\chaptermark{Abstract}
-
 %\input{helpers/empty-page}
-%\chapter*{Abstract}
-%\addcontentsline{toc}{chapter}{Abstract}
-%\input{structure/abstract}
-%\clearpage
-%\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thechapter \ #1}}{}}
+\renewcommand{\chaptermark}[1]{}
+\chaptermark{Abstract}
+
+\input{helpers/empty-page}
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\input{structure/abstract}
+\clearpage
+\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thechapter \ #1}}{}}
 
 \renewcommand{\chaptermark}[1]{ \markboth{ \uppercase{#1}}{}} 
 \renewcommand{\sectionmark}[1]{ \markright{ \uppercase{#1}}{}} 
@@ -55,31 +55,31 @@
 %\renewcommand{\chaptermark}[1]{\markright{\uppercase{\thechapter.\ #1}}{}}
 \renewcommand{\sectionmark}[1]{\markright{\uppercase{\thesection.\ #1}}{}}
 
-% CHAPTER 1: INTRODUCTION
-\input{chapters/1intro/intro}
-\input{chapters/1intro/applications}
-\input{chapters/1intro/literature-research}
-\input{chapters/1intro/research-problem}
-\input{chapters/1intro/constraints}
-\input{chapters/1intro/structure}	
-\input{chapters/1intro/notation}
-
-% CHAPTER 2: THEORETICAL BACKGROUND
-\input{chapters/2theory/theory-intro}
-
-\input{chapters/2theory/sigmodel}
-\input{chapters/2theory/gmm}
-\input{chapters/2theory/em}
-\input{chapters/2theory/theory-summary}
-
-% CHAPTER 3: DERIVATION OF ALGORITHMS
-\input{chapters/3algorithms/algorithms-intro}
-\input{chapters/3algorithms/prob-model}
-\input{chapters/3algorithms/location-estimation}
-\input{chapters/3algorithms/source-tracking}
-\input{chapters/3algorithms/algorithms-summary}
-
-% CHAPTER 4: IMPLEMENTATION
+%% CHAPTER 1: INTRODUCTION
+%\input{chapters/1intro/intro}
+%\input{chapters/1intro/applications}
+%\input{chapters/1intro/literature-research}
+%\input{chapters/1intro/research-problem}
+%\input{chapters/1intro/constraints}
+%\input{chapters/1intro/structure}	
+%\input{chapters/1intro/notation}
+%
+%% CHAPTER 2: THEORETICAL BACKGROUND
+%\input{chapters/2theory/theory-intro}
+%
+%\input{chapters/2theory/sigmodel}
+%\input{chapters/2theory/gmm}
+%\input{chapters/2theory/em}
+%\input{chapters/2theory/theory-summary}
+%
+%% CHAPTER 3: DERIVATION OF ALGORITHMS
+%\input{chapters/3algorithms/algorithms-intro}
+%\input{chapters/3algorithms/prob-model}
+%\input{chapters/3algorithms/location-estimation}
+%\input{chapters/3algorithms/source-tracking}
+%\input{chapters/3algorithms/algorithms-summary}
+%
+%% CHAPTER 4: IMPLEMENTATION
 \input{chapters/4implementation/implementation-intro}
 \input{chapters/4implementation/setup}
 \input{chapters/2theory/simulation}
@@ -87,41 +87,38 @@
 \input{chapters/4implementation/source-tracking} 
 \input{chapters/4implementation/evaluation-scenarios.tex}
 
-
 % CHAPTER 5: RESULTS
-\input{chapters/5results/results-intro}
-\input{chapters/5results/location_estimation}
-\input{chapters/5results/source_tracking}
+\input{chapters/5results/RESULTS-INTRO}
+\input{chapters/5results/LOCATION-ESTIMATION}
+\input{chapters/5results/SOURCE-TRACKING}
 
-% CHAPTER 6: CONCLUSION
+%% CHAPTER 6: CONCLUSION
 \input{chapters/6conclusion/conclusion-intro}
 \input{chapters/6conclusion/critical_review}
 \input{chapters/6conclusion/further_research}
 
 
-%\include{chapters/testbed}
+%\include{helpers/testbed}
 %\include{chapters/testbed-text}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  D O C U M E N T  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  A P P E N D I X  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% ANHANG
-\appendix
-	\renewcommand{\chaptermark}[1]{\markboth{\uppercase{Appendix \thechapter:\ #1}}{}}
-%	\todos
-	
-	\chapter{Formulas}
-	\input{chapters/appendix/log-rules}
-	\chapter{Code}
-%	\input{data/code/code}
-    \chapter{Results}
-%	\input{chapters/appendix/trials-tables}
-%    \input{chapters/appendix/general-crem}
-	
-	\clearpage
-	\newpage
+% \appendix
+% 	\renewcommand{\chaptermark}[1]{\markboth{\uppercase{Appendix \thechapter:\ #1}}{}}
+% %	\todos
+%	
+% 	\chapter{Formulas}
+% 	\input{chapters/appendix/log-rules}
+% 	\chapter{Code}
+% 	\input{data/code/code}
+%     \chapter{Results}
+%% 	\input{chapters/appendix/trials-tables}
+%     \input{chapters/appendix/general-crem}
+%	
+% 	\clearpage
+% 	\newpage
 
 % LIST OF FIGURES
 \addcontentsline{toc}{chapter}{List of Figures}
@@ -131,16 +128,14 @@
 \addcontentsline{toc}{chapter}{List of Tables}
 \listoftables
 
-% Glossary
-\setglossarystyle{altlist}
-\printglossary[title=Glossary]
+% % Glossary
+% \setglossarystyle{altlist}
+% \printglossary[title=Glossary]
 
-% LITERATURVERZEICHNIS
-%nicht referenzierte Literaturstellen
-\nocite{*}
+% \nocite{*}
 \printbibliography
-%\newpage
-%%Eintrag im Inhaltsverzeichnis
-%\addtocounter{page}{1}
-%\addcontentsline{toc}{chapter}{Literaturverzeichnis}
-%\addtocounter{page}{-1}
+
+\newpage
+\addtocounter{page}{1}
+\addcontentsline{toc}{chapter}{Bibliography}
+\addtocounter{page}{-1}

@@ -1,0 +1,40 @@
+\subsection{SNR}
+%\begin{figure}[H]
+%    \centering
+%    \begin{subfigure}{0.49\textwidth}
+%          \centering
+%	       \includestandalone[width=\textwidth]{data/plots/plot_snr_err-mean}
+%%            \input{data/plots/plot_em-iterations_err-mean}
+%	\end{subfigure}
+%    \begin{subfigure}{0.49\textwidth}
+%          \centering
+%	       \includestandalone[width=\textwidth]{data/plots/plot_snr_percent-matched}
+%%            \input{data/plots/plot_em-iterations_err-mean}
+%	\end{subfigure}
+%\caption{Evaluation of SNR (EM-Iterations=5, T60=0.3, refl-ord=3, n=200)}
+%\end{figure}
+
+%% all-in-one boxplot
+\begin{figure}[H]
+    \setlength\figureheight{7cm}
+    \small
+    \setlength\figurewidth{\textwidth}
+	\centering
+	\begin{tikzpicture}
+	    \footnotesize
+	    \input{data/plots/boxplot-joined-SNR}
+	    \input{helpers/legends/SNR-legend}
+	\end{tikzpicture}
+	
+	\caption[Evaluation results for varying \glsentryshort{em} iterations]{Evaluation results for varying \glsentryshort{em} iterations: }
+	\label{fig:trial1}
+\end{figure}
+
+\begin{itemize}
+    \item not surprisingly, more noise (lower SNR) means worse location estimates
+    \item Worst estimates for lowest SNR
+    \item With increasing SNR, estimates then get better
+    \item Consistent over all trials of different number of sources
+    \item But, SNR=5dB decreased mean-err and size of 95\% percentile for 3-7 sources compared to no noise.
+    \item Results seem to indicate, that SNR=5 improves location estimation performance, while more than 5dB decreases performance compared to noiseless environment
+\end{itemize}

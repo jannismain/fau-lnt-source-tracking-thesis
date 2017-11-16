@@ -1,5 +1,3 @@
-\begin{document}
-
 \chapter[Testbed]{Testbed}
 \chaptermark{Testbed}
 \label{chap:Testbed}
@@ -9,7 +7,7 @@ This is a section, where LaTeX functionality can be tested!
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{gaussian}
+\includegraphics[width=0.5\textwidth]{data/plots/gmm/gaussian}
 \caption{Multiple three-dimensional gaussian distributions...}
 \label{fig:mog}
 \end{figure}
@@ -17,96 +15,82 @@ This is a section, where LaTeX functionality can be tested!
 
 This is the text beneath an included picture. Figure \ref{fig:mog} shows an example of how to include eps-figures in this document.
 
-\subsubsection{Displaying two eps-figures side-by-side}
-\begin{figure}[H]
- \centering
- \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{gaussian}
-    \caption{Sub caption}
- \end{subfigure}
- \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{gaussian}
-    \caption{Sub caption}
- \end{subfigure}
- \caption{Main caption}
-\end{figure}
+%\subsubsection{Displaying two eps-figures side-by-side}
+%\begin{figure}[H]
+% \centering
+% \begin{subfigure}{0.49\textwidth}
+%    \includegraphics[width=\textwidth]{data/plots/gmm/gaussian}
+%    \caption{Sub caption}
+% \end{subfigure}
+% \begin{subfigure}{0.49\textwidth}
+%    \includegraphics[width=\textwidth]{data/plots/gmm/gaussian}
+%    \caption{Sub caption}
+% \end{subfigure}
+% \caption{Main caption}
+%\end{figure}
 
-\subsection{Including tikz-figures}
-\subsubsection{Two-dimensional figures}
-Graphs can be included, like is shown in figure \ref{fig:sin}, using the input-method.
-\tikzset{every picture/.style={scale=0.9}}
-\begin{figure}[H]
-	\centering
-	\input{plots/sin-tikz}
-	\caption{A sine wave}
-	\label{fig:sin}
-\end{figure}
+%\subsection{Including tikz-figures}
+%\subsubsection{Two-dimensional figures}
+%Graphs can be included, like is shown in figure \ref{fig:sin}, using the input-method.
+%\tikzset{every picture/.style={scale=0.9}}
+%\begin{figure}[H]
+%	\centering
+%	\input{data/plots/static/sin-tikz}
+%	\caption{A sine wave}
+%	\label{fig:sin}
+%\end{figure}
+%
+%As figure \ref{fig:sin} was a little big, we now try to scale this output somehow:
+%
+%\tikzset{every picture/.style={scale=0.6}}
+%\begin{figure}[H]
+%	\centering
+%	\input{data/plots/static/sin-tikz}
+%	\caption{A second sine wave}
+%	\label{fig:sin2}
+%\end{figure}
+%
+%We can also display more than one lineplot in one row:
+%
+%\tikzset{every picture/.style={scale=0.5}}
+%\begin{figure}[H]
+%	\centering
+%	\begin{subfigure}{0.49\textwidth}
+%		\includestandalone[width=\textwidth]{data/plots/static/sin-tikz}
+%		\caption{A sine wave}
+%	\end{subfigure}
+%	\begin{subfigure}{0.49\textwidth}
+%		\includestandalone[width=\textwidth]{data/plots/static/cos-tikz}
+%		\caption{A cosine wave}
+%	\end{subfigure}
+%	\caption{Sine and cosine waves}
+%	\label{fig:sin}
+%\end{figure}
 
-As figure \ref{fig:sin} was a little big, we now try to scale this output somehow:
-
-\tikzset{every picture/.style={scale=0.6}}
-\begin{figure}[H]
-	\centering
-	\input{plots/sin-tikz}
-	\caption{A second sine wave}
-	\label{fig:sin2}
-\end{figure}
-
-We can also display more than one lineplot in one row:
-
-\tikzset{every picture/.style={scale=0.5}}
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}{0.49\textwidth}
-		\includestandalone[width=\textwidth]{plots/sin-tikz}
-		\caption{A sine wave}
-	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
-		\includestandalone[width=\textwidth]{plots/cos-tikz}
-		\caption{A cosine wave}
-	\end{subfigure}
-	\caption{Sine and cosine waves}
-	\label{fig:sin}
-\end{figure}
-
-\subsubsection{Three-dimensional figures}
-\tikzset{every picture/.style={scale=1}}
-\begin{figure}[H]
-	\centering
-	\input{plots/gaussian-tikz}
-	\caption{A three-dimensional representation of multiple, gaussian distributions}
-	\label{fig:gaussian}
-\end{figure}
-
-With the previous method to include tikz-figures, scaling the tikz output might not be as easy as with the includegraphics-method. This is where the standalone package comes in handy.
-
-Let's see, whether this also works for 3D-plots:
-
-\tikzset{every picture/.style={scale=0.5}}
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}{0.49\textwidth}
-		\includestandalone[width=\textwidth]{plots/gaussian-tikz}
-		\caption{A 3D plot}
-	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
-		\includestandalone[width=\textwidth]{plots/gaussian-tikz}
-		\caption{Another 3D plot}
-	\end{subfigure}
-	\caption{More than one 3D plot in a row}
-	\label{fig:gaussian3}
-\end{figure}
-
-Now let's try some real output from our Matlab scripts:
-\begin{figure}[H]
-	\centering
-	\input{plots/static/2017-09-25-21-19-50_sources_2_mindistance_0.5_trial_9_of_10_fig}
-	\caption{2 Sources, 0.5m minimal distance, Trial 9/10}
-	\label{fig:trial1}
-\end{figure}
-
-\newpage
-\section{Citations}
-\subsection{Simple Citations}
-The EM-Algorithm is covered in depth by Bishop "EM algorithm, is a general technique for finding maximum likelihood solutions for probabilistic models having latent variables (Dempster et al., 1977; McLachlan and Krishnan, 1997). \cite[p. 472]{Bishop2006}. Reverberant environments, secondary reflections, may result in biased location estimates \cite[p.1]{Schwartz2014}
-\end{document}
+%\subsubsection{Three-dimensional figures}
+%\tikzset{every picture/.style={scale=1}}
+%\begin{figure}[H]
+%	\centering
+%	\input{data/plots/gmm/gaussian-tikz}
+%	\caption{A three-dimensional representation of multiple, gaussian distributions}
+%	\label{fig:gaussian}
+%\end{figure}
+%
+%With the previous method to include tikz-figures, scaling the tikz output might not be as easy as with the includegraphics-method. This is where the standalone package comes in handy.
+%
+%Let's see, whether this also works for 3D-plots:
+%
+%\tikzset{every picture/.style={scale=0.5}}
+%\begin{figure}[H]
+%	\centering
+%	\begin{subfigure}{0.49\textwidth}
+%		\includestandalone[width=\textwidth]{data/plots/gmm/gaussian-tikz}
+%		\caption{A 3D plot}
+%	\end{subfigure}
+%	\begin{subfigure}{0.49\textwidth}
+%		\includestandalone[width=\textwidth]{data/plots/gmm/gaussian-tikz}
+%		\caption{Another 3D plot}
+%	\end{subfigure}
+%	\caption{More than one 3D plot in a row}
+%	\label{fig:gaussian3}
+%\end{figure}

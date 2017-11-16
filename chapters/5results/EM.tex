@@ -1,0 +1,54 @@
+\subsubsection{EM-Iterations}
+
+%% line plots of mean-err and percent-matched
+% \begin{figure}[!htp]
+%    \centering
+%    \begin{subfigure}{0.49\textwidth}
+%          \centering
+% 	       \includestandalone[width=\textwidth]{data/plots/plot_em-iterations_err-mean}
+% %            \input{data/plots/plot_em-iterations_err-mean}
+% 	\end{subfigure}
+%    \begin{subfigure}{0.49\textwidth}
+%          \centering
+% 	       \includestandalone[width=\textwidth]{data/plots/plot_em-iterations_percent-matched}
+% %            \input{data/plots/plot_em-iterations_err-mean}
+% 	\end{subfigure}
+% \caption{Evaluation of EM-Iterations (T60=0.6, SNR=0, refl-ord=3, n=150)}
+% \end{figure}
+
+%% 3x2 grid of box plots
+% \begin{figure}[H]
+%     \setlength\figureheight{5cm}
+%     \setlength\figurewidth{0.33\textwidth}
+% 	\centering
+% 	\input{data/plots/boxplot-em-20}
+% 	\caption[Evaluation results for varying \glsentryshort{em} iterations]{Evaluation results for varying \glsentryshort{em} iterations}
+% 	\label{fig:trial1}
+% \end{figure}
+
+%% all-in-one boxplot
+\begin{figure}[H]
+    \setlength\figureheight{7cm}
+    \small
+    \setlength\figurewidth{\textwidth}
+	\centering
+	\begin{tikzpicture}
+	    \footnotesize
+	    \input{data/plots/boxplot-joined-em}
+	    \input{helpers/legends/em-legend}
+	\end{tikzpicture}
+	
+	\caption[Evaluation results for varying \glsentryshort{em} iterations]{Evaluation results for varying \glsentryshort{em} iterations: }
+	\label{fig:trial1}
+\end{figure}
+
+
+\begin{itemize}
+\item more iterations in general decrease mean estimation error
+\item effect of iterations is decreasing with increasing iterations
+\item 1 iteration has considerable worse performance than all others
+\item from 3 on, performance is rather stable
+\item improvement from 10 to 20 iterations not consistent across number of sources 
+\item improvement from 5 to 10 iterations only visible for 5 and 6 sources
+\item Therefore, 5 iterations is validated as good balance between estimation performance and computational complexity
+\end{itemize}

@@ -1,0 +1,30 @@
+\subsection{T60}
+%% all-in-one boxplot
+\begin{figure}[H]
+    \setlength\figureheight{7cm}
+    \small
+    \setlength\figurewidth{\textwidth}
+	\centering
+	\begin{tikzpicture}
+	    \footnotesize
+	    \input{data/plots/boxplot-joined-T60}
+	    \input{helpers/legends/T60-legend}
+	    
+	\end{tikzpicture}
+	
+	\caption[Evaluation results for varying \glsentryshort{em} iterations]{Evaluation results for varying \glsentryshort{em} iterations: }
+	\label{fig:trial1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+          \centering
+	       \includestandalone[width=\textwidth]{data/plots/plot_T60_err-mean}
+	\end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+          \centering
+	       \includestandalone[width=\textwidth]{data/plots/plot_T60_percent-matched}
+%            \input{data/plots/plot_em-iterations_err-mean}
+	\end{subfigure}
+\caption{Evaluation of T60 (EM-Iterations=10, SNR=0, refl-ord=-1, n=100)}
+\end{figure}

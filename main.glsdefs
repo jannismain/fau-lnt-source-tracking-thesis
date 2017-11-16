@@ -1,0 +1,540 @@
+\ifglsentryexists{asr}{}%
+{%
+\gls@defglossaryentry{asr}%
+{%
+name={ASR},%
+sort={ASR},%
+type={acronym},%
+first={automatic speech recognition\glsspace (ASR)},%
+firstplural={automatic speech recognitions\glsspace (ASRs)},%
+text={ASR},%
+plural={ASRs},%
+description={Automatic Speech Recognition},%
+descriptionplural={automatic speech recognition\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={automatic speech recognition},%
+longplural={automatic speech recognitions},%
+short={ASR},%
+shortplural={ASRs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{se}{}%
+{%
+\gls@defglossaryentry{se}%
+{%
+name={SE},%
+sort={SE},%
+type={acronym},%
+first={speech enhancement\glsspace (SE)},%
+firstplural={speech enhancements\glsspace (SEs)},%
+text={SE},%
+plural={SEs},%
+description={Speech Enhancement},%
+descriptionplural={speech enhancement\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={speech enhancement},%
+longplural={speech enhancements},%
+short={SE},%
+shortplural={SEs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{gmm}{}%
+{%
+\gls@defglossaryentry{gmm}%
+{%
+name={GMM},%
+sort={GMM},%
+type={acronym},%
+first={Gaussian Mixture Model\glsspace (GMM)},%
+firstplural={Gaussian Mixture Models\glsspace (GMMs)},%
+text={GMM},%
+plural={GMMs},%
+description={Gaussian Mixture Model},%
+descriptionplural={Gaussian Mixture Model\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Gaussian Mixture Model},%
+longplural={Gaussian Mixture Models},%
+short={GMM},%
+shortplural={GMMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{em}{}%
+{%
+\gls@defglossaryentry{em}%
+{%
+name={EM},%
+sort={EM},%
+type={acronym},%
+first={Expectation-Maximisation\glsspace (EM)},%
+firstplural={Expectation-Maximisations\glsspace (EMs)},%
+text={EM},%
+plural={EMs},%
+description={Expectation-Maximisation},%
+descriptionplural={Expectation-Maximisation\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Expectation-Maximisation},%
+longplural={Expectation-Maximisations},%
+short={EM},%
+shortplural={EMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{stft}{}%
+{%
+\gls@defglossaryentry{stft}%
+{%
+name={STFT},%
+sort={STFT},%
+type={acronym},%
+first={short-time Fourier transformation\glsspace (STFT)},%
+firstplural={short-time Fourier transformations\glsspace (STFTs)},%
+text={STFT},%
+plural={STFTs},%
+description={Short-Time Fourier Transformation},%
+descriptionplural={short-time Fourier transformation\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={short-time Fourier transformation},%
+longplural={short-time Fourier transformations},%
+short={STFT},%
+shortplural={STFTs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{rir}{}%
+{%
+\gls@defglossaryentry{rir}%
+{%
+name={RIR},%
+sort={RIR},%
+type={acronym},%
+first={room impulse response\glsspace (RIR)},%
+firstplural={room impulse responses\glsspace (RIRs)},%
+text={RIR},%
+plural={RIRs},%
+description={Room Impulse Response},%
+descriptionplural={room impulse response\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={room impulse response},%
+longplural={room impulse responses},%
+short={RIR},%
+shortplural={RIRs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{prp}{}%
+{%
+\gls@defglossaryentry{prp}%
+{%
+name={PRP},%
+sort={PRP},%
+type={acronym},%
+first={pair-wise relative phase ratio\glsspace (PRP)},%
+firstplural={pair-wise relative phase ratios\glsspace (PRPs)},%
+text={PRP},%
+plural={PRPs},%
+description={Pair-wise Relative Phase Ratio},%
+descriptionplural={pair-wise relative phase ratio\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={pair-wise relative phase ratio},%
+longplural={pair-wise relative phase ratios},%
+short={PRP},%
+shortplural={PRPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{tdoa}{}%
+{%
+\gls@defglossaryentry{tdoa}%
+{%
+name={TDOA},%
+sort={TDOA},%
+type={acronym},%
+first={time difference of arrival\glsspace (TDOA)},%
+firstplural={time difference of arrivals\glsspace (TDOAs)},%
+text={TDOA},%
+plural={TDOAs},%
+description={Time Difference of Arrival},%
+descriptionplural={time difference of arrival\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={time difference of arrival},%
+longplural={time difference of arrivals},%
+short={TDOA},%
+shortplural={TDOAs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{doa}{}%
+{%
+\gls@defglossaryentry{doa}%
+{%
+name={DOA},%
+sort={DOA},%
+type={acronym},%
+first={direction of arrival\glsspace (DOA)},%
+firstplural={direction of arrivals\glsspace (DOAs)},%
+text={DOA},%
+plural={DOAs},%
+description={Direction of Arrival},%
+descriptionplural={direction of arrival\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={direction of arrival},%
+longplural={direction of arrivals},%
+short={DOA},%
+shortplural={DOAs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{rem}{}%
+{%
+\gls@defglossaryentry{rem}%
+{%
+name={REM},%
+sort={REM},%
+type={acronym},%
+first={recursive Expectation-Maximisation\glsspace (REM)},%
+firstplural={recursive Expectation-Maximisations\glsspace (REMs)},%
+text={REM},%
+plural={REMs},%
+description={Recursive \glsentrylong {em}},%
+descriptionplural={recursive \glsentrylong {em}\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={recursive Expectation-Maximisation},%
+longplural={recursive Expectation-Maximisations},%
+short={REM},%
+shortplural={REMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{crem}{}%
+{%
+\gls@defglossaryentry{crem}%
+{%
+name={CREM},%
+sort={CREM},%
+type={acronym},%
+first={\citeauthor {Cappe2009}'s Recursive Expectation-Maximisation\glsspace (CREM)},%
+firstplural={\citeauthor {Cappe2009}'s Recursive Expectation-Maximisations\glsspace (CREMs)},%
+text={CREM},%
+plural={CREMs},%
+description={\citeauthor {Cappe2009}'s \glsentrydesc {rem}},%
+descriptionplural={\citeauthor {Cappe2009}'s \glsentrydesc {rem}\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={\citeauthor {Cappe2009}'s Recursive Expectation-Maximisation},%
+longplural={\citeauthor {Cappe2009}'s Recursive Expectation-Maximisations},%
+short={CREM},%
+shortplural={CREMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{trem}{}%
+{%
+\gls@defglossaryentry{trem}%
+{%
+name={TREM},%
+sort={TREM},%
+type={acronym},%
+first={Titterington's Recursive Expectation-Maximisation\glsspace (TREM)},%
+firstplural={Titterington's Recursive Expectation-Maximisations\glsspace (TREMs)},%
+text={TREM},%
+plural={TREMs},%
+description={Titterington's \glsentrydesc {rem}},%
+descriptionplural={Titterington's \glsentrydesc {rem}\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Titterington's Recursive Expectation-Maximisation},%
+longplural={Titterington's Recursive Expectation-Maximisations},%
+short={TREM},%
+shortplural={TREMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{ml}{}%
+{%
+\gls@defglossaryentry{ml}%
+{%
+name={ML},%
+sort={ML},%
+type={acronym},%
+first={maximum likelihood\glsspace (ML)},%
+firstplural={maximum likelihoods\glsspace (MLs)},%
+text={ML},%
+plural={MLs},%
+description={Maximum Likelihood},%
+descriptionplural={maximum likelihood\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={maximum likelihood},%
+longplural={maximum likelihoods},%
+short={ML},%
+shortplural={MLs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{map}{}%
+{%
+\gls@defglossaryentry{map}%
+{%
+name={MAP},%
+sort={MAP},%
+type={acronym},%
+first={maximum a posteriori\glsspace (MAP)},%
+firstplural={maximum a posterioris\glsspace (MAPs)},%
+text={MAP},%
+plural={MAPs},%
+description={Maximum A Posteriori},%
+descriptionplural={maximum a posteriori\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={maximum a posteriori},%
+longplural={maximum a posterioris},%
+short={MAP},%
+shortplural={MAPs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{pdf}{}%
+{%
+\gls@defglossaryentry{pdf}%
+{%
+name={PDF},%
+sort={PDF},%
+type={acronym},%
+first={probability density function\glsspace (PDF)},%
+firstplural={probability density functions\glsspace (PDFs)},%
+text={PDF},%
+plural={PDFs},%
+description={Probability Density Function},%
+descriptionplural={probability density function\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={probability density function},%
+longplural={probability density functions},%
+short={PDF},%
+shortplural={PDFs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{fim}{}%
+{%
+\gls@defglossaryentry{fim}%
+{%
+name={FIM},%
+sort={FIM},%
+type={acronym},%
+first={Fisher information matrix\glsspace (FIM)},%
+firstplural={Fisher information matrixs\glsspace (FIMs)},%
+text={FIM},%
+plural={FIMs},%
+description={Fisher Information Matrix},%
+descriptionplural={Fisher information matrix\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Fisher information matrix},%
+longplural={Fisher information matrixs},%
+short={FIM},%
+shortplural={FIMs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{mmse}{}%
+{%
+\gls@defglossaryentry{mmse}%
+{%
+name={MMSE},%
+sort={MMSE},%
+type={acronym},%
+first={minimum mean square error\glsspace (MMSE)},%
+firstplural={minimum mean square errors\glsspace (MMSEs)},%
+text={MMSE},%
+plural={MMSEs},%
+description={Minimum Mean Square Error},%
+descriptionplural={minimum mean square error\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={minimum mean square error},%
+longplural={minimum mean square errors},%
+short={MMSE},%
+shortplural={MMSEs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{snr}{}%
+{%
+\gls@defglossaryentry{snr}%
+{%
+name={SNR},%
+sort={SNR},%
+type={acronym},%
+first={signal-to-noise ratio\glsspace (SNR)},%
+firstplural={signal-to-noise ratios\glsspace (SNRs)},%
+text={SNR},%
+plural={SNRs},%
+description={Signal-to-Noise Ratio},%
+descriptionplural={signal-to-noise ratio\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={signal-to-noise ratio},%
+longplural={signal-to-noise ratios},%
+short={SNR},%
+shortplural={SNRs},%
+counter={page},%
+parent={},%
+%
+}%
+}%

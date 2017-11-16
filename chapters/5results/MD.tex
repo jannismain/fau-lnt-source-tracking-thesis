@@ -1,0 +1,24 @@
+\subsection{Minimum Distance of Sources}
+
+%% all-in-one boxplot
+\begin{figure}[H]
+    \setlength\figureheight{7cm}
+    \small
+    \setlength\figurewidth{\textwidth}
+	\centering
+	\begin{tikzpicture}
+	    \footnotesize
+	    \input{data/plots/boxplot-joined-md}
+	    \input{helpers/legends/md-legend}
+	\end{tikzpicture}
+	
+	\caption[Evaluation results for varying \glsentryshort{em} iterations]{Evaluation results for varying \glsentryshort{em} iterations: }
+	\label{fig:trial1}
+\end{figure}
+
+\begin{itemize}
+    \item increasing md does not yield better performance overall
+    \item for 0.1-0.5m, effect seems to be negligible
+    \item md=1.0m has severe negative effects on performance
+    \item this might be due to more sources being placed close to the wall (to follow the minimum distance requirement)
+\end{itemize}

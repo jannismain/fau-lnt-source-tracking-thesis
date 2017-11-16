@@ -62,7 +62,9 @@
 % plot figures and matlab output
 \usepackage{tikz}
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.8}  % only compat=1.8 solved compilation issues
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=newest}  % only compat=1.8 solved compilation issues
+\usepgfplotslibrary{groupplots}
 \usetikzlibrary{plotmarks}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{chains,positioning,shapes.symbols}
@@ -70,6 +72,7 @@
 \usetikzlibrary{trees}
 \usetikzlibrary{calc}
 \usepgfplotslibrary{patchplots}
+\input{helpers/pgfplotscustomlegend}
 
 % for automatically generated List of Abbreviations
 % add 'nonumberlist,' to options to see, how often you used acronym (remove ones only used once!)
