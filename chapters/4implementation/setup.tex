@@ -1,12 +1,25 @@
 \section{Setup}
 \label{sec:setup}
 
+%% tikz: setup
 %\begin{figure}[H]
 %	\centering
-%	\input{data/plots/setup/simulation-environment}
-%	\caption{Simulation Setup}
+
+%	\caption[Simulation Setup]{Simulation Setup: \itshape The microphones (green circles) are placed on a rectangular border around the possible source locations.}
 %	\label{fig:setup}
 %\end{figure}
+
+
+% setup (png)
+\begin{figure}[H]
+	\centering
+%	\input{data/plots/setup/simulation-environment} % tikz-data
+%   \includegraphics[width=\textwidth]{data/plots/setup/setup.pdf}
+	\includegraphics[width=0.8\textwidth]{data/plots/setup/setup-save.png}
+	\caption[Simulation Setup]{Simulation Setup: \itshape The microphones (green circles) are placed on a rectangular border around the possible source locations (white dots). Two example source positions are shown (red crosses).}
+	\label{fig:setup}
+\end{figure}
+
 
 The setup, that is going to be simulated, consists of a rectangular room with sides of 6 metres length in all 3 dimensions.\alt{, that is 6m wide, 6m long and 6m high.} Figure \ref{fig:setup} shows the room in blue color from a top-down perspective. Placed in this room, there are a total of 12 microphone pairs, 3 of them on each wall, shown in green. The sources are shown in red. The white dot matrix represents the discrete locations a source can be placed within the room. They also represent the mean of each component of the gaussian mixture model introduced in section \ref{sec:gmm}.
 

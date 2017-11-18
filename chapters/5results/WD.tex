@@ -1,4 +1,4 @@
-\subsection{Wall Distance}
+\subsubsection{Wall Distance}
 
 \begin{figure}[H]
     \setlength\figureheight{7cm}
@@ -11,6 +11,14 @@
 	    \input{helpers/legends/wd-legend}
 	\end{tikzpicture}
 	
-	\caption[Evaluation results for varying \glsentryshort{em} iterations]{Evaluation results for varying \glsentryshort{em} iterations: }
+	\caption[Evaluation results for varying required wall distances]{Evaluation results for varying required wall distances}
 	\label{fig:trial1}
 \end{figure}
+
+\begin{itemize}
+    \item wall distance seems to have no effect on localisation performance
+    \item for $S=3$, $S=4$ and $S=6$, requiring 1.5m distance from the wall seemed to have a slightly positive effect
+    \item but results from $S=5$ and $S=7$ are identical across all wall distances
+    \item Therefore, assumption that bad performance could be due to many sources near to a wall is not confirmed
+    \item Could be tested for larger room.
+\end{itemize}
