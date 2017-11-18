@@ -1,0 +1,65 @@
+% This file was created by matplotlib2tikz v0.6.13.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.8,0.207843137254902,0.219607843137255}
+\definecolor{color1}{rgb}{1,0.647058823529412,0}
+
+\begin{axis}[
+title={percent-matched},
+xlabel={number of sources},
+xmin=2, xmax=7,
+ymin=0, ymax=1,
+width=\figurewidth,
+height=\figureheight,
+tick align=outside,
+tick pos=left,
+x grid style={lightgray!92.026143790849673!black},
+ymajorgrids,
+y grid style={lightgray!92.026143790849673!black},
+legend style={at={(0.03,0.03)}, anchor=south west, draw=white!80.0!black},
+legend entries={{0.0},{0.3},{0.6},{0.9}},
+legend cell align={left}
+]
+\addlegendimage{no markers, color0}
+\addlegendimage{no markers, color1}
+\addlegendimage{no markers, black}
+\addlegendimage{no markers, lightgray!88.366013071895424!black}
+\addplot [semithick, color0, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.97
+3 0.956666666666667
+4 0.9025
+5 0.876
+6 0.836666666666667
+7 0.782857142857142
+};
+\addplot [semithick, color1, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.835
+3 0.79
+4 0.715
+5 0.64
+6 0.613333333333333
+7 0.585714285714286
+};
+\addplot [semithick, black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.703333333333333
+3 0.691111111111111
+4 0.571666666666667
+5 0.542666666666666
+6 0.506666666666667
+7 0.463809523809524
+};
+\addplot [semithick, lightgray!88.366013071895424!black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.69
+3 0.646666666666667
+4 0.5125
+5 0.464
+6 0.435
+7 0.452857142857143
+};
+\end{axis}
+
+\end{tikzpicture}

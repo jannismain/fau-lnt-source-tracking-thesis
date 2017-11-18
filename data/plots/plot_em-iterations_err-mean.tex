@@ -1,0 +1,86 @@
+% This file was created by matplotlib2tikz v0.6.13.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.8,0.207843137254902,0.219607843137255}
+\definecolor{color1}{rgb}{1,0.647058823529412,0}
+\definecolor{color2}{rgb}{1,0,1}
+
+\begin{axis}[
+title={err-mean},
+xlabel={number of sources},
+xmin=2, xmax=7,
+ymin=0, ymax=1,
+width=\figurewidth,
+height=\figureheight,
+tick align=outside,
+tick pos=left,
+x grid style={lightgray!92.026143790849673!black},
+ymajorgrids,
+y grid style={lightgray!92.026143790849673!black},
+legend entries={{1.0},{2.0},{3.0},{5.0},{10.0},{20.0}},
+legend style={at={(0.97,0.03)}, anchor=south east, draw=white!80.0!black},
+legend cell align={left}
+]
+\addlegendimage{no markers, color0}
+\addlegendimage{no markers, color1}
+\addlegendimage{no markers, black}
+\addlegendimage{no markers, lightgray!88.366013071895424!black}
+\addlegendimage{no markers, blue}
+\addlegendimage{no markers, color2}
+\addplot [semithick, color0, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.290719260974231
+3 0.479301880051738
+4 0.644171288750938
+5 0.744992267692781
+6 0.815194102350153
+7 0.80761917101706
+};
+\addplot [semithick, color1, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.245694149597362
+3 0.421649843327725
+4 0.500562120786198
+5 0.655687681534857
+6 0.633687481891525
+7 0.793106398964979
+};
+\addplot [semithick, black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.244192685094324
+3 0.318939976510832
+4 0.436516755504563
+5 0.540639551860509
+6 0.618377832825832
+7 0.708533647793283
+};
+\addplot [semithick, lightgray!88.366013071895424!black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.151357304870224
+3 0.298658572932984
+4 0.409077232118482
+5 0.502185647164528
+6 0.601037546098582
+7 0.635845669023758
+};
+\addplot [semithick, blue, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.156145785073103
+3 0.262900994349871
+4 0.444291990749065
+5 0.502497456459568
+6 0.536465373800886
+7 0.635142635271785
+};
+\addplot [semithick, color2, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.158641822221236
+3 0.292719119608
+4 0.407112096408886
+5 0.458557818271804
+6 0.545724599411615
+7 0.603303151192354
+};
+\end{axis}
+
+\end{tikzpicture}

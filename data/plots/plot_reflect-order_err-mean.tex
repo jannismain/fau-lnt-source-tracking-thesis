@@ -1,0 +1,76 @@
+% This file was created by matplotlib2tikz v0.6.13.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.8,0.207843137254902,0.219607843137255}
+\definecolor{color1}{rgb}{1,0.647058823529412,0}
+
+\begin{groupplot}[group style={group size=2 by 1}]
+\nextgroupplot[
+title={err-mean},
+xlabel={number of sources},
+xmin=2, xmax=7,
+ymin=-0.00571303830543312, ymax=0.713421039994003,
+width=\figurewidth,
+height=\figureheight,
+tick align=outside,
+tick pos=left,
+x grid style={lightgray!92.026143790849673!black},
+ymajorgrids,
+y grid style={lightgray!92.026143790849673!black},
+legend entries={{0.0},{0.3},{0.6},{0.9}},
+legend cell align={left},
+legend style={at={(0.03,0.97)}, anchor=north west, draw=white!80.0!black}
+]
+\addlegendimage{no markers, color0}
+\addlegendimage{no markers, color1}
+\addlegendimage{no markers, black}
+\addlegendimage{no markers, lightgray!88.366013071895424!black}
+\addplot [semithick, color0, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.0269748743445413
+3 0.0712166684215237
+4 0.150057864432994
+5 0.196400984911395
+6 0.27270871663034
+7 0.306155639455434
+};
+\addplot [semithick, color1, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.135697432443225
+3 0.258387337923922
+4 0.355145391920817
+5 0.425352528379001
+6 0.475037172376317
+7 0.440610233754545
+};
+\addplot [semithick, black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.212391176504161
+3 0.373945603251687
+4 0.507684598452675
+5 0.600228766303214
+6 0.651016756562493
+7 0.680733127344029
+};
+\addplot [semithick, lightgray!88.366013071895424!black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.310739077427797
+3 0.447976948247438
+4 0.600050529582967
+5 0.598839016965122
+6 0.569118058654893
+7 0.527771112822401
+};
+\nextgroupplot[
+xmin=0, xmax=1,
+ymin=0, ymax=1,
+width=\figurewidth,
+height=\figureheight,
+tick align=outside,
+tick pos=left,
+x grid style={lightgray!92.026143790849673!black},
+y grid style={lightgray!92.026143790849673!black}
+]
+\end{groupplot}
+
+\end{tikzpicture}

@@ -1,0 +1,97 @@
+% This file was created by matplotlib2tikz v0.6.14.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.8,0.207843137254902,0.219607843137255}
+\definecolor{color1}{rgb}{1,0.647058823529412,0}
+\definecolor{color2}{rgb}{0.67843137254902,0.847058823529412,0.901960784313726}
+
+\begin{groupplot}[group style={group size=2 by 1}]
+\nextgroupplot[
+title={err-mean},
+xlabel={number of sources},
+xmin=2, xmax=7,
+ymin=0, ymax=1,
+width=\figurewidth,
+height=\figureheight,
+tick align=outside,
+tick pos=left,
+x grid style={white!69.019607843137251!black},
+ymajorgrids,
+y grid style={white!69.019607843137251!black},
+legend style={draw=white!80.0!black},
+legend entries={{1.0},{2.0},{3.0},{5.0},{10.0},{20.0}},
+legend cell align={left}
+]
+\addlegendimage{no markers, color0}
+\addlegendimage{no markers, black}
+\addlegendimage{no markers, white!66.274509803921561!black}
+\addlegendimage{no markers, color1}
+\addlegendimage{no markers, white!82.745098039215677!black}
+\addlegendimage{no markers, color2}
+\addplot [semithick, color0, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.190394319050207
+3 0.368458090583068
+4 0.475745086991398
+5 0.500330079218482
+6 0.645164446861267
+7 0.596782206460275
+};
+\addplot [semithick, black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.166414145703544
+3 0.228449029399449
+4 0.385019190858925
+5 0.470564971707724
+6 0.520644747206863
+7 0.503231483026041
+};
+\addplot [semithick, white!66.274509803921561!black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.144525263875472
+3 0.221936069393418
+4 0.289137816427148
+5 0.434190002440601
+6 0.462829765845616
+7 0.444799555440508
+};
+\addplot [semithick, color1, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.122369494174645
+3 0.198970324699303
+4 0.246801848263101
+5 0.358590564635279
+6 0.459884468515692
+7 0.435271738130316
+};
+\addplot [semithick, white!82.745098039215677!black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.131990065555992
+3 0.201251606909904
+4 0.252334547493399
+5 0.297921032799044
+6 0.391135154155359
+7 0.426868759857961
+};
+\addplot [semithick, color2, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.0875191020418477
+3 0.183282502820624
+4 0.271062429520151
+5 0.320509605562337
+6 0.440016842622115
+7 0.395128847195643
+};
+\nextgroupplot[
+xmin=0, xmax=1,
+ymin=0, ymax=1,
+width=\figurewidth,
+height=\figureheight,
+tick align=outside,
+tick pos=left,
+x grid style={white!69.019607843137251!black},
+y grid style={white!69.019607843137251!black}
+]
+\end{groupplot}
+
+\end{tikzpicture}

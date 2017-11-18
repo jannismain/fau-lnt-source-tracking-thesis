@@ -1,0 +1,65 @@
+% This file was created by matplotlib2tikz v0.6.13.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.8,0.207843137254902,0.219607843137255}
+\definecolor{color1}{rgb}{1,0.647058823529412,0}
+
+\begin{axis}[
+title={err-mean},
+xlabel={number of sources},
+xmin=2, xmax=7,
+ymin=0, ymax=1,
+width=\figurewidth,
+height=\figureheight,
+tick align=outside,
+tick pos=left,
+x grid style={lightgray!92.026143790849673!black},
+ymajorgrids,
+y grid style={lightgray!92.026143790849673!black},
+legend style={at={(0.03,0.97)}, anchor=north west, draw=white!80.0!black},
+legend entries={{5.0},{10.0},{15.0},{30.0}},
+legend cell align={left}
+]
+\addlegendimage{no markers, color0}
+\addlegendimage{no markers, color1}
+\addlegendimage{no markers, black}
+\addlegendimage{no markers, lightgray!88.366013071895424!black}
+\addplot [semithick, color0, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.16686116069469
+3 0.422213097133528
+4 0.563753100309146
+5 0.68591160325343
+6 0.715251147815706
+7 0.784416072336388
+};
+\addplot [semithick, color1, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.167976535415891
+3 0.342733292505696
+4 0.450364275040593
+5 0.517048366044607
+6 0.623689289959315
+7 0.653849366388662
+};
+\addplot [semithick, black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.162629991309392
+3 0.260997266729381
+4 0.385346070039851
+5 0.505351501805889
+6 0.576869275028755
+7 0.599608939698411
+};
+\addplot [semithick, lightgray!88.366013071895424!black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.126900606755415
+3 0.17535286486772
+4 0.259255221515433
+5 0.384484224089875
+6 0.450466635242424
+7 0.510561751676641
+};
+\end{axis}
+
+\end{tikzpicture}

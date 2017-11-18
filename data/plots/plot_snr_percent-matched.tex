@@ -1,0 +1,65 @@
+% This file was created by matplotlib2tikz v0.6.13.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.8,0.207843137254902,0.219607843137255}
+\definecolor{color1}{rgb}{1,0.647058823529412,0}
+
+\begin{axis}[
+title={percent-matched},
+xlabel={number of sources},
+xmin=2, xmax=7,
+ymin=0, ymax=1,
+width=\figurewidth,
+height=\figureheight,
+tick align=outside,
+tick pos=left,
+x grid style={lightgray!92.026143790849673!black},
+ymajorgrids,
+y grid style={lightgray!92.026143790849673!black},
+legend entries={{5.0},{10.0},{15.0},{30.0}},
+legend style={draw=white!80.0!black},
+legend cell align={left}
+]
+\addlegendimage{no markers, color0}
+\addlegendimage{no markers, color1}
+\addlegendimage{no markers, black}
+\addlegendimage{no markers, lightgray!88.366013071895424!black}
+\addplot [semithick, color0, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.6675
+3 0.535
+4 0.45625
+5 0.381
+6 0.393333333333333
+7 0.351428571428572
+};
+\addplot [semithick, color1, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.7025
+3 0.61
+4 0.56
+5 0.533
+6 0.441666666666667
+7 0.418571428571429
+};
+\addplot [semithick, black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.740476190476191
+3 0.68095238095238
+4 0.598809523809524
+5 0.532380952380952
+6 0.488888888888889
+7 0.463945578231293
+};
+\addplot [semithick, lightgray!88.366013071895424!black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.802380952380952
+3 0.731746031746032
+4 0.695238095238095
+5 0.646666666666666
+6 0.565873015873016
+7 0.53469387755102
+};
+\end{axis}
+
+\end{tikzpicture}

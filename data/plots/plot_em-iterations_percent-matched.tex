@@ -1,0 +1,86 @@
+% This file was created by matplotlib2tikz v0.6.13.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.8,0.207843137254902,0.219607843137255}
+\definecolor{color1}{rgb}{1,0.647058823529412,0}
+\definecolor{color2}{rgb}{1,0,1}
+
+\begin{axis}[
+title={percent-matched},
+xlabel={number of sources},
+xmin=2, xmax=7,
+ymin=0, ymax=1,
+width=\figurewidth,
+height=\figureheight,
+tick align=outside,
+tick pos=left,
+x grid style={lightgray!92.026143790849673!black},
+ymajorgrids,
+y grid style={lightgray!92.026143790849673!black},
+legend style={at={(0.03,0.03)}, anchor=south west, draw=white!80.0!black},
+legend entries={{1.0},{2.0},{3.0},{5.0},{10.0},{20.0}},
+legend cell align={left}
+]
+\addlegendimage{no markers, color0}
+\addlegendimage{no markers, color1}
+\addlegendimage{no markers, black}
+\addlegendimage{no markers, lightgray!88.366013071895424!black}
+\addlegendimage{no markers, blue}
+\addlegendimage{no markers, color2}
+\addplot [semithick, color0, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.67
+3 0.524444444444445
+4 0.43
+5 0.368
+6 0.358888888888889
+7 0.341904761904762
+};
+\addplot [semithick, color1, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.663333333333333
+3 0.571111111111111
+4 0.51
+5 0.442666666666667
+6 0.457777777777778
+7 0.345714285714286
+};
+\addplot [semithick, black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.683333333333333
+3 0.633333333333333
+4 0.556666666666667
+5 0.469333333333333
+6 0.436666666666667
+7 0.384761904761905
+};
+\addplot [semithick, lightgray!88.366013071895424!black, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.733333333333333
+3 0.622222222222222
+4 0.578333333333333
+5 0.514666666666666
+6 0.433333333333333
+7 0.424761904761905
+};
+\addplot [semithick, blue, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.703333333333333
+3 0.691111111111111
+4 0.571666666666667
+5 0.542666666666666
+6 0.506666666666667
+7 0.463809523809524
+};
+\addplot [semithick, color2, mark=*, mark size=3, mark options={solid}]
+table {%
+2 0.74
+3 0.635555555555556
+4 0.615
+5 0.550666666666667
+6 0.501111111111111
+7 0.469523809523809
+};
+\end{axis}
+
+\end{tikzpicture}
