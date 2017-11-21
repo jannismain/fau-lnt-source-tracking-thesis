@@ -30,23 +30,22 @@ Finally, using the result of the algorithm derivation based on the \gls{fim} in 
 The two algorithms, however, do differ in the recursive update of the variance
 
 \paragraph{\glsentryshort{trem}}
-\begin{align}
-\label{eq:trem-var}
+\begin{align*}
     \sigma_R^{2,(t)} &= \sigma_R^{2,(t-1)}+\gamma_t\frac{1}{K\*\sum_{\bm p}\psiRPlast} \sum_{k,\bm p}\mulast\*\frac{1}{M}\sum_{m}|\phi_m(t,k)-\tilde\phi_m^k(\bm p)|^2-\sigma_{m,R}^{2,(t-1)}\\
                      &= \sigma_R^{2,(t-1)}+\gamma_t\frac{\sum_{k,\bm p}\mulast}{K\*\sum_{\bm p}\psiRPlast} \*\Bigg ( \frac{1}{M}\sum_{m}|\phi_m(t,k)-\tilde\phi_m^k(\bm p)|^2-\sigma_{m,R}^{2,(t-1)}\Bigg ).
-\end{align}
+\numberthis\label{eq:trem-var}
+\end{align*}
 
 \paragraph{\glsentryshort{crem}}
-\begin{align}
-\label{eq:crem-var}
+\begin{align*}
     \sigma_R^{2,(t)} = \sigma_R^{2,(t-1)}\cdot\frac{\sum_{\bm p}\psiRPlast}{\sum_{\bm p}\psiRPnow}&+\gamma_t\Bigg ( \frac{\sum_{k,\bm p,m}\mulast|\phi_m(t,k)-\tilde\phi_m^k(\bm p)|^2}{K \* M \* \sum_{\bm p}\psiRPnow}\\
     &-\sigma_R^{2,(t-1)}\frac{\sum_{\bm p}\psiRPlast}{\sum_{\bm p}\psiRPnow} \Bigg ).
-\end{align}
-
-The \gls{crem} algorithm is summarised in Algorithm \ref{alg:crem}
-The \gls{trem} algorithm is summarised in Algorithm \ref{alg:trem}
+\numberthis\label{eq:crem-var}
+\end{align*}
 
 \input{data/algorithms/alg-trem}
 
 \input{data/algorithms/alg-crem}
 
+The \gls{crem} algorithm is summarised in Algorithm \ref{alg:crem}.
+The \gls{trem} algorithm is summarised in Algorithm \ref{alg:trem}.
