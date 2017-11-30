@@ -8,6 +8,7 @@
 # LaTeX build files (taken from https://gist.github.com/kogakure/149016)
 *.aux
 *.glo
+*.glsdefs
 *.idx
 *.log
 *.toc
@@ -52,7 +53,17 @@ latex/proofing
 # PDF Files
 **main.pdf
 
-# matlab figures output
-*.eps
-*tikz.tex
-*fig.fig
+# Latexindent backup files
+**.bak*
+
+# tikz-externalize temp files
+**.dpth
+
+# graphics source files
+**.graffle
+**.graffle/**
+
+# non-tex pictures
+**.jpg
+**.png
+**.fig
