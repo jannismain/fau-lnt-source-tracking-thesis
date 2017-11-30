@@ -1,0 +1,34 @@
+% Configuration, so that floats take up less space!
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\setlength{\floatsep}{5pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{5pt plus 2pt minus 2pt}
+\setlength{\intextsep}{5pt plus 2pt minus 2pt}
+\tikzset{every picture/.style={scale=1.0}}
+
+\setlength\figureheight{7cm}
+\setlength\figurewidth{\textwidth}
+
+\section{Results}
+\label{chap:results}
+
+For all boxplots below, the x-axis represents the number of sources $S$, whereas the y-axis represents the mean localisation error in metre.
+
+\newcommand{\boxplotDescription}{Mean Localisation Error across Number of Sources $S$\ }
+
+%% all-in-one boxplot
+\begin{figure}[H]
+    \setlength\figurewidth{5cm}
+	\centering
+	\input{data/plots/reference/boxplot-reference}
+	\caption[Box plot reference]{Box plot reference: \itshape A common box plot consists of the following elements: the median, shown as a horizontal line, represents the 50\% percentile (also: second quantile) or the "middle" of the dataset by datapoints ordered from low to high values. The box around the median indicates the 25\% and 75\% percentile (also called first and third quantile). The mean, or "middle value" of the data by datapoint values, is represented by a cross. The vertical lines originating from the box are called whiskers and reach up to the 97.5 percentile or 2.5 percentile respectively.}
+	\label{fig:boxplot-reference}
+\end{figure}
+
+

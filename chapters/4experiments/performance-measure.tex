@@ -1,0 +1,83 @@
+\subsection{Localisation Performance Measure}
+\label{sec:performanceMeasure}
+
+Intuitively, the localisation error for a given source $s$ is given by the eucledian distance between the original source position and the location estimate
+
+\begin{equation}
+	\epsilon_s = \norm{\p_s-\hat\p_s}.
+	\label{eq:error}
+\end{equation}
+
+\paragraph{Aggregate Measure} Whenever the aggregation of data into a single measure is pursued, the loss of information about some of the original information is inevitable. Nevertheless, to evaluate and compare the results for different parameter sets, the raw data has to be aggregated in a way that allows for straight-forward comparison of the results. For this kind of error aggregation, there are several different measures used in the literature, the two most common of them being the \gls{mae} and the \gls{rmse}
+\begin{align}
+	\text{\glsentryshort{mae}}  & =\frac{1}{S}\sum_{s=1}^{S}\abs{\epsilon_s},    \\
+	\text{\glsentryshort{rmse}} & =\sqrt{\frac{1}{S}\sum_{s=1}^{S}\epsilon_s^2}.
+	\label{eq:mae}
+\end{align}
+
+The underlying assumption of the \gls{rmse} is an unbiased error that follows a normal distribution. This might be the case for trials, where localisation is severely affected by noise and reverberation, but does not fit trials, where localisation is generally good, meaning most errors are zero, and only few but large outliers occur. The \gls{rmse} overemphasises these outliers, whereas the \gls{mae} weights every error equal. Therefore, the \gls{mae} is a more accurate performance measure for the static localisation trials.
+
+\paragraph{Assigning Estimates} Note, that neither the localisation nor the tracking algorithm create an identity between original source location and location estimate, as the original source location is inherently unknown to the algorithm. Therefore, assigning this identity to compute a sensible localisation error introduces a bias, that depends on the assignment strategy. One way of assigning estimates to their respective true location would be to simply minimise the overall \gls{mae}. The downside with this approach is, that estimates close to one source might be assigned to another one, so that the overall error is minimised. In other words, one correctly and one incorrectly estimated source locations could result in an assignment, that states two incorrectly estimates sources, which is suboptimal if we want to evaluate, what the percentage of correct location estimates is across different trials. The solution is to assign estimates that are closer to one of the source positions first. This can be done by calculating the matrix of distances $\bm{D}_{ij}$ between the location estimates $\hat\p_s$ and the actual source positions $\p_s$
+
+\begin{equation}
+	\bm{D}_{ij}=
+	\begin{bmatrix}
+		d_{11} & d_{12} & \dots  & d_{1S} \\
+		d_{21} & d_{22} & \dots  & 0        \\
+		\vdots   & \vdots   & \ddots & \vdots   \\
+		d_{S1} & 0        & \dots  & d_{SS}
+	\end{bmatrix},
+\end{equation}
+
+where $i,j\ \in \{1,\dots,S\}$ and $d_{ij}$ denotes the distance between the $i$-th source position $\p_{s=i}$ and the $j$-th location estimate $\hat\p_{s=j}$. In this context, assigning estimates to source locations means selecting a combination of $S$ different $d_{ij}$, so that no column and no row is taken from twice. The Algorithm for this is described in \autoref{alg:assignment}. The result of this algorithm is a set of distances $\mathcal{D}$ (a possible result for $S=3$ would be $\mathcal{D}=\{d_{13}, d_{21}, d_{32}\}$, where the third location estimate is assigned to the first source location, the first estimate is assigned to the second source position and the second estimate is assigned to the third source position), which can then be used to calculate the \gls{mae} according to \eqref{eq:mae}
+\begin{equation}
+    \text{\glsentryshort{mae}}=\frac{1}{S}\sum_{d_{ij}\in\mathcal{D}}\abs{d_{ij}}
+\end{equation}
+
+When there are two minimum distances $d_{ij}$ of equal value, one is chosen that minimises the overall \gls{mae}. This can be done by carrying out the algorithm once for each possibility and choosing the assignments with the lower \gls{mae}.
+\begin{algorithm}[!b]
+\caption{Assigning Location Estimates to Source Positions}
+\label{alg:assignment}
+\begin{algorithmic}
+    \While{$\bm{D}_{ij}$ has elements}
+    \State find smallest $d_{ij}\ \in\ \bm{D}_{ij}$ 
+    \State eliminate $i$-th row and $j$-th column of $\bm{D}_{ij}$
+    \EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[H]
+% three plots
+%	\begin{subfigure}{0.32\textwidth}
+%	\centering
+%%		\includegraphics[width=\textwidth]{data/plots/reference/assignment-problematic-MANUAL2}  % PLACEHOLDER
+%        \footnotesize
+%        \setlength{\figurewidth}{0.95\textwidth}
+%        \setlength{\figureheight}{5cm}
+%        \input{data/plots/reference/assignment-clear}
+%		\caption{Easy Assignment}
+%	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+	\centering
+	     \footnotesize
+        \setlength{\figurewidth}{0.8\textwidth}
+        \setlength{\figureheight}{6cm}
+        \input{data/plots/reference/assignment-debatable}
+        %		\includegraphics[width=\textwidth]{data/plots/reference/assignment-problematic-MANUAL}  % PLACEHOLDER
+		\caption{Hard Assignment}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+	\centering
+%		\includegraphics[width=\textwidth]{data/plots/reference/assignment-problematic-ambivalent}  % PLACEHOLDER
+		 \footnotesize
+		 \setlength{\figurewidth}{0.8\textwidth}
+        \setlength{\figureheight}{6cm}
+        \input{data/plots/reference/assignment-ambiguous}
+		\caption{Ambiguous}
+	\end{subfigure}
+	\caption[Examples for Ambiguous Location Estimate Assignment Situations]{Examples for Ambivalent Location Estimate Assignment Situations: \itshape Source locations are shown in red, location estimates are shown in yellow. In Example 1, minimising the \glsentryshort{mae} will assign the yellow location estimate besides the left source to the right source. For Example 2, iteratively assigning closest estimates per source and starting with the right source will assign the left estimate to the right source. Both assignments strategies have scenarios in which the resulting assignment does not match the intuitive assignment.}
+	\label{fig:assignmentExample}
+\end{figure}
+
+%ALTERNATIVE:
+%There are two solutions to this problem. First, each estimate could be matched to it's closest original position, going from closest to farthest. The problem with this strategy is, that it depends on the order the estimates are assigned. The example presented in \autoref{fig:assignmentExample} illustrates, how assigning the estimate closest to $S_1$ first yields a different solution, than assigning the estimate for $S_2$ first. Therefore, a second option would be to optimise for the total mean localisation error by choosing an assignment, that minimises the overall error. This strategy determines an assignment that is optimal in an \gls{mmse} sense, but might be removed from the true origins of the location estimates. In \autoref{fig:assignmentExample}, the assignment with the minimum overall error would assign the location estimate close to $S_1$ to $S_2$, despite the fact that it almost correctly identified $S_1$. Therefore, both ways of assigning estimates to their assumed original location to calculate the mean localisation error are flawed. To be able to compare the results of trials with different parameter sets across many, randomly generated source configurations, one of these measures has to be chosen.

@@ -1,4 +1,4 @@
-\section{Location Estimation}
+\section{Source Localisation}
 \label{sec:algLocEst}
 %\begin{itemize}
 %\item mehr Zwischenschritte
@@ -40,7 +40,9 @@ The probability density of $\bm z$ can be written as  %TODO: argue this step
 \end{equation}
 
 %TODO: Besser herausarbeiten, das mean = PRP reading
-where $\bm\theta=[\bm\psi,\sigma^2]$ is the set of target parameters. Note, that $\mu$ is not part of this set, as the Gaussian components in this model are evenly spaced throughout the room and each component mean corresponds to one gridpoint. This deviates from the way the \gls{em} algorithm is commonly used together with a \gls{gmm}, where, in addition to the Gaussian component weights $\bm\psi$, generally both mean and covariance are part of the estimation.
+where $\bm\theta=[\bm\psi,\sigma^2]$ is the set of target parameters.
+
+%Note, that $\mu$ is not part of this set, as the Gaussian components in this model are evenly spaced throughout the room and each component mean corresponds to one gridpoint. This deviates from the way the \gls{em} algorithm is commonly used together with a \gls{gmm}, where, in addition to the Gaussian component weights $\bm\psi$, generally both mean and covariance are part of the estimation.
 
 As was described in Section \ref{sec:em} and further argued above, due to the complexity involved when maximising the log-likelihood function of the observations $\ln p(\phi;\psi, \sigma^2)$ directly, a tight lower bound at $\theta^{(l-1)}$ is derived and maximised instead. This lower-bound will utilize the latent variable to reduce complexity of the optimisation problem and is given in \eqref{eq:L} . From \eqref{eq:L} one can see, that to evaluate this function, the complete-data likelihood $p(\phi,\bm z; \theta)$ as well as the conditional likelihood $p(\bm z\given{\phi, \theta^{(l-1)}})$ is required. Given the hidden data, the conditional likelihood of the observations is given by:
 \begin{equation}
@@ -76,10 +78,6 @@ The conditional probability of $p(\bm z\given{\phi})$ is given by Bayes theorem:
 This probability can also be interpreted as the responsibility that the Gaussian component at position $\bm p$ takes for explaining the observation $\phi$ in time-frequency-bin $(t,k)$ \cite[p.432]{Bishop2006}.
 
 \subsubsection*{E-Step}
-Copy of Q-function only for reference, will be removed later!
-\begin{equation}
-    \Q=\sum_\vect{Z}p(\vect{Z}\given{\vect{X}, \theta^{(l-1)}})\ln p(\vect{X},\vect{Z}\given{\theta}).
-\end{equation} 
 Inserting \eqref{eq:responsibility} and \eqref{eq:complete-data} into \eqref{eq:e-step} yields the complete $\mathcal{Q}$-function
 \begin{align}
     \Q &=E\left\{\ln(f(\phi,\vect{z};\theta))\mid \phi;\theta^{\text{old}}\right\}=\\

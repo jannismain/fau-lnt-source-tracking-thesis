@@ -1,0 +1,27 @@
+\subsection{Evaluation Scenarios}
+\subsubsection{Default Parameter Set}
+
+\paragraph{Simulation}
+The microphones are simulated to be omnidirectional, meaning they record sound equally well for all directions, mounted at 1m height and directed towards the middle of the room. The value of \Tsixty for a domestic or office environment usually ranges between $0.2$s and $0.8$s \cite[p.695]{Gannot2017}. For the most realistic simulation, the reflection order should be unconstrained. In this case however, where a lot of trials are required to reliably show the effects different values for a single parameter could have on the localisation performance of the algorithm, a maximum order of 3 was chosen to reduce the computational complexity. For trials, where specifically the reverberation is examined, this constraint is lifted and the reflection order is unconstrained.
+
+\subsubsection{Source Localisation}
+There are many parameters that each could have an effect on the performance of the localisation. The ones most often cited in the literature are the amount of reverberation, given as the time it takes for the reverberation to decay by 60dB (\Tsixty), as well as the amount of noise added to the received signals (\emph{SNR}). Other factors include the number of simultaneously simulated sources ($S$), which has an impact on the sparsity assumption of the received signal. The number of \gls{em} iterations $L$ presumably has a positive effect on localisation accuracy, whereas it is also the main driver of computational complexity, as the iterations cannot be executed in parallel due to the data dependency within and across iterations. Further, the individual speech samples might have an effect on the localisation performance, as different samples exhibit different frequency spectra and speech activity over time. After confirming that the order of speech samples used in the evaluation indeed had an effect on the mean error of the location estimates, the order of speech samples used for each trial was randomised for all further trials. The set of speech samples itself consists of 7 anechoic recordings, that can be accessed by visiting the website referenced in \cite{Mainczyk2017}.
+\input{data/tables/parameters}
+
+\subsubsection{Source Tracking}
+To compare both the \gls{trem} and \gls{crem} variants of the source tracking algorithm, three scenarios with two sources each will be compared. In the first scenario, the sources move on a linear trajectory parallel to each other. In the second scenario, they move in a linear trajectory and cross paths. The last scenario consists of the two sources moving on a curved trajectory, each following the shape of a half-circle. The source trajectories are shown in Figure
+\begin{itemize}
+    \item ...using ref \ref{fig:evalScenarios}
+    \item ...using cref \cref{fig:evalScenarios}
+    \item ...using autoref \autoref{fig:evalScenarios}
+\end{itemize}
+
+\begin{figure}[!htb]
+\label{fig:evalScenarios}
+    \setlength\figureheight{4cm}
+    \setlength\figurewidth{\textwidth}
+    \input{data/plots/tracking/evaluation-scenarios}
+    \caption[Source Tracking Evaluation Scenarios]{Source Tracking Evaluation Scenarios: \itshape ...}
+\end{figure}
+
+

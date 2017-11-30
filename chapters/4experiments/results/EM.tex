@@ -1,0 +1,32 @@
+\clearpage
+\subsubsection{EM-Iterations}
+
+%% all-in-one boxplot
+\begin{figure}[H]
+	\begin{tikzpicture}
+	    \input{data/plots/boxplot-joined-em}
+	    \input{helpers/legends/em-legend}
+	\end{tikzpicture}
+	\caption[Evaluation results for varying \glsentryshort{em} iterations]{Evaluation results for varying \glsentryshort{em} iterations}
+	\label{fig:resultsEM}
+\end{figure}
+
+\begin{itemize}
+\item more iterations in general decrease mean estimation error
+\item effect of iterations is decreasing with increasing iterations
+\item 1 iteration has considerable worse performance than all others
+\item from 3 on, performance is rather stable
+\item improvement from 10 to 20 iterations not consistent across number of sources 
+\item improvement from 5 to 10 iterations only visible for 5 and 6 sources
+\item Therefore, 5 iterations is validated as good balance between estimation performance and computational complexity
+\end{itemize}
+
+
+
+%% Example for a table
+%\begin{table}[H]
+%\label{table:resultsEM}
+%    \centering\small
+%    \input{data/tables/results-em}
+%\caption{Mean Localisation Error across \# of sources and \glsentryshort{em} iterations ($n=200$)}
+%\end{table}

@@ -1,0 +1,17 @@
+\subsection{Source Tracking}
+
+\begin{figure}[H]
+    \setlength\figureheight{4cm}
+    \input{data/plots/tracking/variance-comparison}
+    \caption[Estimated Variance for TREM \& CREM over Time]{Estimated Variance for TREM \& CREM over Time: \itshape }
+    \label{fig:trackVarComp}
+\end{figure}
+
+\subsubsection{Comparison of Variance Estimation}
+As has been shown in \autoref{sec:algSrcTrack}, the \gls{trem} and \gls{crem} variants of the tracking algorithm only differ in the estimation of the variance parameter. \autoref{fig:trackVarComp} shows, how both algorithms update $\sigma^2$ for different initial values $\sigma^{2,(0)}\ \in\ \{0.1, 0.5, 1, 2, 5\}$ over time. It can be seen, that \gls{crem} converges significantly faster from the initial value to the variance inherent to the data. While \gls{crem} seems to follow the inherent variance from $t=40$ onwards, \gls{trem} takes until $t=100$ to fully converge for an initial variance of $\sigma^{2,(0)}=5$. This means, that an initial variance that is far from the inherent variance will lead to inferior localisation performance with the \gls{trem} algorithm in the beginning, while the variance estimation of the \gls{crem} algorithm is more robust to such an initialisation. After both algorithms variance estimates have converged onto the inherent variance, the estimates are the same for both \gls{crem} and \gls{trem}. So the difference in variance estimation only has an effect on the treatment of the initial value. In conclusion, if the initial variance is choosen to be close to the inherent variance, variance estimation yields the same results for both algorithms. Should the initial variance deviate from the variance inherent to the data, \gls{crem} offers variance estimates closer to the true variance than \gls{trem} in the beginning. After a certain amount of timesteps have been processed, both algorithms converge onto the same variance estimates.
+
+\begin{itemize}
+    \item The variance inherent to the data seems to range from 0.8 to 1.8
+\end{itemize}
+
+\subsubsection{Comparison of Source Tracking}

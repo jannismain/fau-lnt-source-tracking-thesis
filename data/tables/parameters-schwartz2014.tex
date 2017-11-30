@@ -1,0 +1,33 @@
+\begin{table}[htb]
+	\centering
+	\begin{tabular}{lcccc}
+		\toprule
+		Parameter                      & Symbol              & Unit & Value                    \\%& Origin      \\
+		\midrule
+		Room                           &                     & m    & 6 x 6 x 6.1              \\%& environment \\
+		Number of sources              & $S$                 &      & 2                        \\%& environment \\
+		Distance between microphones   & $d_m$               & m    & 0.2                      \\%& environment \\
+		Microphones distance from wall & wd$_m$              & m    & 1                        \\%& environment \\
+		Receiver Positions             & $\bm p_m^i$         & m    & $\bm p_1^1$= [1.8, 1, 1] \\%& environment \\
+		                               &                     &      & $\bm p_1^2=$ [2.0, 1, 1] \\%&             \\
+		                               &                     &      & $\bm p_2^1=$ [2.4, 1, 1] \\%&             \\
+		                               &                     &      & $\bm p_2^2=$ [2.6, 1, 1] \\%&             \\
+		                               &                     &      & $\bm p_3^1=$ [3.6, 1, 1] \\%&             \\
+		                               &                     &      & $\bm p_3^2=$ [3.8, 1, 1] \\%&             \\
+		                               &                     &      & \vdots                   \\%&             \\
+		Source Positions               & $\bm p_s$           & m    & $s=1$: [2.6, 2.3, 1]     \\%& environment \\
+		                               &                     &      & $s=2$: [3.4, 2.3, 1]     \\%&             \\
+		Reverberation Time             & \Tsixty             & s    & 0.4, 0.7                 \\%& environment \\
+		Signal-to-Noise Ratio          & SNR                 & dB   & 30                       \\%& environment \\
+		Sampling frequency             & $f_s$               & Hz   & 16000                    \\%& simulation  \\
+		\glsentryshort{stft} Frequency Bins      & $K$                 &      & 1024                     \\%& simulation  \\
+		Selected Frequency Bins        & $k$                 &      & 32 : 96                  \\%& simulation  \\
+		Selected Frequency Band        &                     & Hz   & 500 - 1500               \\%& simulation  \\
+		EM iterations                  & $L$                 &      & 10                       \\%& algorithm   \\
+		Initial variance               & $\sigma^{2, (0)}_s$ &      & 1 $\forall\ s$           \\%& algorithm   \\
+		Fixed variance                 &                     &      & false                    \\%& algorithm   \\
+		\bottomrule
+	\end{tabular}
+	\label{table:parameters-schwartz14}
+	\caption[Parameter Set used in \cite{Schwartz2014}]{Parameter Set used in \cite{Schwartz2014}: \itshape }
+\end{table}

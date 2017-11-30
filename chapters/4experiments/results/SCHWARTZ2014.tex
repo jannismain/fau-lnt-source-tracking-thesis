@@ -1,0 +1,19 @@
+\subsubsection{Replication of Experiments in \citeauthor{Schwartz2014} \citeyearpar{Schwartz2014}}
+As already mentioned in Chapter \ref{chap:algorithms}, the algorithm developed in \cite{Schwartz2014} included the calculation of multiple Gaussian component weight vectors $\psi_{\bm p, s}\in \{\psi_{\bm p, 1}, \dots, \psi_{\bm, S}\}$, one for each source $s$. In their evaluation of static localisation of two sources, they initialised $\psi_{\bm p, 1}$ to have a uniform distribution across the left side of the room and $\psi_{\bm p, 2}$ to have a uniform distribution across the right side of the room. The variance has been initialised to $\sigma^2_s=1\ \forall\ s$. The complete parameter set, that was used in \cite{Schwartz2014}, is shown in Table \ref{table:parameters-schwartz14}. The position of the sensor nodes was not stated explicitely, but could be inferred from a diagram that displayed the setup, similar to Figure \ref{fig:setup}.				
+
+\input{data/tables/parameters-schwartz2014}
+
+
+\subsubsection*{Replica}
+\begin{figure}[!htb]
+ \centering
+ \begin{subfigure}{\textwidth}
+    \includegraphics[width=\textwidth]{data/plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.4-prior=schwartz2014-results}
+    \caption{\Tsixty$=0.4$}
+ \end{subfigure}\\
+ \begin{subfigure}{\textwidth}
+    \includegraphics[width=\textwidth]{data/plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.7-prior=schwartz2014-results}
+    \caption{\Tsixty$=0.7$}
+ \end{subfigure}
+ \caption{Results of replicated static evaluation experiment in \cite{Schwartz2014}}
+\end{figure}

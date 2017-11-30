@@ -1,0 +1,30 @@
+\subsubsection{Fixed Variance}
+
+Now, fixed variance:
+
+%% Combined Box Plot
+\begin{figure}[H]
+	\begin{tikzpicture}
+	    \input{data/plots/boxplot-joined-var-val}
+	    \input{helpers/legends/variance-legend}
+	\end{tikzpicture}
+	
+	\caption{Evaluation results for fixed and estimated variance}
+	\label{fig:boxplotVariance}
+\end{figure}
+
+\begin{itemize}
+    \item Extreme values for fixed variance yield significant worse performance than more moderate values
+    \item Optimal variance seems to be around 2
+    \item 0.1 and 0.5 were outperformed across all number of sources
+    \item 1, 2 and 3 performed almost equally well, although 3 was slightly worse for 4-6 sources
+\end{itemize}
+
+If the variance is not fixed and initialised with the
+
+\begin{itemize}
+    \item Localisation performance basically identical across different $\sigma^2_0$
+    \item Looks like variance converges to a value quickly, so different initialisations have no effect
+    \item Now of interest, which value the variance converges to when estimated
+    \item Fixed variance trials allow for the assumption, that estimated variance converges to a value between 1 and 3
+\end{itemize}

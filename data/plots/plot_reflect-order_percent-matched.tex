@@ -1,125 +1,61 @@
-% This file was created by matplotlib2tikz v0.6.13.
+% This file was created by matplotlib2tikz v0.6.14.
 \begin{tikzpicture}
 
 \definecolor{color0}{rgb}{0.8,0.207843137254902,0.219607843137255}
-\definecolor{color1}{rgb}{1,0.647058823529412,0}
 
 \begin{groupplot}[group style={group size=2 by 1}]
 \nextgroupplot[
 title={err-mean},
 xlabel={number of sources},
 xmin=2, xmax=7,
-ymin=-0.00571303830543312, ymax=0.713421039994003,
+ymin=0, ymax=2,
 width=\figurewidth,
 height=\figureheight,
 tick align=outside,
 tick pos=left,
-x grid style={lightgray!92.026143790849673!black},
+x grid style={white!69.019607843137251!black},
 ymajorgrids,
-y grid style={lightgray!92.026143790849673!black},
-legend entries={{0.0},{0.3},{0.6},{0.9}},
-legend cell align={left},
-legend style={at={(0.03,0.97)}, anchor=north west, draw=white!80.0!black}
+y grid style={white!69.019607843137251!black},
+legend entries={{3.0}},
+legend style={draw=white!80.0!black},
+legend cell align={left}
 ]
 \addlegendimage{no markers, color0}
-\addlegendimage{no markers, color1}
-\addlegendimage{no markers, black}
-\addlegendimage{no markers, lightgray!88.366013071895424!black}
 \addplot [semithick, color0, mark=*, mark size=3, mark options={solid}]
 table {%
-2 0.0269748743445413
-3 0.0712166684215237
-4 0.150057864432994
-5 0.196400984911395
-6 0.27270871663034
-7 0.306155639455434
-};
-\addplot [semithick, color1, mark=*, mark size=3, mark options={solid}]
-table {%
-2 0.135697432443225
-3 0.258387337923922
-4 0.355145391920817
-5 0.425352528379001
-6 0.475037172376317
-7 0.440610233754545
-};
-\addplot [semithick, black, mark=*, mark size=3, mark options={solid}]
-table {%
-2 0.212391176504161
-3 0.373945603251687
-4 0.507684598452675
-5 0.600228766303214
-6 0.651016756562493
-7 0.680733127344029
-};
-\addplot [semithick, lightgray!88.366013071895424!black, mark=*, mark size=3, mark options={solid}]
-table {%
-2 0.310739077427797
-3 0.447976948247438
-4 0.600050529582967
-5 0.598839016965122
-6 0.569118058654893
-7 0.527771112822401
+2 0.0296667030735178
+3 0.0965481492755678
+4 0.179320645677461
+5 0.234189242665891
+6 0.310387185297969
+7 0.344562920530815
 };
 \nextgroupplot[
 title={percent-matched},
 xlabel={number of sources},
 xmin=2, xmax=7,
-ymin=-4.84227031934876e+18, ymax=2.30584300921369e+17,
+ymin=0, ymax=1,
 width=\figurewidth,
 height=\figureheight,
 tick align=outside,
 tick pos=left,
-x grid style={lightgray!92.026143790849673!black},
+x grid style={white!69.019607843137251!black},
 ymajorgrids,
-y grid style={lightgray!92.026143790849673!black},
-legend entries={{0.0},{0.3},{0.6},{0.9}},
-legend style={at={(0.97,0.03)}, anchor=south east, draw=white!80.0!black},
+y grid style={white!69.019607843137251!black},
+legend entries={{3.0}},
+legend style={draw=white!80.0!black},
 legend cell align={left}
 ]
 \addlegendimage{no markers, color0}
-\addlegendimage{no markers, color1}
-\addlegendimage{no markers, black}
-\addlegendimage{no markers, lightgray!88.366013071895424!black}
 \addlegendimage{no markers, color0}
-\addlegendimage{no markers, color1}
-\addlegendimage{no markers, black}
-\addlegendimage{no markers, lightgray!88.366013071895424!black}
 \addplot [semithick, color0, mark=*, mark size=3, mark options={solid}]
 table {%
-2 -1.2297829382473e+18
-3 0.935777777777779
-4 -6.14891469123652e+17
-5 0.857199999999991
-6 -4.09927646082433e+17
-7 0.789809523809525
-};
-\addplot [semithick, color1, mark=*, mark size=3, mark options={solid}]
-table {%
-2 -6.83212743470724e+17
-3 0.682400000000004
-4 -3.68934881474191e+17
-5 0.558042553191487
-6 -2.67344117010282e+17
-7 0.474906832298138
-};
-\addplot [semithick, black, mark=*, mark size=3, mark options={solid}]
-table {%
-2 0.696875
-3 0.603993055555556
-4 0.5328125
-5 0.473020833333332
-6 0.435763888888889
-7 0.397619047619051
-};
-\addplot [semithick, lightgray!88.366013071895424!black, mark=*, mark size=3, mark options={solid}]
-table {%
-2 -4.61168601842739e+18
-3 0.553333333333333
-4 -2.30584300921369e+18
-5 0.386000000000001
-6 -1.53722867280912e+18
-7 0.352380952380953
+2 0.97
+3 0.922777777777778
+4 0.87625
+5 0.838333333333338
+6 0.78361111111111
+7 0.774523809523808
 };
 \end{groupplot}
 

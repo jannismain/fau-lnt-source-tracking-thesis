@@ -538,3 +538,63 @@ parent={},%
 %
 }%
 }%
+\ifglsentryexists{mae}{}%
+{%
+\gls@defglossaryentry{mae}%
+{%
+name={MAE},%
+sort={MAE},%
+type={acronym},%
+first={mean absolute error\glsspace (MAE)},%
+firstplural={mean absolute errors\glsspace (MAEs)},%
+text={MAE},%
+plural={MAEs},%
+description={Mean Absolute Error},%
+descriptionplural={mean absolute error\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={mean absolute error},%
+longplural={mean absolute errors},%
+short={MAE},%
+shortplural={MAEs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{rmse}{}%
+{%
+\gls@defglossaryentry{rmse}%
+{%
+name={RMSE},%
+sort={RMSE},%
+type={acronym},%
+first={root mean squared error\glsspace (RMSE)},%
+firstplural={root mean squared errors\glsspace (RMSEs)},%
+text={RMSE},%
+plural={RMSEs},%
+description={Root Mean Squared Error},%
+descriptionplural={root mean squared error\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={root mean squared error},%
+longplural={root mean squared errors},%
+short={RMSE},%
+shortplural={RMSEs},%
+counter={page},%
+parent={},%
+%
+}%
+}%

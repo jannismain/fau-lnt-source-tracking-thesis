@@ -1,6 +1,42 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX engine = lualatex
+% !TEX outputDirectory = .build
+
+\documentclass[12pt,twoside,a4paper]{report}
+    
+    % Setting dimensions of...
+    \setlength{\textwidth}{15.5 true cm}
+    \setlength{\textheight}{22 true cm}
+    \oddsidemargin  0.5 cm
+    \evensidemargin 0.5 cm
+    \topmargin      0 cm
+    \parindent 		0 cm
+    
+    \usepackage{amsmath}
+
+\begin{document}
+
 \chapter{Chapter}
 \section{Section}
 \subsection{Subsection}
 \subsubsection{Subsubsection}
 \paragraph{Paragraph}
 \subparagraph{Subparagraph}
+
+This sets two formulae in the same row and assigns them two distinct numbers:
+
+\noindent\begin{minipage}{0.5\linewidth}
+	\begin{equation}
+		2+2=4,
+		\label{eq:mae}
+	\end{equation}
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+	\begin{equation}
+		\text{RMSE}=\sqrt{\frac{1}{S}\sum_{s=1}^{S}\epsilon_s^2}.
+		\label{eq:mae}
+	\end{equation}
+\end{minipage}\par\vspace{\belowdisplayskip}
+
+\end{document}
+

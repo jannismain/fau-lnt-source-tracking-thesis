@@ -10,7 +10,11 @@
 
 
 % LINKS
+\usepackage{cleveref}  
+\crefname{algorithm}{algorithm}{algorithms}
 \usepackage{hyperref}
+\newcommand{\algorithmautorefname}{Algorithm}
+\usepackage{varioref}  % for references like "...Figure 5.4 on page 24."
 
 % enable fancy header
 \usepackage{fancyhdr}
@@ -56,9 +60,6 @@
 % include files without using 'include'
 \usepackage{import}  % circumvent "nested include" error  
 
-% Reference TODO's in latex files
-% \usepackage{todo} % many crashes since using this!
-
 % plot figures and matlab output
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -73,6 +74,8 @@
 \usetikzlibrary{calc}
 \usepgfplotslibrary{patchplots}
 \input{helpers/pgfplotscustomlegend}
+\usepgfplotslibrary{external}
+\tikzexternalize[prefix=data/ext]
 
 % for automatically generated List of Abbreviations
 % add 'nonumberlist,' to options to see, how often you used acronym (remove ones only used once!)
@@ -85,9 +88,14 @@
 \usepackage[numbered,autolinebreaks,useliterate]{mcode}
 
 % force position of figures
-\usepackage{float} 
+\usepackage{float}  % provides [H] option to stop floating environments from floating
 \usepackage{longtable}  % allow for tables to break across pages
+\usepackage[section]{placeins}  % provides \FloatBarrier (automatically after section)
 %\setlength{\LTleft}{0pt}
+% automatically add \centering to every float environment!
+\makeatletter
+\g@addto@macro\@floatboxreset{\centering}
+\makeatother
 
 % % Profiling of LaTeX Code
 % \usepgflibrary{profiler}

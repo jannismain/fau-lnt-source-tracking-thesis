@@ -1,8 +1,8 @@
 \renewcommand{\baselinestretch}{1.5}
 \renewcommand{\captionfont}{\linespread{1}\normalsize}
 \renewcommand{\textfraction}{0}
-\newcommand{\matlab}{Matlab\textsuperscript{\textregistered} }
-\newcommand{\alt}[1]{}
+\newcommand{\matlab}{Matlab\textsuperscript{\textregistered}\ }
+\newcommand{\alt}[1]{}  % used to keep alternative phrasings in source but not printed (comments need to be on seperate line)
 
 \newcommand{\mathgloss}[2]{%
     \newglossaryentry{#1}{name={#1},description={#2}}%
@@ -23,3 +23,8 @@
 
 %% TEXT MAKROS
 \setlist{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}  % to have bullet points in a more condensed form
+
+%% FORMATTING
+% format tikz-figures size exported from python or matlab
+\newlength\figureheight \setlength\figureheight{8cm}
+\newlength\figurewidth  \setlength\figurewidth{8cm}

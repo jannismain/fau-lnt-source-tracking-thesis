@@ -1,0 +1,16 @@
+\subsubsection{T60}
+%% all-in-one boxplot
+\begin{figure}[H]
+	\begin{tikzpicture}
+	    \input{data/plots/boxplot-joined-T60}
+	    \input{helpers/legends/T60-legend}
+	\end{tikzpicture}
+	\caption{\boxplotDescription for Different \glsentryshort{em} Iterations}
+	\label{fig:trial1}
+\end{figure}
+
+\begin{itemize}
+    \item Longer T60 increases mean error and therefore decreased localisation performance
+    \item Interestingly, T60=0.9s yielded better localisation than T60=0.6s for 5-7 sources
+    \item The variance of the results increases with T60 for 2-4 sources. After that, the variance of the results is high regardless of T60, which could mean, that the sparsity assumption does not hold anymore and the effect the number of sources has on the localisation error is greater than the effect the reverberation time has.
+\end{itemize}

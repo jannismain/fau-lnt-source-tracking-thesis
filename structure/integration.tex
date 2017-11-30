@@ -1,102 +1,106 @@
 % TITLE
- \input{structure/title-page}
-\input{helpers/empty-page}
-\addtocounter{page}{-1}
-
-% Declaration
-\newpage
-\chapter*{Declaration of Authorship}
-\thispagestyle{empty}
-\input{structure/declaration}
+ \include{structure/title-page}
+%%\include{helpers/empty-page}
+%\addtocounter{page}{-1}
+%
+%% Declaration
+%\newpage
+%\chapter*{Declaration of Authorship}
+%\thispagestyle{empty}
+%\include{structure/declaration}
 \pagenumbering{Roman}
-\input{helpers/empty-page}
-\thispagestyle{empty}
-\cleardoublepage
-
+%%\include{helpers/empty-page}
+%%\thispagestyle{empty}
+%%\cleardoublepage
+%
 % Table of Contents
 \addtocounter{page}{-2}
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{3}  %END: probably set this back to 1 or 2, 3 was only to quickly see structure from ToC
 \tableofcontents
  \clearpage
-
-
-%% Summary
-%\input{helpers/empty-page}
-\renewcommand{\chaptermark}[1]{}
-\chaptermark{Abstract}
-
-\input{helpers/empty-page}
-\chapter*{Abstract}
-\addcontentsline{toc}{chapter}{Abstract}
-\input{structure/abstract}
-\clearpage
+%
+%
+%%% Summary
+%%\include{helpers/empty-page}
+%\renewcommand{\chaptermark}[1]{}
+%\chaptermark{Abstract}
+%
+%\include{helpers/empty-page}
+%\chapter*{Abstract}
+%\addcontentsline{toc}{chapter}{Abstract}
+%\include{structure/abstract}
+%\clearpage
 \renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thechapter \ #1}}{}}
 
 \renewcommand{\chaptermark}[1]{ \markboth{ \uppercase{#1}}{}} 
 \renewcommand{\sectionmark}[1]{ \markright{ \uppercase{#1}}{}} 
-
-% List of Abbreviations
+%
+%% List of Abbreviations
 \input{other/acronyms}
-
-% List of Symbols
+%
+%% List of Symbols
 
 \input{structure/symbols}
-\clearpage
-%\input{helpers/empty-page}
-
-
-%%%%%%%%%%%%%%%%%%%  Main Text  %%%%%%%%%%%%%%%%%%%
+%%\include{helpers/empty-page}
+%
+%
+%%%%%%%%%%%%%%%%%%%%  Main Text  %%%%%%%%%%%%%%%%%%%
 
 % Formula Margins
 \setlength{\belowdisplayskip}{0.5cm}
 \setlength{\belowdisplayshortskip}{0.5cm}
+
+\newcounter{romanpagenumber}%
+\setcounter{romanpagenumber}{\number\value{page}}%
+%\setcounter{page}{0}
 \pagenumbering{arabic}
+
 \renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
 %\renewcommand{\chaptermark}[1]{\markright{\uppercase{\thechapter.\ #1}}{}}
 \renewcommand{\sectionmark}[1]{\markright{\uppercase{\thesection.\ #1}}{}}
 
-%% CHAPTER 1: INTRODUCTION
-%\input{chapters/1intro/intro}
-%\input{chapters/1intro/applications}
-%\input{chapters/1intro/literature-research}
-%\input{chapters/1intro/research-problem}
-%\input{chapters/1intro/constraints}
-%\input{chapters/1intro/structure}	
-%\input{chapters/1intro/notation}
-%
-%% CHAPTER 2: THEORETICAL BACKGROUND
-%\input{chapters/2theory/theory-intro}
-%
-%\input{chapters/2theory/sigmodel}
-%\input{chapters/2theory/gmm}
-%\input{chapters/2theory/em}
-%\input{chapters/2theory/theory-summary}
-%
-% CHAPTER 3: DERIVATION OF ALGORITHMS
-\input{chapters/3algorithms/algorithms-intro}
-\input{chapters/3algorithms/prob-model}
-\input{chapters/3algorithms/location-estimation}
-\input{chapters/3algorithms/source-tracking}
-\input{chapters/3algorithms/algorithms-summary}
-%
-% CHAPTER 4: IMPLEMENTATION
-\input{chapters/4implementation/implementation-intro}
-\input{chapters/4implementation/setup}
-\input{chapters/2theory/simulation}
-\input{chapters/4implementation/simulation-framework}
-\input{chapters/4implementation/source-tracking} 
-\input{chapters/4implementation/evaluation-scenarios.tex}
+% CHAPTER 1: INTRODUCTION
+\include{chapters/1intro/intro}
+\include{chapters/1intro/applications}
+\include{chapters/1intro/literature-research}
+\include{chapters/1intro/research-problem}
+\include{chapters/1intro/constraints}
+\include{chapters/1intro/structure}	
 
-% CHAPTER 5: RESULTS
-% This chapter drastically increases compilation time. Only include this, if you really need to!
-\input{chapters/5results/RESULTS-INTRO}
-\input{chapters/5results/LOCATION-ESTIMATION}
-\input{chapters/5results/SOURCE-TRACKING}
+% THEORETICAL BACKGROUND
+\include{chapters/2theory/theory-intro}
+\include{chapters/2theory/sigmodel}
+\include{chapters/2theory/gmm}
+\include{chapters/2theory/em}
+\include{chapters/2theory/theory-summary}
+%
+% DERIVATION OF ALGORITHMS
+\include{chapters/3algorithms/algorithms-intro}
+\include{chapters/3algorithms/prob-model}
+\include{chapters/3algorithms/location-estimation}
+\include{chapters/3algorithms/source-tracking}
+\include{chapters/3algorithms/algorithms-summary}
 
-%% CHAPTER 6: CONCLUSION
-\input{chapters/6conclusion/conclusion-intro}
-\input{chapters/6conclusion/critical_review}
-\input{chapters/6conclusion/further_research}
+% EXPERIMENTS
+\include{chapters/4experiments/experiments-intro}
+
+\include{chapters/4experiments/methodology-intro}
+\include{chapters/4experiments/setup}
+\include{chapters/4experiments/simulation}
+\include{chapters/4experiments/performance-measure}
+\include{chapters/4experiments/evaluation-scenarios}
+
+\include{chapters/4experiments/implementation-intro}
+\include{chapters/4experiments/simulation-framework}
+
+% This part drastically increases compilation time. Only include this, if you really need to!
+\include{chapters/4experiments/results/results-intro}
+\include{chapters/4experiments/results/location-estimation}
+\include{chapters/4experiments/results/source-tracking}
+
+\include{chapters/5conclusion/conclusion-intro}
+\include{chapters/5conclusion/main-findings}
+\include{chapters/5conclusion/critical_review}
 
 
 %\include{helpers/testbed}
@@ -105,21 +109,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  D O C U M E N T  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  A P P E N D I X  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \appendix
-% 	\renewcommand{\chaptermark}[1]{\markboth{\uppercase{Appendix \thechapter:\ #1}}{}}
-% %	\todos
-%	
-% 	\chapter{Formulas}
-% 	\input{chapters/appendix/log-rules}
-% 	\chapter{Code}
-% 	\input{data/code/code}
-%     \chapter{Results}
-%% 	\input{chapters/appendix/trials-tables}
-%     \input{chapters/appendix/general-crem}
-%	
-% 	\clearpage
-% 	\newpage
+\pagenumbering{roman}% 
+\setcounter{page}{\number\value{romanpagenumber}}
+ \appendix
+ 	\renewcommand{\chaptermark}[1]{\markboth{\uppercase{Appendix \thechapter:\ #1}}{}}
+ %	\todos
+	\setcounter{\pagebreak}
+ 	\chapter{Formulae}
+ 	\include{chapters/appendix/log-rules}
+ 	\chapter{Code}
+ 	\include{data/code/code}
+     \chapter{Results}
+     \include{chapters/appendix/results/schwartz2014-overview-plot}
+     
+% 	\include{chapters/appendix/trials-tables}
+%     \include{chapters/appendix/general-crem}
+	
+ 	\clearpage
+ 	\newpage
 
 % LIST OF FIGURES
 \addcontentsline{toc}{chapter}{List of Figures}
