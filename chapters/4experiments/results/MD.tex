@@ -1,20 +1,14 @@
-\subsubsection{Minimum Distance of Sources}
+\subsubsection*{Minimum Distance of Sources}
 
 %% all-in-one boxplot
 \begin{figure}[H]
-	\begin{tikzpicture}
-	    \input{data/plots/boxplot-joined-md}
-	    \input{helpers/legends/md-legend}
-	\end{tikzpicture}
-	\caption[Evaluation results for varying \glsentryshort{em} iterations]{Evaluation results for varying \glsentryshort{em} iterations: }
-	\label{fig:trial1}
+\iftoggle{quick}{%
+    \includegraphics[width=\textwidth]{plots/boxplots/boxplot-joined-md}
+}{%
+    \input{plots/boxplots/boxplot-joined-md-complete}
+}
+	\caption[Evaluation Results for $d_{s,\text{min}}$]{Evaluation Results for $d_{s,\text{min}}$ ($n=200$).}
+	\label{fig:trialMD}
 \end{figure}
-
-The mean localisation error for a minimum required source distance seems to be identical for 0.1m - 0.5m. With a required distance of 1.0m although, localisation performance deteriorates significantly for $S>3$. This is surprising, as intuitively, the more space there is between the sources, the easier it should be for the algorithm to estimate the location for each individual source more precisely. 
-
-\begin{itemize}
-    \item increasing md does not yield better performance overall
-    \item for 0.1-0.5m, effect seems to be negligible
-    \item md=1.0m has severe negative effects on performance
-    \item this might be due to more sources being placed close to the wall (to follow the minimum distance requirement)
-\end{itemize}
+%TODO: Review this in light of updated boxplot!
+The expected effect of a higher required minimum distance of sources is, that it improves localisation, as it eliminates the cases, in which localisation fails due to the sources being too close together. The results for $S=2$ to $S=4$ shown in \autoref{fig:trialMD} seem to indicate a tendency of this being the case, but in general, this effect could not be validated. In contrast, a minimum required distance of 1.0m increases the mean localisation error significantly for $S>3$ compared to md$=0.5$m. This is surprising, as intuitively, the more space there is between the sources, the easier it should be for the algorithm to estimate the location for each individual source more precisely. One presumption that could explain this behaviour is, that a minimum required distance of 1m is actually disadvantageous, because it forces more sources to be closer to the microphones. The space in the middle of the room is considered favorable for localisation, as each microphone pair will provide good readings of sources there. Therefore, the space close to or around the microphone pairs is deemed unfavourable, as the microphones close to the source might have a steep angle of incidence in relation to the source signal, and the other microphones are far away and presumably dominated by other sources signals. The liberal space requirements could mean, that more sources are placed in these unfavourable positions, thereby decreasing localisation performance. A preliminary investigation in the extreme coordinates of these trials did provide some evidence that this is indeed the case, but further examination is necessary to fully account for this behaviour.

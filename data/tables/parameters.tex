@@ -1,19 +1,25 @@
-\newcommand{\default}[1]{\textbf{#1}}
 \begin{table}[H]
-	\centering
-	\begin{tabular}{lcccc}
+	\begin{tabular}{rccc}
 		\toprule
-		Parameter          & Unit & Symbol       & Tested Values                 & Origin      \\
+		Parameter                      & Unit & Symbol           & Tested Values                  \\
 		\midrule
-		Reflection Order      & $r$  &              & 1, \default{3}, max           & simulation \\
-		Number of Sources  &      & $S$          & \default{2 - 7}               & environment \\
-		Reverberation Time & s    & \Tsixty      & 0.0, \default{0.3}, 0.6, 0.9  & environment \\
-		SNR                & dB   &              & \default{0}, 5, 10, 15, 30    & environment \\
-		EM Iterations      &      & $L$          & 1, 2, 3, \default{5}, 10, 20  & algorithm   \\
-		Initial Variance   &      & $\sigma^{2,(0)}$ & \default{0.1}, $0.5$, 1, 2, 5 & algorithm   \\
-		Fixed Variance     &      &              & \default{false}, true         & algorithm   \\
+		Room Dimensions                & m    &                  & 6 x 6 x 6.1                    \\
+		Distance between microphones   & m    & $d_m$            & 0.2                            \\
+		Microphone's distance from wall & m    & $d^w_m$           & 1                              \\
+		Microphone Positions           & m    & $\bm p_m^i$      & see \autoref{fig:setup}        \\
+		Minimum distance between sources & m    & $d_{s,\text{min}}$            & 0.5                            \\
+		Minimum source distance from wall & m    & $d^w_{s,\text{min}}$           & 1.2                              \\
+		Number of Sources              &      & $S$              & \default{2 - 7}                \\
+		Source Positions               & m    & $\bm p_s$        & random ($\bm p_s\in \pall_s$)                        \\
+		Sampling frequency             & Hz   & $f_s$            & 16,000                         \\
+		Reflection Order               &      & $r$              & 1, \default{3}, max            \\
+		Reverberation Time             & s    & \Tsixty          & 0.0, \default{0.3}, 0.6, 0.9   \\
+		SNR                            & dB   &                  & \default{no noise}, 5, 10, 15, 30     \\
+		EM Iterations                  &      & $L$              & 1, 2, 3, \default{5}, 10, 20   \\
+		Initial Variance               &      & $\sigma^{2,(0)}$ & \default{0.1}, $0.5$, 1, 2, 5  \\
+		Fixed Variance                 &      &                  & \default{false}, true          \\
 		\bottomrule
 	\end{tabular}
+	\caption[Parameter Set for Evaluation]{Parameter Set for Evaluation: \itshape The \textbf{default values} are set in bold. They provide a simulation environment that includes some reverberation, while keeping the computational complexity low enough to allow for a range of different evaluations and a large sample size per trial. Note, that both \Tsixty and the reflection order are chosen conservatively compared to real-world scenarios, where \Tsixty$\in [0.2, 0.8]$ for a domestic or office environment \cite[p.695]{Gannot2017}.}
 	\label{table:parameterset}
-	\caption[Parameter Set for Evaluation]{Parameter Set for Evaluation: \itshape The \textbf{default values} are set in bold. They provide a simulation environment that includes some reverberation, while keeping the computational complexity low enough to allow for a range of different evaluations and a large sample size per trial. Note, that both T$_{60}$ and the reflection order are chosen conservatively compared to real-world scenarios, where T$_{60}\in [0.2, 0.8]$ for a domestic or office environment \cite[p.695]{Gannot2017}.}
 \end{table}

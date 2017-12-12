@@ -4,6 +4,7 @@
 # Configuration directories
 .texpadtmp
 *.Ulysses*
+.vscode
 
 # LaTeX build files (taken from https://gist.github.com/kogakure/149016)
 *.aux

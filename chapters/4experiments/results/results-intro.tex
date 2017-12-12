@@ -9,7 +9,7 @@
 \renewcommand{\textfraction}{0.1}
 \setlength{\floatsep}{5pt plus 2pt minus 2pt}
 \setlength{\textfloatsep}{5pt plus 2pt minus 2pt}
-\setlength{\intextsep}{5pt plus 2pt minus 2pt}
+%\setlength{\intextsep}{5pt plus 2pt minus 2pt}
 \tikzset{every picture/.style={scale=1.0}}
 
 \setlength\figureheight{7cm}
@@ -18,17 +18,19 @@
 \section{Results}
 \label{chap:results}
 
-For all boxplots below, the x-axis represents the number of sources $S$, whereas the y-axis represents the mean localisation error in metre.
+The source localisation results will be presented in the form of box plots, where the x-axis displays the number of sources $S$ and the y-Axis displays the \gls{mae}, as defined in \eqref{eq:mae}, in metre. A common box plot as shown in \autoref{fig:boxplot-reference} consists of the following elements: the median, displayed as a horizontal line, represents the 50\% percentile (also: second quantile) or the "middle" of the dataset by datapoints ordered from low to high values. The box around the median indicates the 25\% and 75\% percentile (also called first and third quantile). The range between the first and third quantile is called the \gls{iqr}. The mean value of the data is represented by a cross. The vertical lines originating from the box are called whiskers and span $1.5$ times the \gls{iqr} repectively. Every datapoint with a value higher (lower) than the value corresponding to the 75\% (25\%) percentile plus (minus) $1.5\times$\gls{iqr} is considered an outlier and plotted as a transparent dot. The more outliers there are with the same value, the darker the corresponding dot will appear.
 
-\newcommand{\boxplotDescription}{Mean Localisation Error across Number of Sources $S$\ }
-
-%% all-in-one boxplot
-\begin{figure}[H]
-    \setlength\figurewidth{5cm}
-	\centering
-	\input{data/plots/reference/boxplot-reference}
-	\caption[Box plot reference]{Box plot reference: \itshape A common box plot consists of the following elements: the median, shown as a horizontal line, represents the 50\% percentile (also: second quantile) or the "middle" of the dataset by datapoints ordered from low to high values. The box around the median indicates the 25\% and 75\% percentile (also called first and third quantile). The mean, or "middle value" of the data by datapoint values, is represented by a cross. The vertical lines originating from the box are called whiskers and reach up to the 97.5 percentile or 2.5 percentile respectively.}
+\begin{figure}[!bht]
+	\setlength\figurewidth{5cm}
+	\iftoggle{quick}{%
+		\includegraphics[width=\textwidth]{plots/boxplots/boxplot-reference-sc}
+	}{%
+		\input{plots/boxplots/boxplot-reference}
+	}
+	\caption[Box Plot Reference]{Box Plot Reference: \itshape a common box plot includes indications of the first (lower box boundary), second (line through box) and third (upper box boundary) quantile as well as some form of demarkation between the main part of the data (whiskers) and the outliers (dots). A cross has been added to indicate the mean value.}
 	\label{fig:boxplot-reference}
 \end{figure}
+
+
 
 

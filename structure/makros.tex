@@ -2,29 +2,54 @@
 \renewcommand{\captionfont}{\linespread{1}\normalsize}
 \renewcommand{\textfraction}{0}
 \newcommand{\matlab}{Matlab\textsuperscript{\textregistered}\ }
-\newcommand{\alt}[1]{}  % used to keep alternative phrasings in source but not printed (comments need to be on seperate line)
+\newcommand{\alt}[1]{}  % used to keep alternative phrasings in source but not printed (comments need to be on separate line)
 
-\newcommand{\mathgloss}[2]{%
-    \newglossaryentry{#1}{name={#1},description={#2}}%
-    \begin{description}[labelwidth=3em]%
-      \item[\gls{#1}]#2%
-    \end{description}%
-}
+\setcounter{secnumdepth}{3}  % More Levels of Headings are numbered
+
+% automatically add \centering to every float environment!
+\makeatletter
+\g@addto@macro\@floatboxreset{\centering}
+\makeatother
+
+% vertically align floats on "float only" pages
+\makeatletter
+\setlength{\@fptop}{0pt plus 1fil}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
 
 %% MATH MAKROS
 \counterwithout{equation}{chapter}  % to have consecutive numbers for equations
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\arglmax}{arg\,lmax}
 \newcommand{\given}[1]{\vert #1} % for more expressive parameters
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
-
-%% CODE MAKROS
-\newcommand{\code}[1]{\lstinline[basicstyle=\ttfamily]{#1}}  % used to display code fragments inline
+\newcommand{\numberthis}{\addtocounter{equation}{1}\tag{\theequation}}
 
 %% TEXT MAKROS
 \setlist{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}  % to have bullet points in a more condensed form
+
 
 %% FORMATTING
 % format tikz-figures size exported from python or matlab
 \newlength\figureheight \setlength\figureheight{8cm}
 \newlength\figurewidth  \setlength\figurewidth{8cm}
+% format text consistently
+\newcommand{\bestc}[1]{\textcolor{OliveGreen}{#1}}
+\newcommand{\worstc}[1]{\textcolor{Mahogany}{#1}}
+\newcommand{\default}[1]{\textbf{#1}}
+
+%% Glossaries
+\makeglossaries
+
+\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
+\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thesection.\ #1}}{}}
+\let\orisectionmark\sectionmark
+\renewcommand{\sectionmark}[1]{\label{sec:#1}\orisectionmark{#1}}
+
+%% Faster Compilation Times despite FREAKIN' SLOW TIKZ
+\label{toggles}
+\newtoggle{quick}
+\toggletrue{quick}
+
+\newtoggle{nice}
+\togglefalse{nice}

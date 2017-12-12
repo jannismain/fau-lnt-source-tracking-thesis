@@ -6,9 +6,9 @@
   two children at (0.5,-0.7) and (0.5,-1.4)},
   edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
   \node {src} 
-    child { node [selected] {config-update}}
+    child { node [selected] {set-parameters}}
     child { node [selected] {simulate}}
     child { node [optional] {em-algorithm}}
     child { node [optional] {find-maxima}}
-    child { node [selected] {assign-estimates}};
+    child { node [selected] {estimation-error}};
 \end{tikzpicture}

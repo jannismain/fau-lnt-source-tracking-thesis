@@ -1,16 +1,13 @@
-\subsubsection{T60}
+\subsubsection*{Reverberation Time}
 %% all-in-one boxplot
 \begin{figure}[H]
-	\begin{tikzpicture}
-	    \input{data/plots/boxplot-joined-T60}
-	    \input{helpers/legends/T60-legend}
-	\end{tikzpicture}
-	\caption{\boxplotDescription for Different \glsentryshort{em} Iterations}
-	\label{fig:trial1}
+\iftoggle{quick}{%
+    \includegraphics[width=\textwidth]{plots/boxplots/boxplot-joined-T60}
+}{%
+    \input{plots/boxplots/boxplot-joined-T60-complete}
+}%
+	\caption[Evaluation Results for Varying \Tsixty]{Evaluation Results for Varying \Tsixty ($n=250$, $r=$~max)}
+	\label{fig:trialT60}
 \end{figure}
 
-\begin{itemize}
-    \item Longer T60 increases mean error and therefore decreased localisation performance
-    \item Interestingly, T60=0.9s yielded better localisation than T60=0.6s for 5-7 sources
-    \item The variance of the results increases with T60 for 2-4 sources. After that, the variance of the results is high regardless of T60, which could mean, that the sparsity assumption does not hold anymore and the effect the number of sources has on the localisation error is greater than the effect the reverberation time has.
-\end{itemize}
+For this trial, the maximum reflection order $r$ has been adjusted from its base value of $r=3$ to maximum, in order to allow for full simulation of all reverberations for \nolinebreak{\Tsixty$=0.9$~s} and not cut off the \gls{rir} prematurely due to a low $r$. The general effect to be observed is that a longer reverberation time strongly increases the localisation error. This effect is especially accentuated for fewer sources, as for these, the localisation error usually is quite low. \Tsixty$=0.9$~s has a significant negative effect on the localisation performance for two sources, as it increases the median localisation error to around $0.4$m, the mean to over $0.5$m and the upper whisker reaches up to $2$m. Localisation in these conditions is much less reliable and the variance of the localisation error is increased strongly. Interestingly, the upper whisker of \Tsixty$=0.9$~s is generally lower the more sources are added to the simulation and the mean \gls{mae} for both \Tsixty$=0.6$~s and \Tsixty$=0.9$~s when adding a seventh source. This reflects the effect additional sources had on the trials in \autoref{fig:trialCases}, where location estimates have been guessed. This does not mean that the algorithm performs better the more sources there are, but rather indicates that there is less chance for the location estimates to be wrong.

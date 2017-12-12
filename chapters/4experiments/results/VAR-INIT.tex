@@ -1,0 +1,14 @@
+\subsubsection*{Initial Variance}
+
+% BOXPLOT
+\begin{figure}[H]
+\iftoggle{quick}{
+    \includegraphics[width=\textwidth]{plots/boxplots/boxplot-joined-var-val-est}
+}{%
+    \input{plots/boxplots/boxplot-joined-var-val-est-complete}
+}
+	\caption[Evaluation Results for Varying Initial Variances]{Evaluation Results for Varying Initial Variances ($L=10$, $n=200$)}
+	\label{fig:trialVarianceNotFixed}
+\end{figure}
+
+For this trial the number of \gls{em} iterations is increased to $L=10$, as the convergence properties of the variance is examined. As \autoref{fig:trialVarianceNotFixed} shows, the initial variance $\sigma^{2, \text{(0)}}$ does not have a consistent effect on the localisation performance. For $S=7$ there is a slight improvement evident for higher $\sigma^{2, \text{(0)}}$, but for $S=3$ lower initial variances seem to do slightly better. Overall, the difference among different $\sigma^{2, \text{(0)}}$ is very small and likely not attributable to any advantage, a certain initial value might have over another. This could be explained by a fast convergence speed of the variance, so that initial values within a reasonable range as those that have been tested in this trial have no bearing on the localisation performance. As \cite{Schwartz2014} used a fixed variance, the next evaluation will show, whether setting a fixed variance will lead to an advantage in localisation performance.

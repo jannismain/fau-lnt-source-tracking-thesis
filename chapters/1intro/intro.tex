@@ -1,27 +1,9 @@
 \chapter{Introduction}
-\label{chap:intro}
 
-With the proliferation of smart-home devices, the complexity of controlling these devices...
+\section{Motivation}
+% Application Scenarios
+Interest in the acoustic source localisation and tracking research field is driven by the wide variety of possible application scenarios. With the recent proliferation of smart-home devices, speech has become an important interface for users to interact with these devices in a multitude of different environments. For products like the Amazon Echo or Google Home Speakers, voice is the main interface through which users access the products functionality, making the task of reliable speech recognition detrimental to the market success of these products. Among many other factors, the accuracy of these speech recognition schemes depend on the quality of the received signal. Spatial filtering can increase the quality of the received signal by excluding some of the noise, reverberation and interfering speakers. Therefore, source localisation and source tracking can be seen as important preprocessing steps for reliable speech recognition in adverse environments. Other application scenarios, where speaker localisation and tracking could aid speech recognition, include robot audition \cite{Frechette2012}, \cite{Evers2015} and automatic speech transcription in meeting room \cite{Busso2005} or lecture hall \cite{Parviainen2006} environments. In \cite{Frechette2012}, the word recognition rate of a robot was improved by incorporating source seperation, localisation and tracking schemes into the robot's audition module.  Apart from speech recognition, source localisation and tracking can also be useful in and of itself, one example being automated steering for surveillance or teleconference cameras \cite{Wang1997}.
 
-In the advent of smart-home...
-
-\begin{itemize}\itemsep1pt
-\item Smart Home?!!!
-\item Internet of Things
-\item Increasing Complexity
-\item Audio Interface
-\begin{itemize}\itemsep1pt
-\item Smart Phone (2007)
-\item Headsets
-\item Dictation
-\item Command \& Control
-\end{itemize}
-\item Interaction of Machine and Humans
-\begin{itemize}\itemsep1pt
-\item PC/Laptop -> both stationary
-\item Smartphone -> Microphone is now moved around
-\item Smart Home -> Device is stationary, Human is moving around while talking
-\end{itemize}
-\item Human-Machine-Interface
-\item Machine Learning
-\end{itemize}
+\input{chapters/1intro/literature-research}
+\input{chapters/1intro/constraints}
+\input{chapters/1intro/structure}	

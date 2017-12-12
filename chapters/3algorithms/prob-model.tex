@@ -1,49 +1,43 @@
-\section{Probabilistic Model} \label{sec:prob_model}
+\section{Probabilistic Model}
+\label{sec:prob_model}
 
-First, a set of location vectors $\pall=\{\p_{1,1},\dots,\p_{X,Y}\}$ is introduced, that addresses all possible positions either a source or a receiver can be in. These discrete locations shall have a certain resolution that, together with the enclosure dimensions, determines the size of $\pall$ and therefore the computational complexity of the model, with respect to all other parameters being equal. Each element of $\pall$ corresponds to one component of the \gls{gmm}.
-
-
-As described in Section \ref{sec:signal}, rather then using the received signal $x$ as observed feature directly, we defined the \gls{prp} readings in \eqref{eq:prp} as our observations, which will be modelled as a mixture of complex Gaussian distributions
+% Introduction of grid points
+First, a set of location vectors $\pall=\{\p_{1,1},\dots,\p_{X,Y}\}$ is introduced, that addresses all possible positions either a source or a microphone can be in. These discrete locations shall have a certain resolution that, together with the enclosure dimensions, determines the size of $\pall$ and therefore the computational complexity of the model, with respect to all other parameters being equal. Each element of $\pall$ corresponds to one component of the \gls{gmm}. 
+As described in Section \ref{sec:signal}, rather then using the received signal $x_{sm}^i(t,k)$ as observed feature directly, we defined the \gls{prp} readings in \eqref{eq:prp} as our observations, which will be modelled as a mixture of complex Gaussian distributions
 \begin{equation}
-	\prp(t,k)\sim\sum_{\bm p}\psi_{\bm p}\cdot\mathcal{N}^c\big(\prp(t,k);\tilde\prp^k(\bm p),\Sigma\big),
+	\prp(t,k)\sim\sum_{s,\bm p}\psips\cdot\mathcal{N}^c\big(\prp(t,k);\tilde\prp^k(\bm p),\Sigma_s\big),
 \label{eq:phi_gmm}
 \end{equation}
 
-where $\psip$ denotes the probability or weight of the Gaussian distribution at gridpoint $\bm p$ to be associated with an active source and $\tilde\phi^k_m$ describes the \gls{prp} in all possible gridpoints $\bm p$ for microphone pair $m$
+where $\psips$ denotes the probability or weight of the Gaussian distribution at gridpoint $\bm p$ to be associated with source $s$ and $\tilde{\bm\phi}^k=\text{vec}_{m}(\tilde\phi^k_m)$ describes the \gls{prp} at gridpoint $\bm p$ for microphone pair $m$
 
 \begin{equation}
-    \tilde\phi^k_m(\bm p)=\exp{\left (-j\frac{2\pi k}{K}\cdot\frac{\|\bm p-\bm p^2_m\|-\|\bm p-\bm p^1_m\|}{c\ T_s}\right )}.
+    \tilde\phi^k_m(\bm p)=\exp{\left (-j\frac{2\pi k}{K}\cdot\frac{\|\bm p-\bm p^2_m\|-\|\bm p-\bm p^1_m\|}{c~T_s}\right )}.
 \label{eq:phi_tilde}
 \end{equation}
 
-As the \glspl{prp} of the different sensor nodes $m$ are subject to different reverberation effects, they are assumed to be independent. This way, the covariance matrix can be simplified to $\bm\Sigma=\text{diag}(\sigma^2_{1}, \sigma^2_{2}, \dots, \sigma^2_{M})$, which lets us replace the covariance matrix by its diagonal elements when computing the product over all receiver pairs $M$
+As the \glspl{prp} of the different microphone pairs $m$ are subject to different reverberation effects, they are assumed to be independent. This way, the covariance matrix can be simplified to $\Sigma_s=\text{diag}(\sigma^2_{s1}, \sigma^2_{s2}, \dots, \sigma^2_{sM})$, where the diag$(\cdot)$ operator describes a diagonal matrix, where the elements in braces are placed on the main diagonal, whereas all other entries of the matrix are equal to 0. This lets us replace the covariance matrix by its diagonal elements when computing the product over all $M$ microphone pairs 
 \begin{equation}
-    \mathcal{N}^c(\phi_m(t,k);\tilde\phi^k_m(\bm p),\bm\Sigma)=\prod_m \mathcal{N}^c(\phi_m(t,k);\tilde\phi^k_m(\bm p),\sigma^2_m).
+    \mathcal{N}^c(\phi(t,k);\tilde\phi^k_m(\bm p),\Sigma)=\prod_m \mathcal{N}^c(\phi_m(t,k);\tilde\phi^k_m(\bm p),\sigma^2_{sm}).
 \end{equation}
 
 Inserting these parameters into the definition of the complex Gaussian distribution \eqref{eg:complexGaussianDef} yields
 \begin{equation}
-    \mathcal{N}^c\big(\phi_m(t,k);\tilde\phi_m^k(\bm p),\sigma_{m}^2\big)=\frac{1}{\pi\sigma_{m}^2}\cdot\exp\left (-\frac{\left|\phi_m(t,k)-\tilde\phi_m^k(\bm p)\right|^2}{\sigma_{m}^2} \right ).
+    \mathcal{N}^c\big(\phi_m(t,k);\tilde\phi_m^k(\bm p),\sigma_{sm}^2\big)=\frac{1}{\pi\sigma_{sm}^2}\cdot\exp\left (-\frac{\left|\phi_m(t,k)-\tilde\phi_m^k(\bm p)\right|^2}{\sigma_{sm}^2} \right ).
 \label{eq:gaussian}
 \end{equation}
 
-%TODO: erkläre, was varianz constraint bedeutet
-In \cite{Schwartz2014}, the variance has been further simplified to $\sigma_{m}^2=\sigma^2\ \forall\ m$. As this formula has to be evaluated for each observed \gls{prp} per time-frequency-bin and speakers display $w$-disjoint orthogonal activity in the \gls{stft}-domain, the complete observation set is defined by:
+In \cite{Schwartz2014}, the variance has been further simplified to $\sigma_{sm}^2=\sigma_s^2\ \forall\ m$, so it is held constant across all microphone pairs. As this formula has to be evaluated for each observed \gls{prp} per time-frequency-bin, which are assumed to be independent, the complete observation set is defined by:
 \begin{equation}
-    p(\bm\phi; \bm\psip,\sigma^2)=\prod_{t,k}\sum_{\bm p}\psi_{\bm p}\prod_m\mathcal{N}^c\big(\phi_m(t,k);\tilde\phi^k_m(\bm p),\sigma^2_{s}\big)
+    f(\bm\phi;\bm\psi,\bm\sigma^2)=\prod_{t,k}\sum_{s,\bm p}\psi_{s\bm p}\prod_m\mathcal{N}^c\big(\phi_m(t,k);\tilde\phi^k_m(\bm p),\sigma^2_{s}\big),
 \end{equation}
 
-The optimization problem to be solved can be stated as:
+where $\bm\phi=\text{vec}_{m,t,k}(\phi_m(t,k))$ is a concatenated vector of $\phi_m(t,k)$ over all time-frequency-bins $(t,k)$ and microphone pairs $m$. Similar, the remaining parameters can be expressed in vector-form by $\bm\psi=\text{vec}_{s,\bm p}(\psips)$ and $\bm\sigma^2=\text{vec}_{s}(\sigma_s^2)$. With these vectors the optimization problem to be solved can be stated as:
 \begin{equation}
-    \left\{\hat{\bm\psi}_{\bm p},\hat\sigma^2\right\}=\argmax_{\psi, \sigma^2}\ln f(\phi_m;\bm\psip,\sigma^2)
+    \left\{\hat{\bm\psi},\hat{\bm\sigma}^2\right\}=\argmax_{\bm\psi, \bm\sigma^2}\ln f(\bm\phi;\bm\psi,\bm\sigma^2),
 \label{eq:mle}
 \end{equation}
 
-%TODO: Kapitel ausweiten
-\begin{itemize}
-    \item Herleitung, mehr Erklärung der einzelen Schritte
-    \item mehr Intuition
-    \item Wo steckt die Position drin?
-    \item Warum machen wir das?
-    \item Was ist $\tilde\phi_m^k$
-\end{itemize}
+where the hat above the parameters on the left indicates the result of an estimation.
+
+%TODO: Kapitel ausweiten, wenn Zeit. Wo steckt Position genau drin? Wie ist die Intuition dahinter?

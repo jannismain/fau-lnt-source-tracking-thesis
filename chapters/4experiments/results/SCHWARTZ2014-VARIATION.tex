@@ -1,0 +1,29 @@
+\paragraph{Variations on Experiments in \citeauthor{Schwartz2014} \citeyearpar{Schwartz2014}}
+For these variations on the replication trials above, the results of which are presented in \autoref{fig:resultsReplicationAlternativeRotated} and \autoref{fig:resultsReplicationAlternativeEqual}, the original initialisation has been modified. In the first trial, it has been rotated by $90^{\circ}$, now horizontally dividing the room. With this initialisation, both sources are located in the non-zero area of a single $\psips$, which should render the seperation into two different $\psips$ meaningless. In the second trial, 
+$\psips$ is initialised equal across the whole room for both sources. This shows, how the localisation performs when only a single $\psip$ is used and no prior knowledge about the sources is introduced before starting the \gls{em} iterations.
+
+\begin{figure}[!htbp]
+\centering
+    \iftoggle{quick}{%
+		\includegraphics[width=\textwidth]{plots/schwartz2014-variation/s=2-sloc=schwartz2014-T60=0.7-prior=schwartz2014-unlucky-results}
+		}{%
+			\setlength{\figurewidth}{\textwidth}
+    \input{plots/schwartz2014-variation/s=2-sloc=schwartz2014-T60=0.7-prior=schwartz2014-unlucky-results}
+		}
+	\caption[Replication Results with Rotated Initialisation]{Replication Results with Rotated Initialisation: \itshape The initialisation of $\psips$ is rotated by $90^{\circ}$ compared to \cite{Schwartz2014}, which leads to both sources being located in the non-zero area of $\psi_{1\bm p}^{\text(0)bf}$.}
+	\label{fig:resultsReplicationAlternativeRotated}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+    \iftoggle{quick}{%
+		\includegraphics[width=\textwidth]{plots/schwartz2014-variation/s=2-sloc=schwartz2014-T60=0.7-prior=equal-results}
+		}{%
+			\setlength{\figurewidth}{\textwidth}
+    \input{plots/schwartz2014-variation/s=2-sloc=schwartz2014-T60=0.7-prior=equal-results}
+		}
+	\caption[Replication Results with Equal Initialisation]{Replication Results with Equal Initialisation: \itshape For this trial, the initialisation of $\psips$ does not divide the room in any way, but rather initialises $\psip$ equally for every gridpoint.}
+	\label{fig:resultsReplicationAlternativeEqual}
+\end{figure}
+
+First, the results show that the localisation performance was not altered by using these alternative initialisations. In both trials, the sources were identified correctly and the \gls{mae} is zero. Even the pattern of the spurious Gaussian component weights is identical to the original replication trial. Therefore it can be concluded that the different initialisations of $\psips$ used above does not impact the results of the source localisation algorithm. Further, the identical performance exhibited when equally initialising all $\psips$, effectively removing the $S$-dimension like proposed at the end of \autoref{sec:algLocEst}, allows for the optimisation of the algorithms complexity and memory requirements. This, in turn, permits trials with larger $S$, as the memory requirement does no longer increase with additional sources. Therefore, the upcoming trials can be performed for 2-7 sources, which allows for the evaluation of the localisation performance in a less sparse environment. \FloatBarrier

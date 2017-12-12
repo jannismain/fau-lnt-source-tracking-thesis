@@ -1,0 +1,65 @@
+\section*{Speech Signals}
+
+
+\begin{figure}[H]
+\iftoggle{quick}{
+    \includegraphics[width=\textwidth]{plots/signals/s1-time-stft-scr}
+}{%
+\setlength{\figureheight}{3cm}
+\setlength{\figurewidth}{0.9\textwidth}
+\footnotesize
+ \begin{subfigure}{\textwidth}
+    \centering
+    \input{plots/signals/s1-time.tikz}
+    \caption{Time-Domain Representation}
+ \end{subfigure}\\
+ \begin{subfigure}{\textwidth}
+    \centering
+    \input{plots/signals/s1-stft.tikz}
+    \caption{STFT-Domain Representation}
+ \end{subfigure}
+}%
+ \caption{Time- and \glsentryshort{stft}-Domain Representation of Speech Sample \#1}
+\end{figure}
+
+\begin{figure}[H]
+\iftoggle{quick}{
+    \includegraphics[width=\textwidth]{plots/signals/s2-time-stft-scr}
+}{%
+\setlength{\figureheight}{3cm}
+\setlength{\figurewidth}{0.9\textwidth}
+\footnotesize
+ \begin{subfigure}{\textwidth}
+ \centering
+ \input{plots/signals/s2-time.tikz}
+    \caption{Time-Domain Representation}
+ \end{subfigure}\\
+ \begin{subfigure}{\textwidth}
+ \centering
+    \input{plots/signals/s2-stft.tikz}
+    \caption{STFT-Domain Representation}
+ \end{subfigure}
+}
+ \caption{Time- and \glsentryshort{stft}-Domain Representation of Speech Sample \#2}
+ \label{fig:signalRepresentation}
+\end{figure}
+
+
+\begin{table}[htb]
+	\small
+	\begin{tabularx}{\textwidth}{ccX}
+		\toprule
+		Nr. & Gender & Transcription                                       \\
+		\midrule
+		1   & male   & \input{data/transcripts/1-transcript.txt}           \\
+		2   & female & \input{data/transcripts/2-transcript.txt}           \\
+		3   & female & \input{data/transcripts/3-transcript.txt}           \\
+		4   & male   & \input{data/transcripts/4-transcript.txt}           \\
+		5   & male   & \input{data/transcripts/5-transcript.txt}           \\
+		6   & male   & \input{data/transcripts/6-transcript.txt}           \\
+		7   & female & \itshape{\input{data/transcripts/7-transcript.txt}} \\
+		\bottomrule
+	\end{tabularx}
+	\caption[Transcriptions of Source Signals]{Transcriptions of Source Signals: \itshape ...}
+	\label{table:source-signals}
+\end{table}

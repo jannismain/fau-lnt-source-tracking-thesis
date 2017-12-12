@@ -1,32 +1,22 @@
-\clearpage
-\subsubsection{EM-Iterations}
+\subsubsection*{EM Iterations}
 
 %% all-in-one boxplot
 \begin{figure}[H]
-	\begin{tikzpicture}
-	    \input{data/plots/boxplot-joined-em}
-	    \input{helpers/legends/em-legend}
-	\end{tikzpicture}
-	\caption[Evaluation results for varying \glsentryshort{em} iterations]{Evaluation results for varying \glsentryshort{em} iterations}
-	\label{fig:resultsEM}
+\iftoggle{quick}{%
+   \includegraphics[width=\textwidth]{plots/boxplots/boxplot-joined-em}
+}{%
+   \input{plots/boxplots/boxplot-joined-em-complete}
+}
+	\caption[Evaluation Results for $L$]{Evaluation Results for $L$ ($n=200$)}
+	\label{fig:trialEM}
 \end{figure}
 
-\begin{itemize}
-\item more iterations in general decrease mean estimation error
-\item effect of iterations is decreasing with increasing iterations
-\item 1 iteration has considerable worse performance than all others
-\item from 3 on, performance is rather stable
-\item improvement from 10 to 20 iterations not consistent across number of sources 
-\item improvement from 5 to 10 iterations only visible for 5 and 6 sources
-\item Therefore, 5 iterations is validated as good balance between estimation performance and computational complexity
-\end{itemize}
-
-
+Trials with the same parameter set have been carried out for a different number of fixed \gls{em} iterations, from $L=1$ to $L=20$. The results suggest, that increasing the number of \gls{em} iterations on average decreases the localisation error. This effect is small but consistent across all number of sources, although there are diminishing returns for higher iterations. In fact, the localisation error between 3, 5, 10 and 20 iterations does not differ by much and may not warrant the increased computational complexity that is involved in increasing the number of iterations by a factor of two, four or even seven. As we can see for $S=3$ and $S=4$, having only one iteration does yield significantly worse results. However, already two or three iterations suffice for a localisation performance that is comparable to much higher number of iterations. This result validates $L=5$ as a good balance between computational complexity and localisation performance for a base parameter set for the evaluation trials below.
 
 %% Example for a table
 %\begin{table}[H]
-%\label{table:resultsEM}
 %    \centering\small
 %    \input{data/tables/results-em}
 %\caption{Mean Localisation Error across \# of sources and \glsentryshort{em} iterations ($n=200$)}
+%\label{table:resultsEM}
 %\end{table}

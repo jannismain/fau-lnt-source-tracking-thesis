@@ -1,19 +1,60 @@
 \subsubsection{Replication of Experiments in \citeauthor{Schwartz2014} \citeyearpar{Schwartz2014}}
-As already mentioned in Chapter \ref{chap:algorithms}, the algorithm developed in \cite{Schwartz2014} included the calculation of multiple Gaussian component weight vectors $\psi_{\bm p, s}\in \{\psi_{\bm p, 1}, \dots, \psi_{\bm, S}\}$, one for each source $s$. In their evaluation of static localisation of two sources, they initialised $\psi_{\bm p, 1}$ to have a uniform distribution across the left side of the room and $\psi_{\bm p, 2}$ to have a uniform distribution across the right side of the room. The variance has been initialised to $\sigma^2_s=1\ \forall\ s$. The complete parameter set, that was used in \cite{Schwartz2014}, is shown in Table \ref{table:parameters-schwartz14}. The position of the sensor nodes was not stated explicitely, but could be inferred from a diagram that displayed the setup, similar to Figure \ref{fig:setup}.				
+As already remarked in Chapter \ref{chap:algorithms}, the algorithm developed in \cite{Schwartz2014} included the calculation of multiple $\psip$, one for each source $s$. In their evaluation of static localisation of two sources, they initialised $\psi^{\text{(0)}}_{1\bm p} $ to have a uniform distribution across the left side of the room and $\psi^{\text{(0)}}_{2\bm p} $ to have a uniform distribution across the right side of the room. The variance has been initialised to $\sigma^{2, \text{(0)}}_s=1\ \forall\ s$ and was held constant across all \gls{em} iterations. The complete parameter set that was used in \cite{Schwartz2014} is shown in Table \ref{table:parametersSchwartz14}. The position of the microphone pairs was not stated explicitely, but could be inferred from a diagram that displayed the setup, similar to Figure \ref{fig:setup}. To verify our implementation of the acoustic source localisation algorithm in \cite{Schwartz2014}, their localisation experiments are replicated below.
 
 \input{data/tables/parameters-schwartz2014}
 
-
-\subsubsection*{Replica}
-\begin{figure}[!htb]
- \centering
- \begin{subfigure}{\textwidth}
-    \includegraphics[width=\textwidth]{data/plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.4-prior=schwartz2014-results}
-    \caption{\Tsixty$=0.4$}
- \end{subfigure}\\
- \begin{subfigure}{\textwidth}
-    \includegraphics[width=\textwidth]{data/plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.7-prior=schwartz2014-results}
-    \caption{\Tsixty$=0.7$}
- \end{subfigure}
- \caption{Results of replicated static evaluation experiment in \cite{Schwartz2014}}
+\newpage
+\begin{figure}[!p]
+	\begin{subfigure}{\textwidth}
+		\iftoggle{quick}{%
+			\includegraphics[width=\textwidth]{plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.4-prior=schwartz2014-results-sc}
+		}{%
+			\setlength{\figurewidth}{\textwidth}
+			\input{plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.4-prior=schwartz2014-results}
+		}
+		\caption{\Tsixty$=0.4$ seconds}
+	\end{subfigure}\\[24pt]
+	\begin{subfigure}{\textwidth}
+		\iftoggle{quick}{%
+			\includegraphics[width=\textwidth]{plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.7-prior=schwartz2014-results-sc}
+		}{%
+			\setlength{\figurewidth}{\textwidth}
+			\input{plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.7-prior=schwartz2014-results}
+		}
+		\caption{\Tsixty$=0.7$ seconds}
+	\end{subfigure}
+	\caption{Replication Results}
+	\label{fig:resultsReplication}
 \end{figure}
+
+The results for both trials presented in \autoref{fig:resultsReplication} look almost identical to those reported in \cite{Schwartz2014}. The positions of both sources are identified and the localisation error is zero for both \nolinebreak{\Tsixty$=0.4$~s} and \nolinebreak{\Tsixty$=0.7$~s}. Although smaller, the peaks of $\psips$ are still clearly identifiable in the more reverberant case. Most of the non-zero weights that do not correspond to one of the sources emerge in between the upper microphone pairs and between the microphone pairs and the wall. 
+
+\begin{figure}[!p]
+	\iftoggle{quick}{%
+		\includegraphics[width=\textwidth]{plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.4-prior=schwartz2014-overview-sc}
+	}{%
+		\setlength{\figurewidth}{\textwidth}
+		\setlength{\figureheight}{0.3\textheight}
+		\input{plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.4-prior=schwartz2014-overview-reduced}
+	}
+    \caption[\glsentryshort{em} Iteration Steps of Replication Trial]{\glsentryshort{em} Iteration Steps of Replication Trial (\Tsixty$=0.4$~s)}
+    \label{fig:resultsReplicationSteps1}
+\end{figure}
+\newpage
+
+\clearpage
+\begin{figure}[!p]
+	\iftoggle{quick}{%
+		\includegraphics[width=\textwidth]{plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.7-prior=schwartz2014-overview-sc}
+	}{%
+		\setlength{\figurewidth}{\textwidth}
+		\setlength{\figureheight}{0.3\textheight}
+		\input{plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.7-prior=schwartz2014-overview-reduced}
+	}
+    \caption[\glsentryshort{em} Iteration Steps of Replication Trial]{\glsentryshort{em} Iteration Steps of Replication Trial (\Tsixty$=0.7$~s)}
+    \label{fig:resultsReplicationSteps2}
+\end{figure}
+
+\FloatBarrier
+
+In the first row of both \autoref{fig:resultsReplicationSteps1} and \autoref{fig:resultsReplicationSteps2}, the initialisation of $\psips$ can be seen. It seems this initialisation has been deliberately choosen to optimise the localisation algorithm for this particular arrangement of sources, as the demarkation of the initial values exactly follows a line between the two sources. For random source positions, such an ideal initialisation cannot be guaranteed without prior knowledge about both the number and approximate positions of the sources. The natural question now is, how the localisation performance is affected, when the initialisation is choosen less carefully.

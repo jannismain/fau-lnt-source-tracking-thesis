@@ -4,13 +4,11 @@
 \addcontentsline{toc}{chapter}{List of Symbols}
 
 \subsubsection*{Notational Remarks}
-The following notational conventions are followed throughout this thesis: A lower case regular letter indicates scalars, a lower case bold letter indicates vectors, and a capital bold letter indicates matrices.
+The following notational conventions prevail throughout this thesis: A lower case regular letter indicates a scalar ($x$), a lower case bold letter indicates a vector ($\bm x$), and a capital bold letter indicates a matrix ($\bm X$). A mathematical set is denoted by an upper case calligraphic letter ($\mathcal{X}$). An exception to this is a calligraphic letter with function parameters ($\mathcal{L}(x)$), which remains a mathematical function. An estimated parameter is indicated by a hat ($\hat{\bm x}$)
 
-%Positions in the cartesian coordinate system are described by their location vector $\bm p_{\text{index}}=[x, y, z]$ and are used for receiver locations $\bm p_m^i$ and source locations $\bm p_s$. The set of all possible positions is described by $\pall$.
+%Positions in the cartesian coordinate system are described by their location vector $\bm p_{\text{index}}=[x, y, z]$. These are used for microphone locations $\bm p_m^i$ and source locations $\bm p_s$. The set of all possible positions is described by $\pall$.
 
-%Sources are addressed by their index $s=1,\dots,S$ and receivers are addressed by their receiver pair $m\in[1, \dots, M]$ and pair index $i\in[1, 2]$. A braced superscript $l$, like $\psi^{(l)}$, denotes the iteration the \gls{em} algorithm is currently in, so $\psi^{(l-1)}$ indicates the value of $\psi$ of the preceding iteration. As recursions will be iterated with respects to the time-index, superscript $(t)$ (e.g. $\psi^{(t)}$) is used respectively. 
-The diag$(\cdot)$ operator describes a diagonal matrix, where the elements in braces are placed on the diagonal, whereas all other entries of the matrix are equal to 0.
-
+%Sources are addressed by their index $s=1,\dots,S$ and microphones are addressed by their microphone pair and microphone index $(m,i)$, where $m\in[1, \dots, M]$ and $i\in[1, 2]$. A braced superscript $l$, like $\psi^{(l)}$, denotes the iteration the \gls{em} algorithm is currently in, so $\psi^{(l-1)}$ indicates the value of $\psi$ of the preceding iteration. As recursions will be iterated with respects to the time-index, superscript $(t)$ (e.g. $\psi^{(t)}$) is used respectively. 
 
 %% DEFINITIONS %%
 
@@ -19,68 +17,99 @@ The diag$(\cdot)$ operator describes a diagonal matrix, where the elements in br
 
 \newcommand{\p}{\bm p}
 \newcommand{\ps}{\p_s}
+\newcommand{\psest}{\hat\p_s}
 \newcommand{\pr}{\p_m^i}
 \newcommand{\pall}{\mathcal{P}}
 \newcommand{\pinp}{\p \in \pall}
 
-\newcommand{\psip}{\bm\psi_{\bm p}}
+\newcommand{\psip}{\psi_{\bm p}}
 \newcommand{\psiRlast}{\bm\psi_R^{(t-1)}}
 \newcommand{\psiRPlast}{\psi_{\bm p,R}^{(t-1)}}
 \newcommand{\psiRnow}{\bm\psi_R^{(t)}}
 \newcommand{\psiRPnow}{\psi_{\bm p,R}^{(t)}}
-\newcommand{\psips}{\psi_{\bm p,s}}
+\newcommand{\psips}{\psi_{s\bm p}}  
 
 % Functions
 \newcommand{\gaussian}[1]{\mathcal{N}\left (#1\right )}
-\newcommand{\pdffunc}{\psi_{\bm p}^{(l-1)}\prod_{m}\mathcal{N}^c\left (\phi^k_m(t,k);\tilde\phi^k_m(\bm p),\sigma^{2,(l-1)}\right )}
-\newcommand{\pdffuncR}{\psi_{\bm p,R}^{(t-1)}\prod_{m}\mathcal{N}^c\left (\phi^k_m(t,k);\tilde\phi^k_m(\bm p),\sigma_R^{2,(t-1)}\right )}
-\newcommand{\gauss}{\mathcal{N}^c\big(\phi_m(t,k);\tilde\phi^k_m,\sigma^2\big)}
+\newcommand{\pdffunc}{\psi_{s\bm p}^{(l-1)}\prod_{m}\mathcal{N}^c\left (\phi^k_m(t,k);\tilde\phi^k_m(\bm p),\sigma_s^{2,(l-1)}\right )}
+\newcommand{\pdffuncR}{\psi_{\bm p,R}^{(t-1)}\prod_{m}\mathcal{N}^c\left (\phi_m(t,k);\tilde\phi^k_m(\bm p),\sigma_R^{2,(t-1)}\right )}
+\newcommand{\gauss}{\mathcal{N}^c\big(\phi_m(t,k);\tilde\phi^k_m,\sigma_s^2\big)}
 \newcommand{\Q}{\mathcal{Q}\left (\theta\vert\theta^{(l-1)}\right )}
-\newcommand{\mulast}{h^{(l)}(t,k,\bm p)}
+\newcommand{\mulast}{h^{(l)}(t,k,s,\bm p)}
 \newcommand{\muRlast}{h(t,k,\bm p)}
-\newcommand{\z}{z(t,k,\bm p)}
-\newcommand{\lcompl}{\prod_{t,k}\sum_{\vect{p}}\psip\cdot\z\prod_{m}\gauss}
+\newcommand{\z}{z(t,k,s,\bm p)}
+\newcommand{\lcompl}{\prod_{t,k}\sum_{s,\bm p}\psips\cdot\z\prod_{m}\gauss}
 
 % Other
 \newcommand{\vect}[1]{\mathbf{#1}}
-\newcommand{\norm}[1]{|{#1}|_2}
-\newcommand{\abs}[1]{|{#1}|_1}
+%\newcommand{\norm}[1]{|{#1}|_2}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+%\newcommand{\abs}[1]{|{#1}|_1}
 \newcommand{\Tsixty}{T$_{60}$\ }
 
 %% TABLE %%
-
-\begin{longtable*}[l]{ll}
-	\multicolumn{2}{l}{\textbf{Mathematical Operators}} \\[2pt]
-	$|\cdot |$    & Absolute value (when applied to scalar)\\
-	$|\cdot |$    & Cardinality (when applied to set)\\
-	$\|\cdot \|$  & Length of vector (when applied to vector)\\
-	$\|\cdot \|$  & Eucledian distance (when applied to difference of two vectors)\\
+\begin{longtable*}{lp{13cm}}
+\multicolumn{2}{@{}l@{}}{\textbf{Mathematical Operators}} \\[2pt]
+	$\abs{\cdot}$    & Absolute value (when applied to scalar)\\
+	$\abs{\cdot}$    & Cardinality (when applied to set)\\
+	$\norm{\cdot}_{_p}$  & $p$-Norm, where $p\in [1,\infty )$\\
+	$(\cdot)^{\text{T}}$  & Transpose of vector or matrix \\
 	det$(\cdot)$  & Determinant of matrix\\
+	vec$_a(\cdot)$ & Vector concatenation of a scalar or vector across all indices $a$\\
+	&e.g., $\bm x = \text{vec}_a(x_a)=[x_1~x_2~\dots~x_n]^{\text{T}}$, $a\in[1,\dots,n] $.\\
 	diag$(\cdot)$ & Diagonal matrix of vector\\
+	&e.g., $\text{diag}(\bm x)=
+    \begin{bmatrix}
+    x_1 &     0     & \dots  & 0 \\
+       0      & x_2 & \dots  & 0 \\
+       \vdots &     \vdots     & \ddots & \vdots\\
+    0         &     0     & \dots  &  x_n
+\end{bmatrix}$.\\ \pagebreak
 
-	\multicolumn{2}{l}{\textbf{Indices}} \\[2pt]
-	$t$         & Time-bin index \\
-	$k$         & Frequency-bin index \\
-	$i$         & Receiver index \\
-	$m$         & Sensor node index \\
-	$s$         & Source index \\
-	$l$         & Algorithm iteration index \\[6pt]
+\multicolumn{2}{@{}l@{}}{\textbf{Scalars}} \\[2pt]
+    $c$         & Speed of sound ($c=343\frac{m}{s}$)\\
+    $d_m$       & Distance of microphones within microphone pair\\
+    $d^w_m$     & Wall distance of microphone pairs\\
+    $d^w_{s,\text{min}}$     & Minimum wall distance of sources\\
+    $d_{s,\text{min}}$     & Minimum distance of sources\\
+	$K$         & Number of frequency-bands \\
+	$L$         & Maximum number of EM iterations \\
+	$M$         & Number of microphone pairs\\
+	$S$         & Number of sources\\
+	$T$         & Number of time-steps \\
+	$T_s$       & Sampling period\\
+	$\epsilon_s$ & Localisation error of source $s$\\
+	$\gamma_t$    & Step size of recursive update\\
+    $\iota$     & Imaginary unit ($\iota=\sqrt{-1}$)\\[6pt]
+	$\psips$    & Weight of Gaussian mixture component corresponding to position $\bm p$ and source $s$ \\
 
-	\multicolumn{2}{l}{\textbf{Scalars}} \\[2pt]
-	$T$         & Number of time-bins \\
-	$K$         & Number of frequency-bins \\
-	$M$         & Number of sensor nodes \\
-	$S$         & Number of sources \\
-	$L$         & Number of Iterations \\[6pt]
+\multicolumn{2}{@{}l@{}}{\textbf{Indices}} \\[2pt]
+    $i$         & Microphone index ($i\in\{1,2\}$) \\
+    $j$         & Gaussian component index \\
+    $k$         & Frequency-bin index ($k\in\{1,\dots,K\}$)\\
+    $l$         & EM-Algorithm iteration index ($l\in\{1,\dots,L\}$)\\
+    $m$         & Microphone pair index ($m\in\{1,\dots,M\}$)\\
+    $s$         & Source index ($s\in\{1,\dots,S\}$)\\
+    $t$         & Time-bin index ($t\in\{1,\dots,T\}$)\\[6pt]
 
-    \multicolumn{2}{l}{\textbf{Vectors}} \\[2pt]
+\multicolumn{2}{@{}l@{}}{\textbf{Vectors}} \\[2pt]
 	$\p $      & Location vector of grid point\\
-	$\pall $      & Set of all grid points $\p$\\
 	$\ps $      & Location vector of source $s$ \\
-	$\pr $      & Location vector of receiver $i$ of sensor node $m$ \\
-
-	$\prp$      & Vector of pair-wise relative phase ratios \\
-	$\prp_m$      & Pair-wise relative phase ratio at sensor node $m$ \\
-	$\psi$      & Weight of Gaussian mixture component \\
-	$\psip$      & Vector of weights of Gaussian mixture components \\
+	$\pr $      & Location vector of microphone $(m,i)$\\
+	$\bm\beta$ & Vector of wall reflection coefficients ($\bm\beta = [\beta_1~\beta_2~\dots~\beta_6]$)\\
+	$\prp$      & Concatenated vector of \acrshortpl{prp} across all microphone pairs $m$ and time-frequency-bins $(t,k)$ \\
+	$\prp_m$      & Pair-wise relative phase ratio at microphone pair $m$ \\
+	$\tilde\prp_m^k$ & Expected \acrshort{prp} for frequency-bin $k$ at microphone pair $m$ \\
+	$\bm\psi$      & Vector of weights of Gaussian mixture components across all positions $\bm p$ and sources $s$ \\[6pt]
+	
+\multicolumn{2}{@{}l@{}}{\textbf{Sets}} \\[2pt]
+	$\pall$    & Set of all grid points\\
+	$\mathcal{P}_s$ & Set of all source positions ($\mathcal{P}_s \subseteq \pall$)\\[6pt]
+	
+\multicolumn{2}{@{}l@{}}{\textbf{Signals}} \\[2pt]
+	$v_s$      & Source signal of source $s$ \\
+	$x_m^i $      & Received signal at microphone $(m,i)$\\
+	$a^i_{sm} $      & Transfer function of source $s$ and microphone $(m,i)$ \\
+	$n^i_m$      & Additive spectral and temporal white Gaussian noise at microphone $(m,i)$ \\[6pt]
 \end{longtable*}

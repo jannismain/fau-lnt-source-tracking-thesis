@@ -1,12 +1,1 @@
-\section{Critical Review}
-\label{sec:critical-review}
 
-\begin{itemize}
-    \item Implementation
-    \begin{itemize}
-        \item Mix signals in STFT-Domain directly, instead of calculating $Y*X$ in the STFT-Domain, transforming back into time-domain to mix signals only to transform back into STFT domain for PRP calculation.
-        \item Is this really the best model for this problem?
-        \item Could remove reliance on gridpoints by also estimating mean and only having $S$ Gaussian components instead of $T\cdot K\cdot |\mathcal{P}|$
-        \item Incorporate further research directions in this section
-    \end{itemize}
-\end{itemize}

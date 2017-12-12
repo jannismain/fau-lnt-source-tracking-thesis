@@ -1,30 +1,14 @@
-\subsubsection{Fixed Variance}
+\subsubsection*{Fixed Variance}
 
-Now, fixed variance:
-
-%% Combined Box Plot
+% BOXPLOT
 \begin{figure}[H]
-	\begin{tikzpicture}
-	    \input{data/plots/boxplot-joined-var-val}
-	    \input{helpers/legends/variance-legend}
-	\end{tikzpicture}
-	
-	\caption{Evaluation results for fixed and estimated variance}
-	\label{fig:boxplotVariance}
+\iftoggle{quick}{
+    \includegraphics[width=\textwidth]{plots/boxplots/boxplot-joined-var-val}
+}{%
+    \input{plots/boxplots/boxplot-joined-var-val-complete}
+}
+	\caption[Evaluation Results for Fixed Variance]{Evaluation Results for Fixed Variance ($L=10$, $n=200$)}
+	\label{fig:trialVarianceFixed}
 \end{figure}
 
-\begin{itemize}
-    \item Extreme values for fixed variance yield significant worse performance than more moderate values
-    \item Optimal variance seems to be around 2
-    \item 0.1 and 0.5 were outperformed across all number of sources
-    \item 1, 2 and 3 performed almost equally well, although 3 was slightly worse for 4-6 sources
-\end{itemize}
-
-If the variance is not fixed and initialised with the
-
-\begin{itemize}
-    \item Localisation performance basically identical across different $\sigma^2_0$
-    \item Looks like variance converges to a value quickly, so different initialisations have no effect
-    \item Now of interest, which value the variance converges to when estimated
-    \item Fixed variance trials allow for the assumption, that estimated variance converges to a value between 1 and 3
-\end{itemize}
+The results in \autoref{fig:trialVarianceFixed} show, that the extreme values $\sigma^2_{\text{fixed}}=0.1$ and $\sigma^2_{\text{fixed}}=5.0$ yield significantly higher localisation errors across all $S$ compared to the other initial variances. Overall, $\sigma^2_{\text{fixed}}=2$ performs best for all but $S=7$, where $\sigma^2_{\text{fixed}}=1$ results in a slightly lower mean and median \gls{mae}. Comparing these results with the evaluation above, where the variance has not been fixed, does reveal that there is no performance advantage in fixing the variance. However, estimating the variance uses about 30\% of the computation time per iteration. Therefore, not estimating the variance reduces the runtime of the \gls{em} algorithm by 30\%, which amounts to about $1$ second per iteration (on the hardware described in \autoref{sec:computationalComplexity}). This improvement, however, comes with the challenge of choosing a good initial value for $\sigma^2_{\text{fixed}}$. As we have seen in \autoref{fig:trialVarianceFixed}, a bad fixed variance can lead to a significant worse localisation performance, at least for $S>2$. Therefore, according to these results, estimating the variance is the better option when trying to optimise the localisation algorithm for performance.

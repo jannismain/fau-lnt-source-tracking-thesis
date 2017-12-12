@@ -1,27 +1,33 @@
 \subsection{Evaluation Scenarios}
-\subsubsection{Default Parameter Set}
+\subsubsection*{Simulation}
+The microphones are simulated to be omnidirectional, meaning they possess equal gain for all directions, and are mounted at 1m height. The value of \Tsixty for a domestic or office environment usually ranges between $0.2$~seconds and $0.8$~seconds 0.6s \cite[p.~695]{Gannot2017}. For the most realistic simulation, the reflection order should be unconstrained, which means that more reverberation leads to more images being created during simulation of the \glspl{rir}. In this case however, where a lot of trials are required to reliably show the effects different values for a single parameter could have on the localisation performance of the algorithm, a maximum order of 3 was chosen to reduce the computational complexity. For trials, where specifically the reverberation is examined, this constraint is lifted and the reflection order is unconstrained, meaning that the only limiting factor on the number of images created during the \gls{rir} simulation is T$_{60}$. The sound velocity $c$ is set to $343\frac{m}{s}$, corresponding to a signal travelling through dry air at $20^{\circ}$C.
 
-\paragraph{Simulation}
-The microphones are simulated to be omnidirectional, meaning they record sound equally well for all directions, mounted at 1m height and directed towards the middle of the room. The value of \Tsixty for a domestic or office environment usually ranges between $0.2$s and $0.8$s \cite[p.695]{Gannot2017}. For the most realistic simulation, the reflection order should be unconstrained. In this case however, where a lot of trials are required to reliably show the effects different values for a single parameter could have on the localisation performance of the algorithm, a maximum order of 3 was chosen to reduce the computational complexity. For trials, where specifically the reverberation is examined, this constraint is lifted and the reflection order is unconstrained.
+\subsubsection*{Acoustic Source Localisation}
+\label{sec:evalScenariosLoc}
+%TODO: rewrite this section
+There are many parameters that each could have an effect on the performance of the localisation. The ones most often cited in the literature are the amount of reverberation T$_{60}$, as well as the amount of noise measured by the \gls{snr}. Other factors include the number of simultaneously simulated sources $S$, which has an impact on the sparsity assumption of the received signal. The number of \gls{em} iterations $L$ presumably has a positive effect on localisation accuracy, whereas it is also the main driver of computational complexity, as the iterations cannot be executed in parallel due to the data dependency within and across iterations. Further, the individual speech samples might have an effect on the localisation performance, as different samples exhibit different frequency spectra and speech activity over time. After confirming that the order of speech samples used in the evaluation indeed had an effect on the mean error of the location estimates, the order of speech samples used for each trial was randomised for all further trials. The set of speech samples itself consists of 7 anechoic recordings, that can be accessed by visiting the website referenced in \cite{Mainczyk2017}.
 
-\subsubsection{Source Localisation}
-There are many parameters that each could have an effect on the performance of the localisation. The ones most often cited in the literature are the amount of reverberation, given as the time it takes for the reverberation to decay by 60dB (\Tsixty), as well as the amount of noise added to the received signals (\emph{SNR}). Other factors include the number of simultaneously simulated sources ($S$), which has an impact on the sparsity assumption of the received signal. The number of \gls{em} iterations $L$ presumably has a positive effect on localisation accuracy, whereas it is also the main driver of computational complexity, as the iterations cannot be executed in parallel due to the data dependency within and across iterations. Further, the individual speech samples might have an effect on the localisation performance, as different samples exhibit different frequency spectra and speech activity over time. After confirming that the order of speech samples used in the evaluation indeed had an effect on the mean error of the location estimates, the order of speech samples used for each trial was randomised for all further trials. The set of speech samples itself consists of 7 anechoic recordings, that can be accessed by visiting the website referenced in \cite{Mainczyk2017}.
+
+To validate the implementation of the algorithm, the experiments in \cite{Schwartz2014} for static source localisation are replicated. Then, the initialisation of $\bm\psi$ is examined. The remaining source localisation trials will estimate $\psip$ instead of $\psips$. First, some base scenarios are defined that resemble ideal and more adverse conditions in order to see, how the localisation algorithm performs in each of these scenarios. To benchmark the results, the results of an additional trial is reported, where location estimates are guessed, providing a natural lower bound for the localisation error. After the results for these scenarios are discussed, individual parameters are evaluated, including the reflection order $r$, reverberation T$_{60}$, number of \gls{em} iterations $L$, noise, initial variance $\sigma^{2,\text{0}}$, fixed variance $\sigma^{2,\text{0}}_{\text{fixed}}$ as well as the constraints on the possible source locations. These constraints are set in form of the minimum distance between sources $d_{s,\text{min}}$ and the minimum required distance of sources from the wall $d^w_{s,\text{min}}$. The full set of parameters is reported in \autoref{table:parameterset}, where the base parameters are indicated by bold numbers. The alternatives for some parameters indicate, which other parameter values are used to examine their effect on the localisation performance.
+
+
+Similar to the static case, the source tracking algorithms will be evaluated by comparing their performance across predefined scenarios. The scenarios, in which both \gls{crem} and \gls{trem} will be tested, are described in the following paragraph.
+
 \input{data/tables/parameters}
 
-\subsubsection{Source Tracking}
-To compare both the \gls{trem} and \gls{crem} variants of the source tracking algorithm, three scenarios with two sources each will be compared. In the first scenario, the sources move on a linear trajectory parallel to each other. In the second scenario, they move in a linear trajectory and cross paths. The last scenario consists of the two sources moving on a curved trajectory, each following the shape of a half-circle. The source trajectories are shown in Figure
-\begin{itemize}
-    \item ...using ref \ref{fig:evalScenarios}
-    \item ...using cref \cref{fig:evalScenarios}
-    \item ...using autoref \autoref{fig:evalScenarios}
-\end{itemize}
+\subsubsection*{Acoustic Source Tracking}
+\label{sec:evalScenariosTracking}
 
-\begin{figure}[!htb]
-\label{fig:evalScenarios}
+\begin{figure}[H]
     \setlength\figureheight{4cm}
     \setlength\figurewidth{\textwidth}
-    \input{data/plots/tracking/evaluation-scenarios}
-    \caption[Source Tracking Evaluation Scenarios]{Source Tracking Evaluation Scenarios: \itshape ...}
+%    \input{plots/tracking/evaluation-scenarios}  % tikz file, no arrows
+    \includegraphics[width=0.95\textwidth]{plots/tracking/evaluation-scenarios-arrows-eps-edited-cropped}
+    
+    \caption[Source Tracking Evaluation Scenarios]{Source Tracking Evaluation Scenarios: \itshape The two different sources are shown in red and grey respectively. In the first scenario the two sources are moving parallel to each other. In the second scenario, the two sources cross paths halfway. In the third scenario, the two sources move along a half-circle.}
+    \label{fig:evalScenariosTracking}
 \end{figure}
+
+To compare both the \gls{trem} and \gls{crem} variants of the source tracking algorithm, three scenarios with two sources each will be compared which are presented in \autoref{fig:evalScenariosTracking}. In the first scenario, the sources move on a linear trajectory parallel to each other. In the second scenario, they move in a linear trajectory and cross paths. The last scenario consists of the two sources moving on a curved trajectory, each following the shape of a half-circle. All other parameters are taken from the base parameter set described in \autoref{table:parameterset}.
 
 

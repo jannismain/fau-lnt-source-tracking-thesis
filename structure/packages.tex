@@ -14,6 +14,9 @@
 \crefname{algorithm}{algorithm}{algorithms}
 \usepackage{hyperref}
 \newcommand{\algorithmautorefname}{Algorithm}
+\renewcommand{\chapterautorefname}{Chapter}
+\renewcommand{\sectionautorefname}{Section}
+\renewcommand{\subsectionautorefname}{Subsection}
 \usepackage{varioref}  % for references like "...Figure 5.4 on page 24."
 
 % enable fancy header
@@ -35,7 +38,8 @@
 \pagestyle{newfancy}
 
 % bibliography
-\usepackage[backend=biber,style=ieee,natbib=true,giveninits=true,doi=true]{biblatex} % also: style=ieee[1], style=numeric-comp ([1-3]), style=authoryear-comp, style=alphabetic
+\usepackage[backend=biber,style=ieee,natbib=true,giveninits=true,doi=false]{biblatex} % also: style=ieee[1], style=numeric-comp ([1-3]), style=authoryear-comp, style=alphabetic
+%\usepackage{IEEEtrantools}  % needed to edit IEEE citations style
 
 % captions for figures
 \usepackage{caption}
@@ -74,36 +78,37 @@
 \usetikzlibrary{calc}
 \usepgfplotslibrary{patchplots}
 \input{helpers/pgfplotscustomlegend}
-\usepgfplotslibrary{external}
-\tikzexternalize[prefix=data/ext]
+% For now, externalize does not work. Fails to create PDF. Maybe I have macros between in tikzpicture-environment, that cannot get expanded!
+%\usepgfplotslibrary{external}
+%\tikzexternalize[prefix=data/externalized/]
 
 % for automatically generated List of Abbreviations
 % add 'nonumberlist,' to options to see, how often you used acronym (remove ones only used once!)
 % add 'sort=use' for sorting by first use
 \usepackage[acronym,toc,nopostdot,nonumberlist,style=super,nogroupskip]{glossaries}
 \setlength{\glsdescwidth}{0.8\linewidth}  % prevent lineb
-\makeglossaries
 
 % Display matlab code
-\usepackage[numbered,autolinebreaks,useliterate]{mcode}
+%\usepackage[numbered,autolinebreaks,useliterate]{mcode}
 
-% force position of figures
+% POSITIONING OF FLOATS
 \usepackage{float}  % provides [H] option to stop floating environments from floating
 \usepackage{longtable}  % allow for tables to break across pages
+\setlength{\LTleft}{0pt}  % move tables flush to the left side
 \usepackage[section]{placeins}  % provides \FloatBarrier (automatically after section)
-%\setlength{\LTleft}{0pt}
-% automatically add \centering to every float environment!
-\makeatletter
-\g@addto@macro\@floatboxreset{\centering}
-\makeatother
 
-% % Profiling of LaTeX Code
-% \usepgflibrary{profiler}
-% \pgfprofilenewforenvironment{tikzpicture}
-% \pgfprofilenewforcommand{\pgfkeys}{1}
+% Profiling of LaTeX Code
+%\usepgflibrary{profiler}
+%\pgfprofilenewforenvironment{tikzpicture}
+%\pgfprofilenewforcommand{\pgfkeys}{1}
 
 \usepackage{booktabs}  % required by pandas.DataFrame.to_latex() 
+\usepackage{tabularx}  % required for automatically linebreaking tables
+
 \usepackage{enumitem}
 \usepackage{grffile}
 \usepackage{standalone}
 \usepackage{chngcntr}  % required to reset chapter-wise counters
+\usepackage{comment}  % use certain environments to make comments that can either be printed or excluded from print
+
+\usepackage{etoolbox}  % use boolean toggles for conditional branching

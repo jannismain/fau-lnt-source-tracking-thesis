@@ -1,0 +1,105 @@
+% This file was created by matplotlib2tikz v0.6.14.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.8,0.207843137254902,0.219607843137255}
+
+\begin{axis}[
+xlabel={$S$},
+ylabel={MAE},
+xmin=0.5, xmax=1.5,
+ymin=0, ymax=2.5,
+width=\figurewidth,
+height=\figureheight,
+xtick={1},
+xticklabels={2},
+ytick={0,0.5,1,1.5,2,2.5},
+minor xtick={},
+minor ytick={},
+tick align=outside,
+tick pos=left,
+x grid style={white!69.019607843137251!black},
+ymajorgrids,
+y grid style={white!69.019607843137251!black}
+]
+\addplot [line width=1.0pt, color0, opacity=1, forget plot]
+table {%
+0.96 0.570710678118655
+1.04 0.570710678118655
+1.04 0.976485552705722
+0.96 0.976485552705722
+0.96 0.570710678118655
+};
+\addplot [line width=1.0pt, color0, opacity=1, forget plot]
+table {%
+1 0.570710678118655
+1 0.5
+};
+\addplot [line width=1.0pt, color0, opacity=1, forget plot]
+table {%
+1 0.976485552705722
+1 1.53501585870364
+};
+\addplot [line width=1.0pt, color0, forget plot]
+table {%
+0.98 0.5
+1.02 0.5
+};
+\addplot [line width=1.0pt, color0, forget plot]
+table {%
+0.98 1.53501585870364
+1.02 1.53501585870364
+};
+\addplot [line width=1.0pt, color0, opacity=0.2, mark=*, mark size=1, mark options={solid}, only marks, forget plot]
+table {%
+1 2.50659639261368
+1 1.69447616957539
+1 1.86579701927343
+1 2.08182987023963
+1 2.43149008471149
+1 2.47540987087482
+1 2.13783879652589
+1 1.601387818866
+1 1.60415458863651
+1 1.92360679774998
+1 1.74118066919062
+1 4.60613878386295
+1 1.61803398874989
+1 3.76589889011722
+1 2.11235406713628
+1 1.9555239148283
+1 2.3669903431165
+1 1.75933866224478
+1 1.65113577727726
+1 2.33153476147244
+1 2.45880074906351
+1 2.38698863246246
+1 1.77800248377821
+1 1.83911514474839
+1 2.41567489908994
+1 1.6116085680851
+1 1.64060910007205
+1 2.04373562519443
+1 1.72576506721313
+1 1.74118066919062
+1 1.72071016610744
+1 1.62957210080317
+1 2.02656876555683
+1 3.06097930393636
+};
+\addplot [line width=1.0pt, color0, opacity=1, forget plot]
+table {%
+0.96 0.707134582144651
+1.04 0.707134582144651
+};
+\addplot [line width=1.0pt, color0, dashed, mark=x, mark size=3, mark options={solid}, forget plot]
+table {%
+1 0.929542795255198
+};
+\end{axis}
+
+\node at ({$(current bounding box.south west)!0.5!(current bounding box.south east)$}|-{$(current bounding box.south west)!0.98!(current bounding box.north west)$})[
+  anchor=north,
+  text=black,
+  rotate=0.0
+]{ };
+\end{tikzpicture}

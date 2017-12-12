@@ -1,15 +1,15 @@
 \begin{algorithm}[h]
-\label{alg:loc}
-\caption{Static source localisation}
+\caption{Source Localisation}
+\label{alg:localisation}
 \begin{algorithmic}
     \State obtain $x^i_m(t,k)\ \forall i,m$
-    \State calculate $\phi_m(t,k)$ using \eqref{eq:prp}
-    \State calculate $\tilde\phi_m^k(\vect{p})$ using \eqref{eq:phi_tilde}
-    \State initialize $\psi_{\vect{p}}^{(0)}$ and $\sigma^{2,(0)}$
+    \State calculate $\phi_m(t,k)~\forall m$ using \eqref{eq:prp}
+    \State calculate $\tilde\phi_m^k(\bm p)$ using \eqref{eq:phi_tilde}
+    \State initialize $\psi_{s\bm p}^{(0)}$ and $\sigma_s^{2,(0)}$
     \For{$l=1$ \textbf{to} $L$}
     \State \textbf{E-Step:} calculate $\mulast$ using \eqref{eq:responsibility}
-    \State \textbf{M-Step:} calculate $\psi^{(l)}_\vect{p}$ using \eqref{eq:m_step_psi} and $\sigma_{s}^{2,(l)}$ using \eqref{eq:m_step_var}
+    \State \textbf{M-Step:} calculate $\psi^{(l)}_{s\bm p}$ using \eqref{eq:m_step_psi} and $\sigma_{s}^{2,(l)}$ using \eqref{eq:m_step_var}
     \EndFor
-    \State find $\vect{p}_s\ \forall\ s$ using \eqref{eq:find_positions}
+    \State find $\hat{\bm p}_s\ \forall\ s$ using \eqref{eq:find_positions}
 \end{algorithmic}
 \end{algorithm}

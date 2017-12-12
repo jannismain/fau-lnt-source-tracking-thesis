@@ -1,0 +1,64 @@
+\begin{figure}[H]
+	\iftoggle{quick}{%
+		\includegraphics[width=\textwidth,height=\figureheight]{plots/tracking/arc/results-T60=0.4-crem-xy}
+	}{%
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\setlength{\figurewidth}{0.8\textwidth}
+			\input{plots/tracking/arc/results-T60=0.4-crem-x.tikz}  % tikz
+			\caption{Estimated x-Axis Positions}
+		\end{subfigure}
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\setlength{\figurewidth}{0.8\textwidth}
+			\input{plots/tracking/arc/results-T60=0.4-crem-y.tikz}  % tikz
+			\caption{Estimated y-Axis Positions}
+		\end{subfigure}
+	}
+	\caption[Arc Movement Results for CREM]{Arc Movement Results for CREM (\Tsixty$=0.4$s): \itshape \dots}
+	\label{fig:assignmentArcCREM}
+\end{figure}
+
+\begin{figure}[H]
+	\iftoggle{quick}{%
+		\includegraphics[width=\textwidth,height=\figureheight]{plots/tracking/arc/results-T60=0.4-trem-xy.png}
+	}{%
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\setlength{\figurewidth}{0.8\textwidth}
+			\input{plots/tracking/arc/results-T60=0.4-trem-x.tikz}  % tikz
+			\caption{Estimated x-Axis Positions}
+		\end{subfigure}
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\setlength{\figurewidth}{0.8\textwidth}
+			\input{plots/tracking/arc/results-T60=0.4-trem-y.tikz}  % tikz
+			\caption{Estimated y-Axis Positions}
+		\end{subfigure}
+	}
+	\caption[Arc Movement Results for TREM]{Arc Movement Results for TREM (\Tsixty$=0.4$s): \itshape \dots}
+	\label{fig:assignmentArcTREM}
+\end{figure}
+
+\begin{figure}[H]
+	\iftoggle{quick}{%
+		\includegraphics[width=\textwidth,height=\figureheight]{plots/tracking/arc/results-T60=0.4-crem-roomvar-screenshot.png}
+	}{%
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\setlength{\figurewidth}{0.8\textwidth}
+			\input{plots/tracking/arc/results-T60=0.4-crem-var.tikz}  % tikz
+			%        \includegraphics[width=\textwidth]{plots/tracking/arc/results-T60=0.4-trem-x}  %png
+			\caption{Estimated Variance}
+		\end{subfigure}
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\setlength{\figurewidth}{0.8\textwidth}
+			\input{plots/tracking/arc/results-T60=0.4-crem-room.tikz}  % tikz
+			%        \includegraphics[width=\textwidth, height=\figureheight]{plots/tracking/arc/results-T60=0.4-crem-room}  % png
+			\caption{Estimated Positions}
+		\end{subfigure}
+	}
+	\caption[Arc Movement Estimated Variance and Positions]{Arc Movement Estimated Variance and Positions (\Tsixty$=0.4$s): \itshape \dots}
+	\label{fig:assignmentArcRoomVar}
+\end{figure}

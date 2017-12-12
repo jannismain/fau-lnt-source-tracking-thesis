@@ -1,17 +1,60 @@
+
 \subsection{Source Tracking}
 
+\subsubsection{Comparison of Variance Estimation}
+
+% Variance Estimate over Time. Graph looks almost the same for all three scenarios, therefore showing only one scenario should be enough
 \begin{figure}[H]
-    \setlength\figureheight{4cm}
-    \input{data/plots/tracking/variance-comparison}
-    \caption[Estimated Variance for TREM \& CREM over Time]{Estimated Variance for TREM \& CREM over Time: \itshape }
-    \label{fig:trackVarComp}
+	\setlength\figureheight{6cm}
+	\setlength\figurewidth{0.95\textwidth}
+	\iftoggle{quick}{%
+		\includegraphics[width=\textwidth]{plots/tracking/variance/crossing-variance-comparison.png}
+	}{%
+		\input{plots/tracking/variance/crossing-variance-comparison.tikz}
+	}
+	\caption[Estimated Variance over Time]{Estimated Variance over Time: \itshape Curves of the same color only differ in the initial value of the variance $\sigma^{2,(0)}$. The red curve shows the variance estimates of \gls{crem} across time, while the gray curve shows the variance estimates of \gls{trem}. These estimates correspond to the "Crossing Movement"-Scenario with \nolinebreak{$\text{T}_{60}=0.4$~s}, but the convergence behaviour visible here is the same across all other evaluation scenarios.}
+	\label{fig:trackVarComp}
 \end{figure}
 
-\subsubsection{Comparison of Variance Estimation}
-As has been shown in \autoref{sec:algSrcTrack}, the \gls{trem} and \gls{crem} variants of the tracking algorithm only differ in the estimation of the variance parameter. \autoref{fig:trackVarComp} shows, how both algorithms update $\sigma^2$ for different initial values $\sigma^{2,(0)}\ \in\ \{0.1, 0.5, 1, 2, 5\}$ over time. It can be seen, that \gls{crem} converges significantly faster from the initial value to the variance inherent to the data. While \gls{crem} seems to follow the inherent variance from $t=40$ onwards, \gls{trem} takes until $t=100$ to fully converge for an initial variance of $\sigma^{2,(0)}=5$. This means, that an initial variance that is far from the inherent variance will lead to inferior localisation performance with the \gls{trem} algorithm in the beginning, while the variance estimation of the \gls{crem} algorithm is more robust to such an initialisation. After both algorithms variance estimates have converged onto the inherent variance, the estimates are the same for both \gls{crem} and \gls{trem}. So the difference in variance estimation only has an effect on the treatment of the initial value. In conclusion, if the initial variance is choosen to be close to the inherent variance, variance estimation yields the same results for both algorithms. Should the initial variance deviate from the variance inherent to the data, \gls{crem} offers variance estimates closer to the true variance than \gls{trem} in the beginning. After a certain amount of timesteps have been processed, both algorithms converge onto the same variance estimates.
+As has been shown in \autoref{sec:algSrcTrack}, the \gls{trem} and \gls{crem} variants of the tracking algorithm only differ in the estimation of the variance parameter. \autoref{fig:trackVarComp} shows, how both algorithms update $\sigma^2$ for different initial values $\sigma^{2,(0)}\ \in\ \{0.1, 0.5, 1, 2, 5\}$ over time. Note, that the time-axis is now given in seconds to make it easier to align the estimated parameters over time with the source signals shown in \autoref{fig:signalRepresentation}. The progression of the variance estimate over time shows, that \gls{crem} converges significantly faster from the initial value to the variance inherent to the data. While \gls{crem} seems to follow the inherent variance from $t=0.5$~s onwards, \gls{trem} takes until $t=1$~s to fully converge for an initial variance of $\sigma^{2,(0)}=5$. This means, that an initial variance that is far from the inherent variance will lead to inferior localisation performance with the \gls{trem} algorithm in the beginning, while the variance estimation of the \gls{crem} algorithm is more robust to such an initialisation. After both algorithms variance estimates have converged onto the inherent variance, the estimates are the same for both \gls{crem} and \gls{trem}. So the difference in variance estimation only has an effect on the convergence speed. In conclusion, if the initial variance is choosen to be close to the inherent variance, variance estimation yields the same results for both algorithms. Should the initial variance deviate from the variance inherent to the data, \gls{crem} offers variance estimates that converge faster than \gls{trem} in the beginning. After a certain amount of timesteps have been processed, both algorithms have converged onto the same variance estimates, that seem to range from $\sigma^2=1$ to $\sigma^2=1.5$ for the scenario of two sources moving along crossing paths with the reverberation time set to \Tsixty$=0.4$~s.
 
-\begin{itemize}
-    \item The variance inherent to the data seems to range from 0.8 to 1.8
-\end{itemize}
+%TODO: Add legends to dynamic trials
 
-\subsubsection{Comparison of Source Tracking}
+\setlength{\figureheight}{4cm}
+
+\subsubsection{Dynamic Scenario Evaluation}
+
+In the following section, the three movement scenarios \emph{parallel}, \emph{crossing} and \emph{arc} defined in \autoref{sec:evalScenariosTracking} are evaluated for both \gls{crem} and \gls{trem}. The results will be presented in individual plots for x- and y-coordinate estimates. The dashed lines indicate the true source trajectories and the red markers indicate the coordinate estimates over time.
+
+\subsubsection*{Parallel Movement}
+In the parallel movement scenario, the first source moves from $\bm p^{(0)}_{s=1}=[2~4]$ down to $\bm p^{(T)}_{s=1}=[2~2]$, while the second source moves from $\bm p^{(0)}_{s=2}=[4~2]$ up to $\bm p^{(T)}_{s=2}=[4~4]$. From a top-down view, the source on the left is moving down while the source on the right is moving up. This is the reason, why the true source trajectories cross in the y-dimension, despite the sources moving parallel to each other.
+
+\input{chapters/4experiments/results/tracking/parallel-plots-crem}
+\input{chapters/4experiments/results/tracking/parallel-plots-trem}
+\togglefalse{quick}
+\input{chapters/4experiments/results/tracking/parallel-plots-roomvar}
+\toggletrue{quick}
+\subsubsection*{Crossing Movement}
+\input{chapters/4experiments/results/tracking/crossing-plots}
+
+
+\subsubsection*{Arc Movement}
+\input{chapters/4experiments/results/tracking/arc-plots}
+
+
+\begin{figure}[H]
+	 \centering
+    \setlength{\figurewidth}{0.8\textwidth}
+    \includegraphics{plots/tracking/arc/results-T60=0.4-trem-room}  % png
+	\caption{Source Tracking Results ("arc", \glsentryshort{trem}, \Tsixty$=0.4$s)}
+\end{figure}
+
+\begin{figure}[H]
+	 \centering
+    \setlength{\figurewidth}{0.8\textwidth}
+    \includegraphics[width=\textwidth]{plots/tracking/arc/results-T60=0.4-crem-room}  % png
+	\caption{Source Tracking Results ("arc", \glsentryshort{crem}, \Tsixty$=0.4$s)}
+\end{figure}
+
+
+

@@ -1,4 +1,4 @@
-\section{Expectation-Maximisation (EM)}
+\section{Expectation-Maximisation (EM) Algorithm}
 \label{sec:em}
 
 \paragraph{History}
@@ -7,26 +7,24 @@ Although it has been used for parameter estimation of mixture models as early as
 % Initialisation
 The name \glsentrylong{em} goes back to the algorithm's distinct two steps that both rely on the output of the respective other step. Therefore, prior to the iteration over the E- and M-Step, the estimated parameter set $\bm \theta$ has to be initialised. This initialisation is done randomly in most cases, although one can also include prior knowledge of the estimated parameters by choosing certain initial values for $\theta$ accordingly.
 
-\paragraph{Description} In general, the algorithm allows to determine \gls{ml} estimates or \gls{map} estimates, where only incomplete data is available \cite[p.1]{Dempster1977}. Incomplete data means that there is a \textit{hidden} or \textit{latent} variable $Z$, that cannot be observed directly but might be inferred by some observable variable $X$. The \textit{complete data} is given by combining the (discrete) \textit{hidden variable} and the observations.
-%TODO: erklärender satz, warum latente variable diskret ist, auf diskreten fall beschränken...
-
+\paragraph{Description} In general, the algorithm allows to determine \gls{ml} estimates or \gls{map} estimates, where only incomplete data is available \cite[p.~1]{Dempster1977}. Incomplete data means that there is a \textit{hidden} or \textit{latent} variable $Z$, that cannot be observed directly but might be inferred by some observable variable $X$. The \textit{complete data} is given by combining the \textit{hidden variable} and the observations.
 
 \paragraph{Derivation}
 The cost function of the maximisation problem is the following likelihood function
 \begin{equation}
-    p(\vect{X}\given{\theta})=\sum_\vect{z} p(\vect{X},\vect{Z}\given{\theta}).
+    p(X\given{\theta})=\sum_Z p(X,Z\given{\theta}).
 \end{equation}
 
-The assumption is, that maximising $p(\vect{X}\given{\theta})$ is difficult, but optimisation of the complete data likelihood function $p(\vect{X},\vect{Z}\given{\theta})$ is significantly easier. Next, a distribution $q(\vect{Z})$ over the latent variables is defined, which allows, following \cite[p.450]{Bishop2006}, for the decomposition
+The assumption is, that maximising $p(X\given{\theta})$ is difficult, but optimisation of the complete data likelihood function $p(X,Z\given{\theta})$ is significantly easier. Next, a distribution $q(Z)$ over the latent variables is defined, which allows, following \cite[p.~450]{Bishop2006}, for the decomposition
 
 \begin{equation}\label{eq:decomposition}
-    \ln p(\vect{X}\given{\theta})=\mathcal{L}(q,\theta)+\text{KL}(q\|p),
+    \ln p(X\given{\theta})=\mathcal{L}(q,\theta)+\text{KL}(q\|p),
 \end{equation}
 
 where the summands are defined as
 \begin{align}
-    \mathcal{L}(q,\theta)&=\sum_\vect{Z}q(\vect{Z})\ln\left\{\frac{p(\vect{X},\vect{Z}\given{\theta})}{q(\vect{Z})}\right\}\label{eq:L},\\
-    \text{KL}(q\|p)&=-\sum_{\vect{Z}}q(\vect{Z})\ln\left\{\frac{p(\vect{Z}\given{\vect{X},\theta})}{q(\vect{Z})} \right\}\label{eq:KL}.
+    \mathcal{L}(q,\theta)&=\sum_Z q(Z)\ln\left\{\frac{p(X,Z\given{\theta})}{q(Z)}\right\}\label{eq:L},\\
+    \text{KL}(q\|p)&=-\sum_{Z}q(Z)\ln\left\{\frac{p(Z\given{X,\theta})}{q(Z)} \right\}\label{eq:KL}.
 \end{align}
 
 This decomposition can be verified by using the multiplication formula for probabilities, which directly results from the definition of conditional probabilities
@@ -37,44 +35,44 @@ This decomposition can be verified by using the multiplication formula for proba
     p(A,B)&=p(A\given{B})\cdot p(B).
 \end{align}
 
-Applying \eqref{eq:defProbProductRule} to $p(\vect{X},\vect{Z})$ in \eqref{eq:L} and using the product rule for logarithms $\ln(a\cdot b)=\ln(a)+\ln(b)$ yields
+Applying \eqref{eq:defProbProductRule} to $p(X,Z)$ in \eqref{eq:L} and using the product rule for logarithms $\ln(a\cdot b)=\ln(a)+\ln(b)$ yields
 
 \begin{align}
-    \mathcal{L}(q,\theta)&=\sum_{\vect{Z}}q(\vect{Z})\ln\left\{\frac{p(\vect{Z}\vert\vect{X},\theta)\cdot p(\vect{X}\given{\theta})}{q(\vect{Z})}\right\}\\
+    \mathcal{L}(q,\theta)&=\sum_{Z}q(Z)\ln\left\{\frac{p(Z\vert X,\theta)\cdot p(X\given{\theta})}{q(Z)}\right\}\\
 \label{eq:Lexpanded}
-    &=\sum_{\vect{Z}}q(\vect{Z})\ln\left\{\frac{p(\vect{Z}\given{\vect{X},\theta})}{q(\vect{Z})} \right\}+\sum_{\vect{Z}}q(\vect{Z})\ln\{p(\vect{X}\given{\theta})\}.
+    &=\sum_{Z}q(Z)\ln\left\{\frac{p(Z\given{X,\theta})}{q(Z)} \right\}+\sum_{Z}q(Z)\ln\{p(X\given{\theta})\}.
 \end{align}
 
-The first summand is equal to $-\text{KL}(q\|p)$, therefore it cancels out when inserting \eqref{eq:Lexpanded} back into \eqref{eq:decomposition}. The second summand can be simplified making use of the fact, that $q(\vect{Z})$ is a probability distribution and therefore $\sum_{\vect{Z}}q(\vect{Z})=1$ holds true
+The first summand is equal to $-\text{KL}(q\|p)$, therefore it cancels out when inserting \eqref{eq:Lexpanded} back into \eqref{eq:decomposition}. The second summand can be simplified making use of the fact, that $q(Z)$ is a probability distribution and therefore $\sum_{Z}q(Z)=1$ holds true
 %TODO: restructure this section!
 \begin{align}
-    \mathcal{L}(q,\theta)+\text{KL}(q\|p)&=\sum_{\vect{Z}}q(\vect{Z})\ln p(\vect{X}\given{\theta})-\text{KL}(q\|p)+\text{KL}(q\|p)\\
-    &=\ln p(\vect{X}\given{\theta}).
+    \mathcal{L}(q,\theta)+\text{KL}(q\|p)&=\sum_{Z}q(Z)\ln p(X\given{\theta})-\text{KL}(q\|p)+\text{KL}(q\|p)\\
+    &=\ln p(X\given{\theta}).
 \end{align}
 
-From \eqref{eq:decomposition} it is apparent, that $\mathcal{L}(q,\theta)$ is a lower bound of $\ln p(\vect{X}\given{\theta})$, because from $q(\vect{Z})>0\ \forall\ \vect{Z}$ follows KL$(q\|p)\geq0$. In order to maximise the lower bound for a given $\theta^{(l-1)}$, we therefore need to set KL$(q\|p)=0$, so that $\mathcal{L}(q,\theta)=\ln p(X\given{\theta})$. In other words, to compute a lower bound, that is tight with the original likelihood function at $\theta^{(l-1)}$ (i.e. "touches" $\ln p(\vect{X}\given{\theta})$ in $\theta^{(l-1)}$), we set $\mathcal{L}(q,\theta)=\ln p(\vect{X}\given{\theta})$, which necessitates
+From \eqref{eq:decomposition} it is apparent, that $\mathcal{L}(q,\theta)$ is a lower bound of $\ln p(X\given{\theta})$, because from $q(Z)>0\ \forall\ Z$ follows KL$(q\|p)\geq0$. In order to maximise the lower bound for a given $\theta^{(l-1)}$, we therefore need to set KL$(q\|p)=0$, so that $\mathcal{L}(q,\theta)=\ln p(X\given{\theta})$. In other words, to compute a lower bound, that is tight with the original likelihood function at $\theta^{(l-1)}$ (i.e. "touches" $\ln p(X\given{\theta})$ in $\theta^{(l-1)}$), we set $\mathcal{L}(q,\theta)=\ln p(X\given{\theta})$, which necessitates
 \begin{align}
 \label{eq:thatOtherFormulaAbove}
     \text{KL}(q\|p)&=0,\\
-    -\sum_{\vect{Z}}q(\vect{Z})\ln\left\{\frac{p(\vect{Z}\given{\vect{X},\theta})}{q(\vect{Z})} \right\}&=0.
+    -\sum_{Z}q(Z)\ln\left\{\frac{p(Z\given{X,\theta})}{q(Z)} \right\}&=0.
 \label{eq:thatFormulaAbove}
 \end{align}
 
 Choosing
 \begin{equation}
-    q(\vect{Z})=p(\vect{Z}\given{\vect{X}},\theta)
+    q(Z)=p(Z\given{X},\theta)
 \label{eq:q}
 \end{equation}
 satisfies \eqref{eq:thatFormulaAbove}. Inserting \eqref{eq:q} into \eqref{eq:L} and using $\ln(\frac{x}{y})=\ln{x}-\ln{y}$, the lower bound is given by
 \begin{align}
-    \mathcal{L}(q, \theta)&=\sum_\vect{Z}p(\vect{Z}\given{\vect{X}, \theta^{(l-1)}})\ln p(\vect{X},\vect{Z}\given{\theta})-\sum_\vect{Z}p(\vect{Z}\given{\vect{X}, \theta^{(l-1)}})\ln p(\vect{Z}\given{\vect{X},\theta^{(l-1)}})\\
+    \mathcal{L}(q, \theta)&=\sum_{Z}p(Z\given{X, \theta^{(l-1)}})\ln p(X,Z\given{\theta})-\sum_{Z}p(Z\given{X, \theta^{(l-1)}})\ln p(Z\given{X,\theta^{(l-1)}})\\
     &=\Q+\text{const},
 \end{align}
 
 with
 \begin{equation}
 \label{eq:e-step}
-    \Q=\sum_\vect{Z}p(\vect{Z}\given{\vect{X}, \theta^{(l-1)}})\ln p(\vect{X},\vect{Z}\given{\theta}).
+    \Q=\sum_{Z}p(Z\given{X, \theta^{(l-1)}})\ln p(X,Z\given{\theta}).
 \end{equation}
     
 Computing this lower bound constitutes the E-Step. The M-Step is to find a new value $\theta^{(l)}$, that maximises this lower bound
@@ -84,13 +82,10 @@ Computing this lower bound constitutes the E-Step. The M-Step is to find a new v
 \end{equation}
 
 \begin{figure}[!hb]
-\label{fig:em}
     \centering
     \includegraphics[scale=1]{data/figures/em-Q4}
-    \caption[Short Title for EM-Algorithm]{EM-Algorithm as iterative lower-bound optimisation}
-    \medskip
-    \small
-    Here in a new line a long description about the figure, in a smaller text
+    \caption[EM-Algorithm as Iterative Lower-bound Optimisation]{EM-Algorithm as Iterative Lower-bound Optimisation.}
+    \label{fig:em}
 \end{figure}
 
 To summarise, the goal of the E-Step is to find a lower bound for the original, incomplete data likelihood function $p(X\vert\theta)$. This lower bound $\mathcal{L}(q,\bm\theta)$ is choosen to be equal to the original likelihood function in $\theta^{(l-1)}$, which is done by selecting $q(Z)$ to be the posterior probability of the latent variable $Z$ given the observation $X$. This gives rise to the $\mathcal{Q}$-function, which, in the M-Step, is maximised with respects to the estimated parameter set $\bm\theta$. The result is a new value $\bm\theta^{(l)}$, for which a new lower-bound can be found. This procedure is repeated iteratively either until some fixed number of iterations are reached or some convergence criterion is met. One possible way to determine convergence is to define a lower threshold $\xi$ for the delta of the $\mathcal{Q}$ function. Is the change of $\mathcal{Q}$ from the previous iteration to the current one is lower than or equal to $\xi$, then the algorithm is stopped and $\theta^{(l)}$ is assumed as the solution to the maximum likelihood problem originally stated.
@@ -101,17 +96,15 @@ To summarise, the goal of the E-Step is to find a lower bound for the original, 
 
 For a full account of the convergence of \gls{em}, see \cite{Wu1983}. It is interesting to note, that the M-Step only states \textit{that} the result of the E-Step is to be maximised, but not \textit{how} this is to be done. Rather than a specific solution for a certain type of problems, the \gls{em} algorithm is therefore more of a template, that can be applied to a variety of different problems, each of them required to individually derive the concrete steps necessary to obtain a lower-bound for the incomplete data log likelihood function and find it's maximum.
 
-\begin{figure}
-\centering
-\includegraphics{data/figures/em-flowchart2}
-\caption[Steps of the \glsentryshort{em} algorithm]{Steps of the \glsentryshort{em} algorithm: \itshape The flow-diagram shows the steps of the \gls{em} algorithm and the convergence check after each iteration. Alternatively, a fixed number of iterations $L$ could be set in advance, rendering the check for convergence obsolete.}
-\end{figure}
-
 \paragraph{Limitations}
 One existing limitation of the \gls{em} algorithm is the possibility of a slow convergence rate, which increases the computational complexity as more iterations have to be carried out before convergence is reached. In this case, the convergence threshold $\xi$ can be increased or replaced by a fixed number of iterations $L$, although this means that the solution is no longer optimal in the \gls{mmse} sense. Another limitation is, that the algorithm is susceptible to local optima for more than one target parameter ($\bm\theta$ is a vector with length $n>1$), meaning that the determined solution is not necessarily the best solution. This can be alleviated by running the algorithm multiple times with a different, random initialisations and choose the best outcome, a procedure known as \textit{random-restart hill climb}. Another method to circumvent getting stuck in local optima is \textit{simulated annealing}, which is incorporated into an \gls{em} template in \cite{Guo2007}. The premise of simulated annealing is to introduce a certain amount of randomness, that allows for the parameter estimate to jump to a neighbouring state (i.e., a different set of parameter estimates) after each iteration. If the neighbouring state is more optimal than the original one, then it is assumed and estimation is continued with this new state. If the neighbouring state is less optimal in regards to the goal of the optimisation, it is still assumed with a certain probability, which is slowly decreased over time. This allows the algorithm to "escape" local optima in the beginning (when the probability of changing state is high), without loosing the ability to converge to an optimum later (when the probability of changing the estimated state is low or even zero).
-%TODO: define "best outcome"
 
-%As KL$(q\|p)$ is the Kullback-Leibler divergence between $q(\vect{Z})$ and $p(\vect{Z}\given{\vect{X},\theta})$, it also satisfies KL$(p\|q)\geq 0$ with equality only if $q(\vect{Z})=p(\vect{Z}\given{\vect{X},\theta})$. This means, that, using \eqref{eq:decomposition}, we can state, that $\mathcal{L}(q,\theta)$ is a lower bound for the original likelihood function $\ln p(\vect{X}\given{\theta})$.
+\begin{figure}[!bh]
+    \includegraphics{data/figures/em-flowchart2}
+    \caption[Steps of the \glsentryshort{em} algorithm]{Steps of the \glsentryshort{em} algorithm: \itshape The flow-diagram shows the steps of the \gls{em} algorithm and the convergence check after each iteration. Alternatively, a fixed number of iterations $L$ could be set in advance, rendering the check for convergence obsolete.}
+\end{figure}
+
+%As KL$(q\|p)$ is the Kullback-Leibler divergence between $q(Z)$ and $p(Z\given{X,\theta})$, it also satisfies KL$(p\|q)\geq 0$ with equality only if $q(Z)=p(Z\given{X,\theta})$. This means, that, using \eqref{eq:decomposition}, we can state, that $\mathcal{L}(q,\theta)$ is a lower bound for the original likelihood function $\ln p(X\given{\theta})$.
 
 
 

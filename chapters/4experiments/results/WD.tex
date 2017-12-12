@@ -1,18 +1,13 @@
-\subsubsection{Wall Distance}
+\subsubsection*{Wall Distance}
 
 \begin{figure}[H]
-	\begin{tikzpicture}
-	    \input{data/plots/boxplot-joined-wd}
-	    \input{helpers/legends/wd-legend}
-	\end{tikzpicture}
-	\caption[Evaluation results for varying required wall distances]{Evaluation results for varying required wall distances}
-	\label{fig:trial1}
+\iftoggle{quick}{%
+    \includegraphics[width=\textwidth]{plots/boxplots/boxplot-joined-wd}
+}{%
+    \input{plots/boxplots/boxplot-joined-wd-complete}
+}   
+	\caption[Evaluation Results for $d^w_{s,\text{min}}$]{Evaluation Results for $d^w_{s,\text{min}}$ ($n=200$)}
+	\label{fig:trialWD}
 \end{figure}
 
-\begin{itemize}
-    \item wall distance seems to have no effect on localisation performance
-    \item for $S=3$, $S=4$ and $S=6$, requiring 1.5m distance from the wall seemed to have a slightly positive effect
-    \item but results from $S=5$ and $S=7$ are identical across all wall distances
-    \item Therefore, assumption that bad performance could be due to many sources near to a wall is not confirmed
-    \item Could be tested for larger room.
-\end{itemize}
+\autoref{fig:trialWD} shows, that restricting the source positions by requiring a minimum wall distances only has a very small effect on the localisation error. For $S=3$,4 and 7, the median, mean and upper whisker of the \gls{mae} for a required minimum wall distance of $d_{s,\text{min}}^w=1.5$~m are slightly below the other two parameter values. All other differences are small enough to be attributed to chance.

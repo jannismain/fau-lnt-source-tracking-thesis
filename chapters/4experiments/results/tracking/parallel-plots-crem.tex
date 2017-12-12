@@ -1,0 +1,19 @@
+\begin{figure}[H]
+\iftoggle{quick}{%
+    \includegraphics[width=\textwidth]{plots/tracking/parallel/results-T60=0.4-crem-xy}
+}{%
+	\begin{subfigure}{0.49\textwidth}
+	     \centering
+        \setlength{\figurewidth}{0.8\textwidth}
+        \input{plots/tracking/parallel/results-T60=0.4-crem-x.tikz}
+        \caption{Estimated x-Axis Positions}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		 \centering
+        \setlength{\figurewidth}{0.8\textwidth}
+        \input{plots/tracking/parallel/results-T60=0.4-crem-y.tikz}
+        \caption{Estimated y-Axis Positions}	\end{subfigure}
+}
+	\caption[Parallel Movement Results for CREM]{Parallel Movement Results for CREM (\Tsixty$=0.4$~s).}
+	\label{fig:assignmentParallelCREM}
+\end{figure}

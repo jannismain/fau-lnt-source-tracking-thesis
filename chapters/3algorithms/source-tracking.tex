@@ -1,12 +1,13 @@
-\section{Source Tracking}
+\section{Acoustic Source Tracking}
 \label{sec:algSrcTrack}
 
-To integrate data from prior steps into each \gls{em} iteration, recursive variants of the \gls{em} algorithm have been developed. These will be called \gls{rem} algorithms in the upcoming sections.
+To integrate data from prior time-steps into each \gls{em} iteration, recursive variants of the \gls{em} algorithm have been developed. These will be called \gls{rem} algorithms in the upcoming sections.
 
-In \cite{Schwartz2014}, two different \gls{rem} algorithms for speaker tracking are proposed. One is based on \citeauthor{Titterington1984}'s \gls{rem} algorithm\ and will be referenced as \acrshort{trem}, whereas the other one is based on \citeauthor{Cappe2009}'s \gls{rem} algorithm and will be referenced as \acrshort{crem}.
-As the derivation of these algorithms is too involved to be repeated here, only the resulting algorithm for the specific application of source tracking shall be presented below.
-The main difference from the static location estimation is, that where the results have been summed up over all time-bins before, now each time-bin is analysed seperately and the estimation results of the prior time-bin will be used as prior probability of the next iteration. Another difference is, that the E- and M-Step are combined into one single recursion update, which means there are no more iterations over the E- and M-Step but rather recursions over the time-bins now. Therefore the iteration index $(l)$ is replaced by the time index $(t)$.
+In \cite{Schwartz2014}, two different \gls{rem} algorithms for speaker tracking are proposed. One is based on \gls{trem} algorithm proposed in \cite{Titterington1984}, whereas the other one is based on \gls{crem} algorithm \cite{Cappe2009}.
+As the derivation of these algorithms is quite involved, only the parameter updates for the specific application of source tracking is presented below.
+The main difference from the static location estimation is, that where the results have been summed up over all time-bins before, now each time-bin is analysed seperately and the estimation results of the prior time-step will be used as a reference for the next iteration. Therefore, each iteration does not process the same data with updated estimation parameters anymore (as was the case before), but now uses the estimated parameters of the data at the last time-step to improve the estimation of source positions and the overall variance for the current time-step. This is iterated over until all time-steps have been processed. Therefore the iteration index $(l)$ is replaced by the time index $(t)$.
 
+%TODO: Expand Tracking Derivation
 % Left out Calculation of FIM here
 
 Recursive estimation of the Gaussian component weights is the same for both algorithms. First, reusing \eqref{eq:responsibility} for recursive updates over time $(t)$ instead of \gls{em} iterations $(l)$ yields
@@ -14,7 +15,7 @@ Recursive estimation of the Gaussian component weights is the same for both algo
     \muRlast \triangleq \frac{\pdffuncR}{\sum_{\vect{p}}\pdffuncR}
 \end{equation}
 
-Similar to \eqref{eq:m_step_psi}, a recursive estimate of $\psip$ is given by
+Similar to \eqref{eq:m_step_psi}, a recursive estimate of $\psi_{\bm p}$ is given by
 \begin{equation}
     \psi_{\bm p}^{(t)}\triangleq\sum_k \frac{\muRlast}{K}
 \end{equation}
@@ -23,29 +24,28 @@ Finally, using the result of the algorithm derivation based on the \gls{fim} in 
 
 \begin{equation}
 \label{eq:crem-psi}
-    \psiRnow = \psiRlast +\gamma_t(\bm\psi^{(t)} -\psiRlast ).
+    \psiRnow = \psiRlast +\gamma_t(\bm\psi^{(t)} -\psiRlast ),
 \end{equation}
 \renewcommand{\*}{\cdot}
+where $\gamma_t$ is the step size of the recursive update.
 
 The two algorithms, however, do differ in the recursive update of the variance
 
 \paragraph{\glsentryshort{trem}}
 \begin{align*}
-    \sigma_R^{2,(t)} &= \sigma_R^{2,(t-1)}+\gamma_t\frac{1}{K\*\sum_{\bm p}\psiRPlast} \sum_{k,\bm p}\mulast\*\frac{1}{M}\sum_{m}|\phi_m(t,k)-\tilde\phi_m^k(\bm p)|^2-\sigma_{m,R}^{2,(t-1)}\\
-                     &= \sigma_R^{2,(t-1)}+\gamma_t\frac{\sum_{k,\bm p}\mulast}{K\*\sum_{\bm p}\psiRPlast} \*\Bigg ( \frac{1}{M}\sum_{m}|\phi_m(t,k)-\tilde\phi_m^k(\bm p)|^2-\sigma_{m,R}^{2,(t-1)}\Bigg ).
+    \sigma_R^{2,(t)} &= \sigma_R^{2,(t-1)}+\gamma_t\frac{1}{K\*\sum_{\bm p}\psiRPlast} \sum_{k,\bm p}\muRlast\*\frac{1}{M}\sum_{m}|\phi_m(t,k)-\tilde\phi_m^k(\bm p)|^2-\sigma_{R}^{2,(t-1)}\\
+%                     &= \sigma_R^{2,(t-1)}+\gamma_t\frac{\sum_{k,\bm p}\mulast}{K\*\sum_{\bm p}\psiRPlast} \*\Bigg ( \frac{1}{M}\sum_{m}|\phi_m(t,k)-\tilde\phi_m^k(\bm p)|^2-\sigma_{m,R}^{2,(t-1)}\Bigg ).
 \numberthis\label{eq:trem-var}
 \end{align*}
 
 \paragraph{\glsentryshort{crem}}
 \begin{align*}
-    \sigma_R^{2,(t)} = \sigma_R^{2,(t-1)}\cdot\frac{\sum_{\bm p}\psiRPlast}{\sum_{\bm p}\psiRPnow}&+\gamma_t\Bigg ( \frac{\sum_{k,\bm p,m}\mulast|\phi_m(t,k)-\tilde\phi_m^k(\bm p)|^2}{K \* M \* \sum_{\bm p}\psiRPnow}\\
+    \sigma_R^{2,(t)} = \sigma_R^{2,(t-1)}\cdot\frac{\sum_{\bm p}\psiRPlast}{\sum_{\bm p}\psiRPnow}&+\gamma_t\Bigg ( \frac{\sum_{k,\bm p,m}\muRlast|\phi_m(t,k)-\tilde\phi_m^k(\bm p)|^2}{K \* M \* \sum_{\bm p}\psiRPnow}\\
     &-\sigma_R^{2,(t-1)}\frac{\sum_{\bm p}\psiRPlast}{\sum_{\bm p}\psiRPnow} \Bigg ).
 \numberthis\label{eq:crem-var}
 \end{align*}
 
-\input{data/algorithms/alg-trem}
+The algorithm for source tracking is summarised below.
+
 
 \input{data/algorithms/alg-crem}
-
-The \gls{crem} algorithm is summarised in Algorithm \ref{alg:crem}.
-The \gls{trem} algorithm is summarised in Algorithm \ref{alg:trem}.
