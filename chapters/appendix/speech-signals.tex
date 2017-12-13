@@ -1,21 +1,21 @@
 \section*{Speech Signals}
-
+\label{app:signals}
 
 \begin{figure}[H]
 \iftoggle{quick}{
     \includegraphics[width=\textwidth]{plots/signals/s1-time-stft-scr}
 }{%
 \setlength{\figureheight}{3cm}
-\setlength{\figurewidth}{0.9\textwidth}
+\setlength{\figurewidth}{0.8\textwidth}
 \footnotesize
  \begin{subfigure}{\textwidth}
     \centering
-    \input{plots/signals/s1-time.tikz}
+    \input{plots/signals/s1-time-extData.tikz}
     \caption{Time-Domain Representation}
  \end{subfigure}\\
  \begin{subfigure}{\textwidth}
     \centering
-    \input{plots/signals/s1-stft.tikz}
+    \input{plots/signals/s1-stft-extData.tikz}
     \caption{STFT-Domain Representation}
  \end{subfigure}
 }%
@@ -27,16 +27,16 @@
     \includegraphics[width=\textwidth]{plots/signals/s2-time-stft-scr}
 }{%
 \setlength{\figureheight}{3cm}
-\setlength{\figurewidth}{0.9\textwidth}
+\setlength{\figurewidth}{0.8\textwidth}
 \footnotesize
  \begin{subfigure}{\textwidth}
  \centering
- \input{plots/signals/s2-time.tikz}
+ \input{plots/signals/s2-time-extData.tikz}
     \caption{Time-Domain Representation}
  \end{subfigure}\\
  \begin{subfigure}{\textwidth}
  \centering
-    \input{plots/signals/s2-stft.tikz}
+    \input{plots/signals/s2-stft-extData.tikz}
     \caption{STFT-Domain Representation}
  \end{subfigure}
 }
@@ -44,6 +44,31 @@
  \label{fig:signalRepresentation}
 \end{figure}
 
+%\togglefalse{quick}
+%
+%\begin{figure}[H]
+%\iftoggle{quick}{
+%%    \includegraphics[width=\textwidth]{plots/signals/s3-time}
+%}{%
+%\setlength{\figureheight}{3cm}
+%\setlength{\figurewidth}{0.8\textwidth}
+%\footnotesize
+% \begin{subfigure}{\textwidth}
+% \centering
+% \input{plots/signals/s3-time-extData.tikz}
+%    \caption{Time-Domain Representation}
+% \end{subfigure}\\
+% \begin{subfigure}{\textwidth}
+% \centering
+%    \input{plots/signals/s3-stft-extData.tikz}
+%    \caption{STFT-Domain Representation}
+% \end{subfigure}
+%}
+% \caption{Time- and \glsentryshort{stft}-Domain Representation of Speech Sample \#3}
+% \label{fig:signalRepresentation}
+%\end{figure}
+%
+%\toggletrue{quick}
 
 \begin{table}[htb]
 	\small

@@ -18,8 +18,6 @@ ymax=5,
 ylabel style={font=\color{white!15!black}},
 ylabel={$p_y^{(t)}$~[m]},
 axis background/.style={fill=white},
-axis x line*=bottom,
-axis y line*=left,
 xmajorgrids,
 ymajorgrids,
 point meta min = 0,
@@ -48,9 +46,9 @@ colorbar style={
     },%
     only marks,     
     mark=*,
-    mark size=2.0pt,
-    opacity=0.4,
-    line width=0.8pt,
+    mark size=\trajSize,
+    opacity=\trajOpacity,
+    line width=\trajLinewidth,
     point meta={TeX code symbolic={%
         \edef\pgfplotspointmeta{\thisrow{R},\thisrow{G},\thisrow{B}}%
     }},
@@ -100,6 +98,9 @@ x	y	R	G	B\\
 2.000000	2.096192	0.600000	0.000000	0.000000\\
 };
 
+\node at (axis cs:4,4) [anchor=south west] {$s_1$};
+\node at (axis cs:2,4) [anchor=south west] {$s_2$};
+
 \addplot[
     scatter,%
     scatter/@pre marker code/.code={%
@@ -112,9 +113,9 @@ x	y	R	G	B\\
     },%
     only marks,     
     mark=x,
-    opacity=0.4,
-    mark size=3.0pt,
-    line width=0.5pt,
+    opacity=\estOpacity,
+    mark size=\estSize,
+    line width=\estLinewidth,
     point meta={TeX code symbolic={%
         \edef\pgfplotspointmeta{\thisrow{R},\thisrow{G},\thisrow{B}}%
     }},
@@ -617,27 +618,6 @@ x	y	R	G	B\\
 2	2.5	0.516129032258065	0	0\\
 2	2.5	0.508064516129032	0	0\\
 2	2.5	0.5	0	0\\
-};
-\addplot[
-    scatter,%
-    scatter/@pre marker code/.code={%
-        \edef\temp{\noexpand\definecolor{mapped color}{rgb}{\pgfplotspointmeta}}%
-        \temp
-        \scope[draw=mapped color!80!black,fill=mapped color]%
-    },%
-    scatter/@post marker code/.code={%
-        \endscope
-    },%
-    only marks,     
-    mark=x,
-    mark size=4.0pt,
-    line width=0.5pt,
-    point meta={TeX code symbolic={%
-        \edef\pgfplotspointmeta{\thisrow{R},\thisrow{G},\thisrow{B}}%
-    }},
-] 
-table[row sep=crcr]{%
-x	y	R	G	B\\
 2.6	4	0	0	0.508064516129032\\
 4.1	2.3	0	0	0.516129032258065\\
 1.3	2.3	0	0	0.524193548387097\\

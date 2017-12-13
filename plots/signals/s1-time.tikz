@@ -14,14 +14,12 @@ xmax=80000,
 xtick={0,16000,32000,48000,64000,80000},
 xticklabels={{0},{1},{2},{3},{4},{5}},
 xlabel style={font=\color{white!15!black}},
-xlabel={t},
+xlabel={$t$ [s]},
 ymin=-0.5,
 ymax=0.5,
 ylabel style={font=\color{white!15!black}},
-ylabel={x(t)},
+ylabel={$v_1(t)$},
 axis background/.style={fill=white},
-axis x line*=bottom,
-axis y line*=left
 ]
 \addplot [color=lms_red, forget plot]
   table[row sep=crcr]{%

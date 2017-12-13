@@ -19,8 +19,6 @@ ymax=6,
 ylabel style={font=\color{white!15!black}},
 ylabel={$p_y$~[m]},
 axis background/.style={fill=white},
-axis x line*=bottom,
-axis y line*=left
 ]
 
 \addplot[%

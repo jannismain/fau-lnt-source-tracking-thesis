@@ -4,9 +4,7 @@
 Intuitively, the localisation error for a given source $s$ is given by the Euclidean distance between the original source position $\ps$ and the location estimate $\psest$
 
 \begin{equation}
-%TODO: This solution for the norm-subscript produces a compilation error. If no other solution exists, comment this in at the END
-%	\epsilon_s = \norm{\ps-\psest}_{\raisebox{-1pt}{_2}}.
-	\epsilon_s = \norm{\ps-\psest}_{2}.
+	\epsilon_s = \norm{\ps-\psest}_{_2}
 	\label{eq:error}
 \end{equation}
 
@@ -17,7 +15,6 @@ Intuitively, the localisation error for a given source $s$ is given by the Eucli
 	\label{eq:maeGeneral}
 \end{align}
 
-%TODO: Korrektur "Stärker ausführen oder weglassen" verarbeite
 The underlying assumption of the \gls{rmse} is an unbiased error that follows a normal distribution. This might be the case for trials, where localisation is severely affected by noise and reverberation, but does not fit trials, where localisation is generally good, meaning most errors are zero, and only few but large outliers occur. The \gls{rmse} overemphasises these outliers, whereas the \gls{mae} weights every error equal. Therefore, the \gls{mae} is a more accurate performance measure for the static localisation trials.
 
 \paragraph{Assigning Estimates} To calculate the \gls{mae}, the location estimates have to be assigned to the original source locations. But neither the localisation nor the tracking algorithm create an identity between original source location and location estimate, as the original source location is inherently unknown to the algorithm. Therefore, assigning this identity to compute a sensible localisation error introduces a bias, that depends on the assignment strategy. One way of assigning estimates to their respective true location would be to simply minimise the overall \gls{mae}. The downside with this approach is, that estimates close to one source might be assigned to another, more remote one, so that the overall error is minimised (A result where this would happen is shown in \autoref{fig:assignmentExample}(a)). In other words, one correctly and one incorrectly estimated source locations could result in an assignment, that states two incorrectly estimates sources, which is undesirable if we want to evaluate, what the percentage of correct location estimates is across different trials. The solution is to assign estimates that are closer to one of the source positions first. This can be done by calculating the matrix of distances $\bm{D}_{ij}$ between the location estimates $\hat\p_s$ and the actual source positions $\p_s$

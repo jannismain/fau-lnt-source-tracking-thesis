@@ -1,0 +1,21 @@
+\begin{figure}[!htbp]
+\iftoggle{quick}{%
+    \includegraphics[width=\textwidth]{plots/tracking/crossing/results-T60=0.4-cremtrem-room-sc.png}
+}{%
+	\begin{subfigure}{0.49\textwidth}
+	     \centering
+        \setlength{\figurewidth}{0.8\textwidth}
+        \input{plots/tracking/crossing/results-T60=0.4-trem-room.tikz}
+        \caption{Estimated Positions \glsentryshort{trem}}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		 \centering
+        \setlength{\figurewidth}{0.8\textwidth}
+        \input{plots/tracking/crossing/results-T60=0.4-crem-room.tikz}
+		\caption{Estimated Positions \glsentryshort{crem}}
+	\end{subfigure}
+}
+	\caption[Estimated Positions for CREM and TREM (Crossing)]{Estimated Position for CREM and TREM (Crossing, \Tsixty$=0.4$~s).}
+	\label{fig:trackingCrossingRoom}
+\end{figure}
+

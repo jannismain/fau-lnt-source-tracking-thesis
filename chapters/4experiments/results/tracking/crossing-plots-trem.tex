@@ -1,0 +1,19 @@
+\begin{figure}[!htbp]
+    \iftoggle{quick}{%
+        \includegraphics[width=\textwidth, height=\figureheight]{plots/tracking/crossing/results-T60=0.4-trem-xy}
+    }{%
+        \begin{subfigure}{0.49\textwidth}
+             \centering
+            \setlength{\figurewidth}{0.8\textwidth}
+            \input{plots/tracking/crossing/results-T60=0.4-trem-x.tikz}  % tikz
+            \caption{Estimated x-Axis Positions}
+        \end{subfigure}
+        \begin{subfigure}{0.49\textwidth}
+             \centering
+            \setlength{\figurewidth}{0.8\textwidth}
+            \input{plots/tracking/crossing/results-T60=0.4-trem-y.tikz}  % tikz
+             \caption{Estimated y-Axis Positions}	\end{subfigure}
+    }
+        \caption[Crossing Movement Results for TREM]{Crossing Movement Results for TREM (\Tsixty$=0.4$s).}
+        \label{fig:trackingCrossingTREM}
+    \end{figure}

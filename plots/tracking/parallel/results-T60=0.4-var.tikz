@@ -22,8 +22,6 @@ ytick={0.75,    1, 1.25,  1.5},
 ylabel style={font=\color{white!15!black}},
 ylabel={$\sigma^{2,\text{(t)}}$},
 axis background/.style={fill=white},
-axis x line*=bottom,
-axis y line*=left,
 xmajorgrids,
 ymajorgrids,
 legend style={legend cell align=left, align=left, at={(0.97,0.03)}, anchor=south east, draw=white!80.0!black, font=\footnotesize,fill opacity=0.5, draw opacity=1,text opacity=1}

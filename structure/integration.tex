@@ -13,6 +13,10 @@
 \thispagestyle{empty}
 \cleardoublepage
 
+\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
+%\renewcommand{\chaptermark}[1]{\markright{\uppercase{\thechapter.\ #1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{\uppercase{\thesection.\ #1}}{}}
+
 % Table of Contents
 \addtocounter{page}{-2}
 \setcounter{tocdepth}{2}
@@ -20,16 +24,16 @@
 \clearpage
 
 %% Summary
-\renewcommand{\chaptermark}[1]{}
+%\renewcommand{\chaptermark}[1]{}
 \chaptermark{Abstract}
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
 \input{structure/abstract}
 \clearpage
 \include{helpers/empty-page}
-\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thechapter \ #1}}{}}
-\renewcommand{\chaptermark}[1]{ \markboth{ \uppercase{#1}}{}} 
-\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{#1}}{}} 
+%\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thechapter \ #1}}{}}
+%\renewcommand{\chaptermark}[1]{ \markboth{ \uppercase{#1}}{}} 
+%\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{#1}}{}} 
 
 %% List of Abbreviations
 \input{other/acronyms}
@@ -86,7 +90,7 @@
  	\renewcommand{\chaptermark}[1]{\markboth{\uppercase{Appendix \thechapter:\ #1}}{}}
 % 	 	\input{data/code/code}
      
-     \chapter{Results}
+%     \chapter{Results}
 %     \include{chapters/appendix/results/schwartz2014-overview-plot}
 %        \includegraphics{chapters/appendix/results/
     \chapter{Implementation Resources}

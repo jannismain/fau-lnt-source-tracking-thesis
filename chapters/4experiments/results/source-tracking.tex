@@ -16,45 +16,62 @@
 	\label{fig:trackVarComp}
 \end{figure}
 
-As has been shown in \autoref{sec:algSrcTrack}, the \gls{trem} and \gls{crem} variants of the tracking algorithm only differ in the estimation of the variance parameter. \autoref{fig:trackVarComp} shows, how both algorithms update $\sigma^2$ for different initial values $\sigma^{2,(0)}\ \in\ \{0.1, 0.5, 1, 2, 5\}$ over time. Note, that the time-axis is now given in seconds to make it easier to align the estimated parameters over time with the source signals shown in \autoref{fig:signalRepresentation}. The progression of the variance estimate over time shows, that \gls{crem} converges significantly faster from the initial value to the variance inherent to the data. While \gls{crem} seems to follow the inherent variance from $t=0.5$~s onwards, \gls{trem} takes until $t=1$~s to fully converge for an initial variance of $\sigma^{2,(0)}=5$. This means, that an initial variance that is far from the inherent variance will lead to inferior localisation performance with the \gls{trem} algorithm in the beginning, while the variance estimation of the \gls{crem} algorithm is more robust to such an initialisation. After both algorithms variance estimates have converged onto the inherent variance, the estimates are the same for both \gls{crem} and \gls{trem}. So the difference in variance estimation only has an effect on the convergence speed. In conclusion, if the initial variance is choosen to be close to the inherent variance, variance estimation yields the same results for both algorithms. Should the initial variance deviate from the variance inherent to the data, \gls{crem} offers variance estimates that converge faster than \gls{trem} in the beginning. After a certain amount of timesteps have been processed, both algorithms have converged onto the same variance estimates, that seem to range from $\sigma^2=1$ to $\sigma^2=1.5$ for the scenario of two sources moving along crossing paths with the reverberation time set to \Tsixty$=0.4$~s.
-
-%TODO: Add legends to dynamic trials
+As has been shown in \autoref{sec:algSrcTrack}, the \gls{trem} and \gls{crem} variants of the tracking algorithm only differ in the estimation of the variance parameter. \autoref{fig:trackVarComp} shows, how both algorithms update $\sigma^2$ for different initial values $\sigma^{2,(0)}\ \in\ \{0.1, 0.5, 1, 2, 5\}$ over time. Note, that the time-axis is now given in seconds to make it easier to align the estimated parameters over time with the source signals shown in \autoref{fig:signalRepresentation}. The progression of the variance estimate over time shows, that \gls{crem} converges significantly faster from the initial value to the variance inherent to the data. While \gls{crem} seems to follow the inherent variance from $t=0.5$ onwards, \gls{trem} takes until $t=1$ to fully converge for an initial variance of $\sigma^{2,(0)}=5$. This means, that an initial variance that is far from the inherent variance will lead to inferior localisation performance with the \gls{trem} algorithm in the beginning, while the variance estimation of the \gls{crem} algorithm is more robust to such an initialisation. After both algorithms variance estimates have converged onto the inherent variance, the estimates are the same for both \gls{crem} and \gls{trem}. So the difference in variance estimation only has an effect on the convergence speed. In conclusion, if the initial variance is choosen to be close to the inherent variance, variance estimation yields the same results for both algorithms. Should the initial variance deviate from the variance inherent to the data, \gls{crem} offers variance estimates that converge faster than \gls{trem} in the beginning. After a certain amount of timesteps have been processed, both algorithms have converged onto the same variance estimates, that seem to range from $\sigma^2=1$ to $\sigma^2=1.5$ for the scenario of two sources moving along crossing paths with the reverberation time set to \Tsixty$=0.4$. As both algorithms produce the same variance estimates after they have converged, it can be assumed that the location estimates will be similar as well.
 
 \setlength{\figureheight}{4cm}
+\newcommand{\trajOpacity}{0.2}
+\newcommand{\trajSize}{2pt}
+\newcommand{\trajLinewidth}{0.5pt}
+\newcommand{\estOpacity}{0.2}
+\newcommand{\estSize}{4pt}
+\newcommand{\estLinewidth}{0.5pt}
+\newcommand{\trajDashedLinewidth}{2pt}
 
 \subsubsection{Dynamic Scenario Evaluation}
 
-In the following section, the three movement scenarios \emph{parallel}, \emph{crossing} and \emph{arc} defined in \autoref{sec:evalScenariosTracking} are evaluated for both \gls{crem} and \gls{trem}. The results will be presented in individual plots for x- and y-coordinate estimates. The dashed lines indicate the true source trajectories and the red markers indicate the coordinate estimates over time.
+In the following section, the three movement scenarios \emph{parallel}, \emph{crossing} and \emph{arc} defined in \autoref{sec:evalScenariosTracking} are evaluated for both \gls{crem} and \gls{trem}. The results will be presented in individual plots for x- and y-coordinate estimates. The dashed lines indicate the true source trajectories and the red markers indicate the coordinate estimates over time. Additionally, a third plot will show the estimated positions, where time has been coded as a color gradient from blue to red. But first, the two source signals should be examined to see, how their speech activity progresses over time. \autoref{fig:signalRepresentation} in the Appendix shows, that the first source signal has a distinctive pause around $t=3$. Further, the STFT-representation shows, that the lower frequencies are missing around $t=1$. The second source signal has two pauses, one at $t=1.4$ and the other at $t=4.7$ until the end. It is expected that source tracking will exhibit difficulties estimating the true source trajectories in those instances.
 
+\togglefalse{quick}
+%% PARALLEL MOVEMENT 
 \subsubsection*{Parallel Movement}
-In the parallel movement scenario, the first source moves from $\bm p^{(0)}_{s=1}=[2~4]$ down to $\bm p^{(T)}_{s=1}=[2~2]$, while the second source moves from $\bm p^{(0)}_{s=2}=[4~2]$ up to $\bm p^{(T)}_{s=2}=[4~4]$. From a top-down view, the source on the left is moving down while the source on the right is moving up. This is the reason, why the true source trajectories cross in the y-dimension, despite the sources moving parallel to each other.
+In the parallel movement scenario, the first source moves from $\bm p^{(0)}_{s=1}=[4~2]$ up to $\bm p^{(T)}_{s=1}=[4~4]$, while the second source moves from $\bm p^{(0)}_{s=2}=[2~4]$ down to $\bm p^{(T)}_{s=2}=[2~2]$. From a top-down view, the source on the left is moving down while the source on the right is moving up. This is the reason, why the true source trajectories cross in the y-dimension, despite the sources moving parallel to each other. The trajectory length is $2.82$~m, therefore the sources move along the trajectory at a speed of $0.564\frac{m}{s}$. 
 
 \input{chapters/4experiments/results/tracking/parallel-plots-crem}
+
+The \gls{crem} algorithm is able to identify the x- and y-coordinates for both sources successfully for most of the trial. \autoref{fig:trackingParallelCREM} clearly shows, how the missing activity of $s=1$ around $t=1$ and $t=3$ immediately leads to spurious x-coordinate estimates close to the microphone pairs. Otherwise the location estimates closely track the true source trajectories.
+
 \input{chapters/4experiments/results/tracking/parallel-plots-trem}
-\togglefalse{quick}
-\input{chapters/4experiments/results/tracking/parallel-plots-roomvar}
-\toggletrue{quick}
+
+
+Although not identical, \gls{trem} behaves similar to \gls{crem} as the results in \autoref{fig:trackingParallelTREM} demonstrate. As expected, there are more wrong x-coordinate estimates until $t=1$ and the variance has fully converged. Then, both algorithms display very similar behaviour. From $t=3$ to $t=4$ \gls{trem} accurately estimates the x-coordinate $p_x=2$, whereas \gls{crem} missed the true trajectory by 1 grid point. An overview of the position estimates over time for both \gls{trem} and \gls{crem} is provided in \autoref{fig:trackingParallelRoom}.
+
+\input{chapters/4experiments/results/tracking/parallel-plots-room}
+
+\FloatBarrier
+
+
+%% CROSSING MOVEMENT 
 \subsubsection*{Crossing Movement}
-\input{chapters/4experiments/results/tracking/crossing-plots}
+In the crossing movement scenario, the first source moves from $\bm p^{(0)}_{s=1}=[2~2]$ up to $\bm p^{(T)}_{s=1}=[4~4]$, while the second source moves from $\bm p^{(0)}_{s=2}=[4~2]$ up to $\bm p^{(T)}_{s=2}=[2~4]$. From a top-down view, both sources move up diagonally and cross paths in $\bm p_s^{(T/2)}=[3~3]$ at $t=2.5$.
 
+\input{chapters/4experiments/results/tracking/crossing-plots-crem}
+\input{chapters/4experiments/results/tracking/crossing-plots-trem}
 
+As with the parallel movement scenario, both algorithms give erroneous estimates between $t=1$ and $t=2$ and around $t=3$, due to the inactivity of the first source. In \autoref{fig:trackingCrossingCREM} we can see, that the location estimates seem to have collapsed onto the second source between $t=2.5$ and $t=4.5$, as only two location estimates are close to the first source during this time. Here, \gls{trem} performs better, as it estimated more positions close to the first source in this time frame. The \gls{trem} algorithm also more closely tracks the second source in the first second, while \gls{crem} seems to be stuck in a local optima at $\p_x=3.9$ for almost the entire second. An overview of the position estimates over time for both \gls{trem} and \gls{crem} for the crossing movement scenario is provided in \autoref{fig:trackingCrossingRoom}.
+\input{chapters/4experiments/results/tracking/crossing-plots-room}
+
+\FloatBarrier
+
+%% ARC MOVEMENT 
 \subsubsection*{Arc Movement}
-\input{chapters/4experiments/results/tracking/arc-plots}
+In the arc movement scenario, the first source moves from $\bm p^{(0)}_{s=1}=[3~2]$ up to $\bm p^{(T)}_{s=1}=[3~4]$, while the second source moves from $\bm p^{(0)}_{s=2}=[3~4]$ down to $\bm p^{(T)}_{s=2}=[3~2]$. From a top-down view, both sources move along a half-circle, until they reach the starting point of the respective other source.
 
+\input{chapters/4experiments/results/tracking/arc-plots-crem}
+\input{chapters/4experiments/results/tracking/arc-plots-trem}
 
-\begin{figure}[H]
-	 \centering
-    \setlength{\figurewidth}{0.8\textwidth}
-    \includegraphics{plots/tracking/arc/results-T60=0.4-trem-room}  % png
-	\caption{Source Tracking Results ("arc", \glsentryshort{trem}, \Tsixty$=0.4$s)}
-\end{figure}
+For this scenario, both algorithms were able to reliably track the second source shown in violett in \autoref{fig:trackingArcCREM} and \autoref{fig:trackingArcTREM}. Again, \gls{crem} seems to lag behind the actual x-trajectory of the second source until $t=1$, but after that both algorithms yield similar x-coordinate estimates. After $t=4$, \gls{trem} was unable to identify the y-coordinates for the first source. In this case, \gls{crem} performed more reliably, correctly identifying y-coordinates around the true y-trajectory of the first source from $t=3.7$ onwards. The overview of the position estimates over time for both \gls{trem} and \gls{crem} in \autoref{fig:trackingArcRoom} shows, that overall, \gls{trem} seems to more different position estimates than \gls{crem}. While some of these correspond to the source trajectories, it produces are also more false position estimates compared to \gls{crem}, which yields less erroneous estimates, but also less estimates close to the true source trajectories.
+\input{chapters/4experiments/results/tracking/arc-plots-room}
 
-\begin{figure}[H]
-	 \centering
-    \setlength{\figurewidth}{0.8\textwidth}
-    \includegraphics[width=\textwidth]{plots/tracking/arc/results-T60=0.4-crem-room}  % png
-	\caption{Source Tracking Results ("arc", \glsentryshort{crem}, \Tsixty$=0.4$s)}
-\end{figure}
-
-
+\FloatBarrier
+\toggletrue{quick}
 

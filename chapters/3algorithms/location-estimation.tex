@@ -10,7 +10,7 @@ If the likelihood function of the observed data \eqref{eq:mle} were to be maximi
 \begin{equation}
     \ln f(\bm\phi;\bm\psi,\bm\sigma^2) = \ln\prod_{t,k}\sum_{s,\bm p}\psi_{\bm p}\prod_m\mathcal{N}^c\big(\phi_m(t,k);\tilde\phi^k_m(\bm p),\sigma^2_{s}\big).
 \end{equation}
-Because the sum over all possible gridpoints $\bm p$ prevents the logarithm from acting directly on the exponential term, solving this function results in a complicated expression, which should be avoided. This is where a so-called \textit{latent variable} is introduced. Here, the latent variable is defined as an indicator $z$, that a certain time-frequency bin $(t,k)$ belongs to an active source at position $\bm p$ 
+Because the sum over all possible grid points $\bm p$ prevents the logarithm from acting directly on the exponential term, solving this function results in a complicated expression, which should be avoided. This is where a so-called \textit{latent variable} is introduced. Here, the latent variable is defined as an indicator $z$, that a certain time-frequency bin $(t,k)$ belongs to an active source at position $\bm p$ 
 \begin{equation}
 	\z=\begin{cases}
 	    1& \text{source $s$ at $\bm p$ active in $(t,k)$-bin},\\
@@ -23,7 +23,7 @@ The expectation of the hidden variable is equal to the probability of a source t
     E\{\z\}=\psips.
 \end{equation}
 
-As sparsity of the source signals is assumed, meaning there is only one source active in each time-frequency bin, the latent variable is a 1-of-$|\mathcal{P}|$ representation, where $|\mathcal{P}|$ denotes the cardinality of the set of all gridpoints, i.e. there is one $z(t',k',s',\bm p')=1$ whereas $z(t',k',s',\bm p)=0\ \forall\ \bm p\in\mathcal{P}\smallsetminus\{\bm p'\}$. The property that makes indicators in combination with \glspl{gmm} so useful is their ability to simplify the sum over all components into a product
+As sparsity of the source signals is assumed, meaning there is only one source active in each time-frequency bin, the latent variable is a 1-of-$|\mathcal{P}|$ representation, where $|\mathcal{P}|$ denotes the cardinality of the set of all grid points, i.e. there is one $z(t',k',s',\bm p')=1$ whereas $z(t',k',s',\bm p)=0\ \forall\ \bm p\in\mathcal{P}\smallsetminus\{\bm p'\}$. The property that makes indicators in combination with \glspl{gmm} so useful is their ability to simplify the sum over all components into a product
 \begin{equation}
 \label{eq:indicator-sum-product}
     \sum_{i}x_i\cdot z_i=\prod_i (x_i)^{z_i}.
@@ -36,7 +36,7 @@ With $\bm z=\text{vec}_{t,k,s,\bm p}(\z)$ being the concatenated vector of the l
 %TODO: Besser herausarbeiten, das mean = PRP reading
 where $\bm\theta=[\bm\psi,\bm\sigma^2]$ is the set of target parameters.
 
-%Note, that $\mu$ is not part of this set, as the Gaussian components in this model are evenly spaced throughout the room and each component mean corresponds to one gridpoint. This deviates from the way the \gls{em} algorithm is commonly used together with a \gls{gmm}, where, in addition to the Gaussian component weights $\bm\psi$, generally both mean and covariance are part of the estimation.
+%Note, that $\mu$ is not part of this set, as the Gaussian components in this model are evenly spaced throughout the room and each component mean corresponds to one grid point. This deviates from the way the \gls{em} algorithm is commonly used together with a \gls{gmm}, where, in addition to the Gaussian component weights $\bm\psi$, generally both mean and covariance are part of the estimation.
 
 As was described in Section \ref{sec:em} and further argued above, due to the complexity involved when maximising the log-likelihood function of the observations $\ln p(\bm\phi;\bm\psi, \bm\sigma^2)$ directly, a tight lower bound at $\bm\theta^{(l-1)}$ is derived and maximised instead. This lower-bound will utilize the latent variable to reduce complexity of the optimisation problem and is given in \eqref{eq:L} . From \eqref{eq:L} one can see, that to evaluate this function, the complete-data likelihood $p(\bm\phi,\bm z; \bm\theta)$ as well as the conditional likelihood $p(\bm z\given{\bm\phi, \bm\theta^{(l-1)}})$ is required. Given the hidden data, the conditional likelihood of the observations is given by:
 \begin{equation}

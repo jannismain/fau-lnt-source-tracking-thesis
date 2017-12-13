@@ -1,0 +1,65 @@
+% This file was created by matlab2tikz.
+%
+\definecolor{lms_red}{rgb}{0.80000,0.20780,0.21960}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figurewidth,
+height=\figureheight,
+at={(0\figurewidth,0\figureheight)},
+scale only axis,
+xmin=0,
+xmax=80000,
+xtick={0,16000,32000,48000,64000,80000},
+xticklabels={{0},{1},{2},{3},{4},{5}},
+xlabel style={font=\color{white!15!black}},
+xlabel={$t$ [s]},
+ymin=-0.5,
+ymax=0.5,
+ylabel style={font=\color{white!15!black}},
+ylabel={$v_1(t)$},
+axis background/.style={fill=white}
+]
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-1.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-2.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-3.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-4.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-5.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-6.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-7.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-8.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-9.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-10.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-11.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-12.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-13.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-14.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-15.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-16.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-17.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-18.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-19.tsv};
+\addplot [color=lms_red, forget plot]
+  table[]{plots/tikz-data/s1-time-extData-20.tsv};
+\end{axis}
+\end{tikzpicture}%

@@ -1,0 +1,41 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX engine = lualatex
+% !TEX outputDirectory = .build
+
+\documentclass[12pt,twoside,a4paper]{report}
+    
+% Setting dimensions of...
+\setlength{\textwidth}{15.5 true cm}
+\setlength{\textheight}{22 true cm}
+\oddsidemargin  0.5 cm
+\evensidemargin 0.5 cm
+\topmargin      0 cm
+\parindent 		0 cm
+
+% All packages are included there:
+\input{structure/packages}
+
+% Bibliography
+\bibliography{bibliography/source_tracking.bib}
+
+% set image-path
+\graphicspath{{data/plots/},{data/figures/},{data/plots/reference}}
+
+% Macros
+\input{structure/makros}
+%\includeonly{,chap   ters/4experiments/performance-measure}
+
+\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
+\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thesection.\ #1}}{}}
+\let\orisectionmark\sectionmark
+\renewcommand{\sectionmark}[1]{\label{sec:#1}\orisectionmark{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    C O N F I G    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  D O C U M E N T  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\input{structure/integration}
+
+\end{document}
