@@ -23,12 +23,24 @@
 
 % Macros
 \input{structure/makros}
-%\includeonly{,chap   ters/4experiments/performance-measure}
 
-\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
-\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thesection.\ #1}}{}}
-\let\orisectionmark\sectionmark
-\renewcommand{\sectionmark}[1]{\label{sec:#1}\orisectionmark{#1}}
+% enable fancy header
+\usepackage{fancyhdr}
+\setlength{\headheight}{0.75cm}
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyhead[EL,OR]{\thepage}
+	\fancyhead[ER]{\leftmark}
+	\fancyhead[OL]{\leftmark}
+}
+\fancypagestyle{newfancy}{
+	\fancyhf{}
+	\fancyhead[EL,OR]{\thepage}
+	\fancyhead[ER]{\rightmark}
+	\fancyhead[OL]{\rightmark}
+	}
+% Page Style
+\pagestyle{newfancy}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    C O N F I G    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,10 +1,15 @@
+\renewcommand{\chaptermark}[1]{ \markboth{ \uppercase{#1}}{}} 
+\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{#1}}{}} 
 \chaptermark{List of Symbols}
 \sectionmark{List of Symbols}
+\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}} 
+\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thesection.\ #1}}{}} 
+
 \chapter*{List of Symbols}
 \addcontentsline{toc}{chapter}{List of Symbols}
 
 \subsubsection*{Notational Remarks}
-The following notational conventions prevail throughout this thesis: A lower case regular letter indicates a scalar ($x$), a lower case bold letter indicates a vector ($\bm x$), and a capital bold letter indicates a matrix ($\bm X$). A mathematical set is denoted by an upper case calligraphic letter ($\mathcal{X}$). An exception to this is a calligraphic letter with function parameters ($\mathcal{L}(x)$), which remains a mathematical function. An estimated parameter is indicated by a hat ($\hat{\bm x}$)
+The following notational conventions prevail throughout this thesis: A regular lowercase letter indicates a scalar ($x$), a bold lowercase letter indicates a vector ($\bm x$), and a bold capital letter indicates a matrix ($\bm X$). A mathematical set is denoted by an uppercase calligraphic letter ($\mathcal{X}$). An exception to this is a calligraphic letter with function parameters ($\mathcal{L}(x)$), which remains a mathematical function. An estimated parameter is indicated by a hat ($\hat{\bm x}$)
 
 %Positions in the cartesian coordinate system are described by their location vector $\bm p_{\text{index}}=[x, y, z]$. These are used for microphone locations $\bm p_m^i$ and source locations $\bm p_s$. The set of all possible positions is described by $\pall$.
 
@@ -73,7 +78,7 @@ The following notational conventions prevail throughout this thesis: A lower cas
     $d^w_m$     & Wall distance of microphone pairs\\
     $d^w_{s,\text{min}}$     & Minimum wall distance of sources\\
     $d_{s,\text{min}}$     & Minimum distance of sources\\
-	$K$         & Number of frequency-bands \\
+	$K$         & Number of frequency bins \\
 	$L$         & Maximum number of EM iterations \\
 	$M$         & Number of microphone pairs\\
 	$P$         & Number of grid points\\
@@ -88,7 +93,7 @@ The following notational conventions prevail throughout this thesis: A lower cas
 \multicolumn{2}{@{}l@{}}{\textbf{Indices}} \\[2pt]
     $i$         & Microphone index ($i\in\{1,2\}$) \\
     $j$         & Gaussian component index \\
-    $k$         & Frequency-bin index ($k\in\{1,\dots,K\}$)\\
+    $k$         & Frequency bin index ($k\in\{1,\dots,K\}$)\\
     $l$         & EM-Algorithm iteration index ($l\in\{1,\dots,L\}$)\\
     $m$         & Microphone pair index ($m\in\{1,\dots,M\}$)\\
     $s$         & Source index ($s\in\{1,\dots,S\}$)\\
@@ -101,7 +106,7 @@ The following notational conventions prevail throughout this thesis: A lower cas
 	$\bm\beta$ & Vector of wall reflection coefficients ($\bm\beta = [\beta_1~\beta_2~\dots~\beta_6]$)\\
 	$\prp$      & Concatenated vector of \acrshortpl{prp} across all microphone pairs $m$ and time-frequency-bins $(t,k)$ \\
 	$\prp_m$      & Pair-wise relative phase ratio at microphone pair $m$ \\
-	$\tilde\prp_m^k$ & Expected \acrshort{prp} for frequency-bin $k$ at microphone pair $m$ \\
+	$\tilde\prp_m^k$ & Expected \acrshort{prp} for frequency bin $k$ at microphone pair $m$ \\
 	$\bm\psi$      & Vector of weights of Gaussian mixture components across all positions $\bm p$ and sources $s$ \\[6pt]
 	
 \multicolumn{2}{@{}l@{}}{\textbf{Sets}} \\[2pt]

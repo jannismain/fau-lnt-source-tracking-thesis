@@ -24,6 +24,7 @@
 \DeclareMathOperator*{\arglmax}{arg\,lmax}
 \newcommand{\given}[1]{\vert #1} % for more expressive parameters
 \newcommand{\numberthis}{\addtocounter{equation}{1}\tag{\theequation}}
+\renewcommand{\*}{\cdot}
 
 %% TEXT MAKROS
 \setlist{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}  % to have bullet points in a more condensed form
@@ -49,7 +50,11 @@
 %% Faster Compilation Times despite FREAKIN' SLOW TIKZ
 \label{toggles}
 \newtoggle{quick}
-\toggletrue{quick}
+\togglefalse{quick}
 
 \newtoggle{nice}
-\togglefalse{nice}
+\toggletrue{nice}
+
+% penalize breaking inline math expressions to a maximum
+\binoppenalty=9999
+\relpenalty=9999

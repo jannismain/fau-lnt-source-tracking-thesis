@@ -1,0 +1,748 @@
+
+Abstract
+
+The task of acoustic source localisation and tracking has both a long history in the signal processing literature as well as many modern applications. In this thesis, the em algorithm is utilised to solve this task, estimating the parameters of a gmm which models the spatial information available in the source signals. Recursive variations of the algorithm for source localisation are presented to track moving speakers over time. Both Source Localisation and Tracking are tested in a simulation setup, where the algorithm's performance is evaluated in different scenarios. These evaluations show that localisation performance strongly depends on the conditions and is not reliable for highly reverberant and noisy environments. Two versions of the source tracking algorithm, crem and trem, have been implemented and evaluated. These performed equally well across all evaluation scenarios. In general, these algorithms were able to track sources in mildly reverberant conditions, but failed to do so in more adverse settings. Also, high memory requirements and long execution times are prohibitive for any real-time applications.
+
+Introduction
+
+Motivation
+
+Interest in the acoustic source localisation and tracking research field is driven by the wide variety of possible application scenarios. With the recent proliferation of smart-home devices, speech has become an essential interface for users to interact with these devices in a multitude of different environments. For products like the Amazon Echo or Google Home Speakers, voice is the primary interface through which users access the product's functionality, making the task of reliable speech recognition detrimental to the market success of these products. Among many other factors, the accuracy of these speech recognition schemes depends on the quality of the received signal. Spatial filtering can increase the quality of the received signal by excluding some of the noise, reverberation and interfering speakers. Therefore, source localisation and source tracking can be seen as critical preprocessing steps for reliable speech recognition in adverse environments. Other application scenarios, where speaker localisation and tracking could aid speech recognition, include robot audition ,  and automatic speech transcription in meeting room  or lecture hall  environments. In , the word recognition rate of a robot was improved by incorporating source separation, localisation and tracking schemes into the robot's audition module.  Apart from speech recognition, source localisation and tracking can also be useful in and of itself, one example being automated steering for surveillance or teleconference cameras .
+
+Literature Overview
+
+A preliminary exploration of the speaker localisation and tracking literature shall provide an understanding of the progress that has been made so far, the current state-of-the-art and the most promising ways forward in this diverse research field.
+Main Research Fields
+Historically, the speech enhancement research field consisted of two branches, namely microphone array processing and blind source separation . The former is focused on the localisation and enhancement of speech signals collected by microphone arrays in noisy and reverberant environments, whereas the latter is concerned with the "cocktail party scenario" that involves a mix of several sound sources. From today's perspective, one can easily see, how these two areas in part rely on the same methods and techniques to solve very similar problems. In practice, identifying individuals in the cocktail party scenario is often addressed with a range of different microphone array configurations (see  for a blind source separation approach using microphone arrays and beamforming). Similarly, classical microphone array processing applications, like the one presented in this thesis, have to deal with an unknown number of target sources and interference by other speakers or noise. So naturally, these branches have merged over the last decades and, according to , they are hardly distinguishable anymore. Focusing on the task of source localisation within the microphone array processing research field, many of the early solutions for source localisation, most notably sonar  and its airborne counterpart radar, are based on tde. This has spawned a wide array of studies that examine the opportunities and challenges of time-delay based signal processing. Those concerned with the issue of acoustic source localisation are reviewed next.
+
+Time-Delay Estimation
+
+Reducing the problem of location estimation through microphone arrays to only two microphones, one way to localise a source is tde between the received signals at the microphone pair. Once the time delay has been determined, the doa can be inferred and, through the combination of multiple doa, the source location can be estimated. The intuitive approach for tde is to calculate the cross-correlation function of the received signals to determine the time delay one signal has relative to the other one. Knapp1976 used this to develop the gcc method in , where they applied different filters to the received signal before computing the cross-correlation. Among these prefilters, the phase transform filter is the one that has been used in most applications, which is why the procedure is commonly referred to as gcc-phat. While this method works reasonably well for a single source in ideal conditions, its performance quickly deteriorates in adverse conditions, i.e., in the presence of multiple sources, noise or reverberation . Therefore, many extensions to gcc-phat, like incorporating parts of the human audition characteristics , have been proposed since to provide tde that is more robust within real-life environments.
+ 
+
+According to , the approaches to alleviate the shortcomings of the schemes for source localisation mentioned above can be categorised into three groups. The first group consists of improvements that incorporate a priori knowledge about the distortions into the gcc framework to improve its resilience against them. The second type of improvements add more microphones and use the redundant information to increase the localisation performance . The third approach is to model the reverberant parts of the signal and apply advanced system identification techniques to enhance tde performance .
+
+
+Besides localisation methods that rely on tde, there are also other methods that enable location estimation, like the srp-phat, which use steered beamformers to acquire a doa estimate. According to , there is a third category of localisation methods that use high-resolution spectral estimation. An example for these type of solutions is the music algorithm .
+
+Existing Solutions for Speaker Tracking
+
+Current solutions to the problem of acoustic source tracking can be grouped into Bayesian and non-Bayesian approaches. Bayesian approaches are characterised by the usage of Bayesian inference to derive a posterior probability incorporating prior knowledge and a statistical model that describes the observations. Examples of solutions to the source tracking problem that are part of the Bayesian family of algorithms, are Kalman filters  and particle filters, both of which have been successfully applied to the problem of acoustic source tracking . This thesis, however, focuses on ml estimation, which is part of the non-Bayesian approaches, and how it is used to acquire location estimates for multiple sources in adverse conditions as described in . The main challenges for ml estimation to obtain source locations are the computational complexity involved as well as the non-existence of a closed form solution due to incomplete information . This is why the em algorithm, an iterative procedure to compute ml estimates, is often used in this context.
+
+Structure of the Thesis
+
+
+
+This thesis adapts the em algorithm for the purpose of acoustic source localisation and uses a recursive extension of the em algorithm for acoustic source tracking. The em algorithm is used to estimate the parameters of a gmm. The algorithm, which will be presented in this thesis, was proposed by Schwartz2014 . The derivation of the algorithm follows the original derivation outlined in . Therefore, apart from a minor adjustment to the dimensionality of the estimated parameters, the primary focus of this thesis lies on the algorithm implementation as well as the performance evaluation for varying parameter sets.
+
+The structure of the subsequent chapters is as follows: First, the theoretical concepts that build the foundation of the algorithms source localisation and tracking are presented in chap:2theory. Then, the algorithms in question are derived in chap:algorithms. The experimental part of this thesis is presented in chap:experiments, where the methodology is explained, essential implementation details are highlighted and then results are presented and discussed thoroughly. This thesis concludes with chap:concl and a summary of the main findings as well as a critical review and possible directions for future research.
+
+
+Theoretical Background
+
+
+In this section, the central theoretical concepts needed for source localisation and source tracking for sources emitting speech signals, as it is implemented here, are laid out and put into context. This procedure relies on the sparsity assumption of speech signals, which means it does not necessarily generalise to other audio sources like music instruments. First, the signal model is defined, and it is shown, which features of the signal are exploited to estimate the location of its origin. Next, the gmm is introduced as a probabilistic model of the prp readings at each microphone pair. Last, the em algorithm is shown, and it is explained how it can be used to estimate the parameters of a gmm to yield the most likely source locations, with respect to the underlying probabilistic model.
+Signal Model
+
+The basic configuration, as depicted in Figure , consists of two microphones that constitute one microphone pair. The received signal  at microphone  of pair  can be described as a linear combination of the acoustic transfer function , multiplied bin-wise with the source signal , and additive white Gaussian noise  in the stft domain
+
+
+where  denotes the time-index or time-bin,  denotes the frequency-index or frequency bin,  describe microphone  of microphone pair  and  denotes the source index. For the experimental part in chap:experiments, the rir is used as the time-domain equivalent to the acoustic transfer function. The direct path of the transfer function, that part corresponding to the line-of-sight, can be described as
+
+where  is the sampling period of source signal ,  is the position of source ,  is the position of microphone ,  is the Euclidean distance between the source and the microphone position and  is the imaginary unit. The signal travel time  between source position  and microphone position  is determined by the sound velocity 
+
+
+which is determined by both the type and properties of the medium the signal as travelling in as well as the temperature. To estimate the location of a source, we solve for the tdoa , which we define as
+
+
+
+
+assuming planar wavefronts impinging on the microphones according to the far-field approximation of sound signals. From the tdoa, the doa can then be inferred with
+
+
+where arccos is the inverse of the cosine-function and  is the Euclidean distance of the position of the two microphones  and  of microphone pair 
+
+
+
+
+The direct path of the transfer function multiplied with the source signal contains the original phase information that is needed to estimate the position of the source. The remaining part of the received signal (the reverberant tail of the transfer function multiplied with the source signal) distorts this information and will decrease the location estimation performance. 
+
+
+Following , the prp  of the two signals  and  received at each microphone pair  will be used as the feature to be used for the purpose of localisation
+
+To understand the link of prp and doa, let's solve the equation for two received signals in a noiseless environment (i.e., ) by inserting the definition of the received signal eq:x into eq:prp and reducing the resulting equation
+
+The amplitude has been eliminated by multiplication with . The prp feature can, therefore, be interpreted as the effect the difference in signal travel time of different source signals has on the phase difference that can be calculated at each microphone pair.
+
+W-disjoint Orthogonality
+The sources are assumed to exhibit W-disjoint orthogonality in the stft domain , . This means that the source signals do not overlap in the stft domain. For two sources  and their respective source signals , this assumption can be formalised as
+
+
+In reality, this assumption does not entirely hold true but is approximated by speech signals, as these are considered to be sparse in the time-frequency domain, meaning most parts of the signal are equal to zero. For the mixture of multiple source signals, it is then further assumed, that each time-frequency bin is dominated by only one source, which allows for spatial separation of the received signal's components and subsequent source localisation. We will see that with increased reverberation and number of sources simultaneously simulated, this assumption is challenged, as the received signal will be less and less sparse.
+Gaussian Mixture Model (GMM)
+
+
+In its univariate form, a Gaussian or normal distribution is defined by
+
+
+where  is called its mean and  is called its variance.
+
+The multivariate Gaussian distribution for an input vector  is defined by
+
+
+Compared to the univariate form with only two free parameters, this pdf is completely defined by its covariance matrix  and its mean vector . As the covariance matrix is symmetric, is has  independent parameters (assuming it is positive definite). Adding the  independent parameters of  results in  independent parameters that define a multivariate Gaussian distribution. 
+
+The complex variant of the Gaussian distribution is defined by
+
+
+where ,  is the complex covariance matrix,  is the determinant of ,  denotes the complex conjugate of  and  the inverse of . 
+
+
+
+Despite possessing these many degrees of freedom, the Gaussian distribution is limited in a sense, that it has only one maximum (unimodality) and therefore cannot adequately model multimodally distributed data. To overcome this limitation, multiple Gaussians can be combined into what is called a gmm
+
+
+where  is the weighting factor or mixing coefficient of each Gaussian component  of the gmm with  and . In addition to  and , each a concatenation of the parameters of the multivariate Gaussian for each component , the gmm has a third parameter . An example of a Gaussian mixture with three components is shown in fig:gaussianmixture. The parameters of a gmm can be calculated under the Maximum-Likelihood criterion as follows:
+
+with . As a result of the presence of the sum inside the logarithm, the ml solution for these parameters does not have a closed-form solution . One way to solve these type of ml problems is the em algorithm presented in the following section. By introducing a latent random variable that models the missing information, the em algorithm makes the ml problem tractable.
+
+
+Expectation-Maximisation (EM) Algorithm
+
+
+History
+Although it has been used for parameter estimation of mixture models as early as Newcomb1886 , the em algorithm was formally described in a generalised form by Dempster1977 in Dempster1977, who also coined the name of the two-step procedure . From then on, it has been used in various applications (many of them are described in ). In the signal processing community, it has been successfully applied to tasks as diverse as emission tomography image reconstruction , active noise cancelling with a single microphone  and parameter estimation of hidden Markov models . Outside of signal processing, the algorithm is also utilised in many machine learning applications, where it is often introduced as an extended form of the -means algorithm for clustering .
+
+
+The name em goes back to the algorithm's distinct two steps that both rely on the output of the respective other step. Therefore, prior to the iteration over the E- and M-Step, the estimated parameter set  has to be initialised. This initialisation is done randomly in most cases, although one can also include prior knowledge of the estimated parameters by choosing certain initial values for  accordingly.
+
+Description In general, the algorithm allows to determine ml estimates or map estimates, where only incomplete data is available . Incomplete data means that there is a hidden or latent variable , that cannot be observed directly but might be inferred by some observable variable . The complete data is given by combining the hidden variable and the observations.
+
+Derivation
+The cost function of the maximisation problem is the following likelihood function
+
+
+The assumption is, that maximising  is difficult, but optimisation of the complete data likelihood function  is significantly easier. Next, a distribution  over the latent variables is defined, which allows, following , for the decomposition
+
+
+where the summands are defined as
+
+    L(q,)&=_Z q(Z)p(X,Z)q(Z),
+
+    KL(qp)&=-_Zq(Z)p(ZX,)q(Z) .
+
+
+This decomposition can be verified by using the multiplication formula for probabilities, which directly results from the definition of conditional probabilities
+
+
+    p(AB)&=p(A,B)p(B),
+
+
+    p(A,B)&=p(AB)p(B).
+
+
+Applying eq:defProbProductRule to  in eq:L and using the product rule for logarithms  yields
+
+
+    L(q,)&=_Zq(Z)p(ZX,)p(X)q(Z)
+
+
+    &=_Zq(Z)p(ZX,)q(Z) +_Zq(Z)p(X).
+
+
+The first summand is equal to . Therefore it cancels out when inserting eq:Lexpanded back into eq:decomposition. The second summand can be simplified making use of the fact, that  is a probability distribution and therefore  holds true
+
+
+    L(q,)+KL(qp)&=_Zq(Z)p(X)-KL(qp)+KL(qp)
+
+    &=p(X).
+
+
+From eq:decomposition it is apparent, that  is a lower bound of , because from  follows KL. In order to maximise the lower bound for a given , we therefore need to set KL, so that . In other words, to compute a lower bound, that is tight with the original likelihood function at  (i.e. "touches"  in ), we set , which necessitates
+
+
+    
+Computing this lower bound constitutes the E-Step. The M-Step is to find a new value , which maximises this lower bound
+
+
+To summarise, the goal of the E-Step is to find a lower bound for the original, incomplete data likelihood function . This lower bound  is chosen to be equal to the original likelihood function in , which is done by selecting  to be the posterior probability of the latent variable  given the observation . This gives rise to the -function, which, in the M-Step, is maximised with respects to the estimated parameter set . The result is a new value , for which a new lower-bound can be found. This procedure is repeated iteratively either until some fixed number of iterations are reached, or some convergence criterion is met. One possible way to determine convergence is to define a lower threshold  for the delta of the  function. Is the change of  from the previous iteration to the current one is lower than or equal to , then the algorithm is stopped and  is assumed as the solution to the maximum likelihood problem originally stated.
+
+
+
+For a full account of the convergence of em, see . It is interesting to note, that the M-Step only states that the result of the E-Step is to be maximised, but not how this is to be done. Rather than a specific solution for a certain type of problems, the em algorithm is therefore more of a template, that can be applied to a variety of different problems, each of them required to individually derive the concrete steps necessary to obtain a lower-bound for the incomplete data log-likelihood function and find it's maximum.
+
+Limitations
+One existing limitation of the em algorithm is the possibility of a slow convergence rate, which increases the computational complexity as more iterations have to be carried out before convergence is reached. In this case, the convergence threshold  can be increased or replaced by a fixed number of iterations , although this means that the solution is no longer optimal in the mmse sense. Another limitation is, that the algorithm is susceptible to local optima for more than one target parameter ( is a vector with length ), meaning that the determined solution is not necessarily the best solution. This can be alleviated by running the algorithm multiple times with a different, random initialisations and choose the best outcome, a procedure known as random-restart hill climb. Another method to circumvent getting stuck in local optima is simulated annealing, which is incorporated into an em template in . The premise of simulated annealing is to introduce a certain amount of randomness, which allows for the parameter estimate to jump to a neighbouring state (i.e., a different set of parameter estimates) after each iteration. If the neighbouring state is more optimal than the original one, then it is assumed, and estimation is continued with this new state. If the neighbouring state is less optimal in regards to the goal of the optimisation, it is still assumed with a certain probability, which is slowly decreased over time. This allows the algorithm to "escape" local optima at the beginning (when the probability of changing state is high), without losing the ability to converge to an optimum later (when the probability of changing the estimated state is low or even zero).
+
+
+In this chapter, the signal model has been defined, and the prp has been identified as a measure of the tdoa in the frequency domain. Next, the Gaussian distribution has been introduced, and definitions have been presented for its real, its complex and its multivariate form. The Gaussian was mixture model was motivated by the limitation of a single Gaussian to only model unimodally distributed data and has been defined as a weighted linear combination of Gaussian components. The weighting factor of each component together with the variance is the parameter set to be estimated using the em algorithm, which is able to iteratively compute the ml estimates for these parameters despite incomplete data by introducing a latent variable that models the missing information. It has been shown that the em algorithm can be understood as an iterative lower-bound optimisation of the incomplete data log-likelihood function, where the lower-bound is considerably easier to maximise for distributions of the exponential family, than the original likelihood function. In the end, limitations of the em algorithm and strategies to alleviate these limitations have been discussed.
+
+
+Derivation of Algorithms
+
+
+The described in the following chapter have been derived in . Therefore, the following is based on the work presented in  with some additional comments to facilitate understanding of how the algorithms are adapted to be used in location estimation and source tracking application. First, the probabilistic model is introduced, where the gmm presented in sec:gmm is used to model the prp. Next, the algorithm for source localisation is derived, where the em algorithm is adapted to estimate the parameters of the gmm. Last, two algorithms for source tracking are presented and discussed briefly.
+
+Probabilistic Model
+
+
+
+First, a set of location vectors  is introduced, that addresses all possible positions either a source or a microphone can be in. These discrete locations shall have a certain resolution that, together with the enclosure dimensions, determines the size of  and therefore the computational complexity of the model, with respect to all other parameters being equal. Each element of  corresponds to one component of the gmm. 
+As described in Section , rather then using the received signal  as observed feature directly, we defined the prp readings in eq:prp as our observations, which will be modelled as a mixture of complex Gaussian distributions
+
+
+
+
+
+where  denotes the probability or weight of the Gaussian distribution at grid point  to be associated with source  and  describes the prp at grid point  for microphone pair 
+
+
+
+
+
+
+As the prp of the different microphone pairs  are subject to different reverberation effects, they are assumed to be independent. This way, the covariance matrix can be simplified to , where the diag operator describes a diagonal matrix, where the elements in braces are placed on the main diagonal, whereas all other entries of the matrix are equal to 0. This lets us replace the covariance matrix by its diagonal elements when computing the product over all  microphone pairs 
+
+
+
+
+Inserting these parameters into the definition of the complex Gaussian distribution eq:complexGaussian yields
+
+
+
+
+
+In , the variance has been further simplified to , so it is held constant across all microphone pairs. As this formula has to be evaluated for each observed prp per time-frequency-bin, which are assumed to be independent, the complete observation set is defined by:
+
+
+
+
+where  is a concatenated vector of  over all time-frequency-bins  and microphone pairs . Similar, the remaining parameters can be expressed in vector-form by  and . With these vectors the optimization problem to be solved can be stated as:
+
+
+
+
+
+where the hat above the parameters on the left indicates the result of an estimation.
+
+
+
+Acoustic Source Localisation
+
+
+
+
+
+
+
+If the likelihood function of the observed data eq:mle were to be maximised directly, the following equation would have to be solved
+
+
+
+Because the sum over all possible grid points  prevents the logarithm from acting directly on the exponential term, solving this function results in a complicated expression, which should be avoided. This is where a so-called latent variable is introduced. Here, the latent variable is defined as an indicator , that a certain time-frequency bin  belongs to an active source at position  
+
+
+
+
+
+
+
+The expectation of the hidden variable is equal to the probability of a source to exist at position  and to have shown activity in time-frequency bin  
+
+
+
+
+As sparsity of the source signals is assumed, meaning there is only one source active in each time-frequency bin, the latent variable is a 1-of- representation, where  denotes the cardinality of the set of all grid points, i.e. there is one  whereas . The property that makes indicators in combination with gmm so useful is their ability to simplify the sum over all components into a product
+
+
+
+
+
+With  being the concatenated vector of the latent variable  across all time-frequency-bins, sources and positions, the probability density of  can be written as 
+
+
+
+
+where  is the set of target parameters.
+
+As was described in Section  and further argued above, due to the complexity involved when maximising the log-likelihood function of the observations  directly, a tight lower bound at  is derived and maximised instead. This lower-bound will utilize the latent variable to reduce complexity of the optimisation problem and is given in eq:L . From eq:L one can see, that to evaluate this function, the complete-data likelihood  as well as the conditional likelihood  is required. Given the hidden data, the conditional likelihood of the observations is given by:
+
+
+
+
+Multiplying the densities of the hidden variable and observations yields the joint probability distribution of the complete data:
+
+
+
+
+The log-likelihood of the complete data is given by
+
+    f(,z; ) &= [ ].
+
+    First, the logarithm can be moved inside the product
+    f(,z; ) &=_t,k[_s,p_m].
+
+    Now, the property of the indicator stated in eq:indicator-sum-product will be used to simplify the sum, that divides the logarithm and the exponential term, to a product
+    f(,z; ) &=_t,k[_s,p(_m)^].
+
+    Applying basic algebraic rules for the logarithm yields
+    
+
+
+    f(,z; ) &=_t,k,s,p[_m].
+
+
+E-Step
+Inserting eq:complete-data into eq:e-step yields the complete -function
+
+    &=E(f(,z;));^(l-1)=
+
+       &=_t,k,s,pE_z(t,k);^(l-1)[ +_m]
+
+       
+
+
+The expected value of  given the observation  is given by
+
+
+    E_z(t,k);^(l-1)&=_s,p
+                  
+                                                  &.
+
+
+ can also be interpreted as the responsibility that the Gaussian component at position  takes for explaining the observation  in time-frequency-bin  .
+
+M-Step
+As seen in eq:m-step, the M-Step consists of maximizing the -function with regard to the elements of the parameter set . This is done by computing the gradient of the -function
+
+
+
+
+
+which means computing the partial derivatives of the target parameters  and 
+
+    
+    _s^2, (l)&=^2,
+
+    
+    _sp^(l)&=.
+
+
+As  is constrained by , to fulfill the requirements of a probability over grid positions, constrained optimisation using a Lagrange mulitplier has to be applied:
+
+
+
+
+Derivation and setting to zero gives
+
+    +&=0,
+
+    _t,k+&=0,
+
+    -_t,k&=
+.
+
+
+We compute the sum over  on both sides to solve for 
+
+    _s,p&=-1_t,k,s,p,
+
+    S&=-1_t,kS,
+
+    &= -TK.
+
+
+Finally, we insert eq:lambda into eq:psi-lambda to get
+
+
+
+
+Calculating the partial derivate of  results in
+
+
+
+
+
+This concludes the M-Step. When all iterations have been carried out, either because convergence was determined or a fixed number of iterations has been reached, the estimated Gaussian weights are summed up for all 
+
+
+
+
+
+in order to find the actual estimated source locations by selecting the positions  associated with the  largest values of 
+
+
+
+
+
+where lmax yields a different local maxima for each .
+
+[h]
+Source Localisation
+
+
+    obtain 
+    calculate  using eq:prp
+    calculate  using eq:phi_tilde
+    initialize  and 
+     to 
+    E-Step: calculate  using eq:responsibility
+    M-Step: calculate  using eq:m_step_psi and  using eq:m_step_var
+    
+    find  using eq:find_positions
+
+
+
+Deviation from 
+In the algorithm described above, the Gaussian weights  are calculated for each source seperately. In their experiments, the authors of  then use a different initialisation for each , so that the resulting parameter estimates  differ from each other. Our experiments will show that using the same initialisation for all  will results in identical estimates. Using different initial parameters will yield different estimates, but prior knowledge about the source positions is necessary to gain an advantage in doing so. Therefore it is assumed that removing the -dimension from all parameter estimates will yield equal localisation performance while reducing the complexity of the algorithm by a factor of . As the results in sec:results-localisation will show, this is especially useful for trials with , as memory requirements of the temporary results of the algorithm will exceed commonly employed hardware otherwise.
+
+In addition to the benefits of reduced complexity and memory requirements, this is also a step towards achieving independence from the number of sources. In , the number of sources is assumed to be known a priori. With an implementation that estimates a joint  for all sources, this prior knowledge is only required in the last step of the algorithm, when the  largest values of  are used to identify the source position estimates. By introducing a threshold value  and selecting all positions, where , the constraint of a-priori knowledge about the number of sources is eliminated. However, this threshold depends on the distribution of , which is influenced by the environmental parameters. The experiment results will show, if a threshold value could, in theory, be applied to generalise the source localisation algorithm to an unknown number of sources .
+
+Acoustic Source Tracking
+
+
+To integrate data from prior time-steps into each em iteration, recursive variants of the em algorithm have been developed. These will be called rem algorithms in the upcoming sections.
+
+In , two different rem algorithms for speaker tracking are proposed. One is based on trem algorithm proposed in , whereas the other one is based on crem algorithm .
+As the derivation of these algorithms is quite involved, only the parameter updates for the specific application of source tracking is presented below.
+The main difference from the static location estimation is, that where the results have been summed up over all time-bins before, now each time-bin is analysed seperately and the estimation results of the prior time-step will be used as a reference for the next iteration. Therefore, each iteration does not process the same data with updated estimation parameters anymore (as was the case before), but now uses the estimated parameters of the data at the last time-step to improve the estimation of source positions and the overall variance for the current time-step. This is iterated over until all time-steps have been processed. Therefore the iteration index  is replaced by the time index .
+
+
+
+Recursive estimation of the Gaussian component weights is the same for both algorithms. First, reusing eq:responsibility for recursive updates over time  instead of em iterations  yields
+
+
+Similar to eq:m_step_psi, a recursive estimate of  is given by
+
+
+
+
+Finally, using the result of the algorithm derivation based on the fim in , the recursive update step is given by
+
+
+
+where  is the step size of the recursive update.
+
+The two algorithms, however, do differ in the recursive update of the variance
+
+
+
+In this chapter, the probabilistic model of the environment has been presented. A gmm has been used to model the prp readings for each grid point as a Gaussian component and aggregate all components into a mixture. The parameters of this mixture are then estimated using the em algorithm, which has been derived to estimate the most likely source locations given the prp observations. The result of the em algorithm is a vector of Gaussian component weights , which contains a weight for each grid point  and source  that indicates, how likely position  is the original location of source . Finding the  highest values of  will yield the estimated source positions . A deviation from the algorithm in  has been proposed, that reduces the dimension of the estimation parameters and removes the requirement of a prior knowledge of  during the em iterations. In the end, it has briefly been laid out, how the basis of the source localisation algorithm can be used to recursively estimate multiple source positions in a dynamic environment and the parameter updates for two recursive adaptions of the em algorithm, namely trem and crem, have been shown.
+
+
+Experiments 
+
+The experimental part of this thesis is divided into three sections: First, the methodology applied to the source localisation and tracking research problem is explained. Second, key implementation details are outlined, that are necessary to put the results into context. Last, the results are presented and thoroughly discussed.
+
+Methodology
+
+
+First, the setup is presented in which the sources for localisation and tracking are simulated and the evaluation trials are executed. Next, the image-source method for simulating small room acoustics is explained and its limitations are discussed. Then, a performance measure is defined to evaluate and compare the results of different localisation trials. Last, the evaluation scenarios for different trials for both source localisation and source tracking are defined.
+Setup
+
+
+The setup, that is going to be simulated, consists of a rectangular room with sides of 6 metres length in all 3 dimensions., that is 6m wide, 6m long and 6m high. Figure  shows the room in blue color from a top-down perspective. Placed in this room, there are in total  microphone pairs (), 3 of them on each wall, shown in green. The source positions are shown in red. The white dot matrix represents the discrete locations a source can be localised within the room.
+
+
+In preliminary experiments, the microphones had been placed adjacent to the walls, so that they had a wall distance  m. These trials have shown that the reflections from the walls decreased localisation performance. Therefore, to be able to evaluate the other parameters independent from the influence a close wall has on the received signal, the microphone pairs have been inset by 10 grid points (or 1 metre) from the walls. The same decision had to be made with regards to the possible locations a source could be in. First results indicated that localisation performance was significantly impaired, when sources were located in the border area behind the microphones. In order to create reasonable base conditions, the location of the sources was therefore restricted to the inside of the area the microphone pairs enclose. Further examination showed, that the same was true for positions very close to the microphones, which is why the area of possible source locations had to be further decreased by 2 points (or 20 centimetres) so that the final minimum required wall distance of sources is  m.
+
+are going to be placed within this room with fixed or random positions, depending on the evaluation scenario, and are described using one-dimensional position vectors with x-, y- and z-coordinates (i.e.  describes a source at the position  and )
+
+Simulation of Room Acoustics
+
+
+
+To conduct the experimental part of this thesis, simulation as means of data collection has been chosen over real recordings, as simulated acoustic environments are more flexible compared to a laboratory environment. To simulate the experimental setup in it's different configurations described in Section , the image-source method for small-room acoustics is used . The basic idea of this method is to simulate an arriving signal wave reflected from the walls as a wave arriving directly from a virtual sources, mirrored at the reflecting wall.direct arrival waves of a mirror image of the room on the reflecting wall. Two parameters determine, how many images are created during simulation with everything else being equal: The reverberation time T, the time it takes the source signal to have decreased by 60dB after the exciting source is switched off, and the reflection order , which is equal to the maximum order of the image expansion. Instead of explicitly stating T, the wall reflection coefficients  could also be provided, simulating different types of walls, like concrete walls or walls with sound proofing. There is one coefficient per wall, including the ceiling and the floor, for a total of six coefficients. Whenever the signal crosses a wall into another image (i.e., being reflected), it is attenuated by the -coefficient of that wall. An example of a second-order image expansion is shown in fig:imageMethod.
+
+This method allowed for experiments, where a controlled acoustic environment in form of a small, rectangular room is required, that can be easily adjusted. For many experimentsexperiments with budget- and time-constraints, constructing such an environment in a laboratory is prohibitive, which is why the image method has gained widespread popularity since its inception in Allen1979  and has been used in a wide range of studies .
+Localisation Performance Measure
+
+
+Intuitively, the localisation error for a given source  is given by the Euclidean distance between the original source position  and the location estimate 
+
+
+
+Aggregate Measure Whenever the aggregation of data into a single measure is pursued, the loss of information about some of the original information is inevitable. Nevertheless, to evaluate and compare the results for different parameter sets, the raw data has to be aggregated in a way that allows for straight-forward comparison of the results. For this kind of error aggregation, there are several different measures used in the literature, the two most common of them being the mae and the rmse
+
+	mae  & =1S_s=1^S_s,    
+
+	rmse & =1S_s=1^S_s^2.
+	
+
+The underlying assumption of the rmse is an unbiased error that follows a normal distribution. This might be the case for trials, where localisation is severely affected by noise and reverberation, but does not fit trials, where localisation is generally good, meaning most errors are zero, and only few but large outliers occur. The rmse overemphasises these outliers, whereas the mae weights every error equal. Therefore, the mae is a more accurate performance measure for the static localisation trials.
+
+Assigning Estimates To calculate the mae, the location estimates have to be assigned to the original source locations. But neither the localisation nor the tracking algorithm create an identity between original source location and location estimate, as the original source location is inherently unknown to the algorithm. Therefore, assigning this identity to compute a sensible localisation error introduces a bias, that depends on the assignment strategy. One way of assigning estimates to their respective true location would be to simply minimise the overall mae. The downside with this approach is, that estimates close to one source might be assigned to another, more remote one, so that the overall error is minimised (A result where this would happen is shown in fig:assignmentExamples(a)). In other words, one correctly and one incorrectly estimated source locations could result in an assignment, that states two incorrectly estimates sources, which is undesirable if we want to evaluate, what the percentage of correct location estimates is across different trials. The solution is to assign estimates that are closer to one of the source positions first. This can be done by calculating the matrix of distances  between the location estimates  and the actual source positions 
+
+
+where  and  denotes the distance between the -th source position  and the -th location estimate . In this context, assigning estimates to source locations means selecting a combination of  different , so that no column and no row is taken from twice. This procedure is described in alg:assignment. The result is a set of distances  (a possible result for  would be , where the third location estimate is assigned to the first source location, the first estimate is assigned to the second source position and the second estimate is assigned to the third source position), which can then be used to calculate the mae according to eq:mae
+
+
+When there are two minimum distances  of equal value, one is chosen that minimises the overall mae. This can be done by carrying out the algorithm once for each possibility and choosing the assignments with the lower mae.
+[!htb]
+Assigning Location Estimates to Source Positions
+
+
+     has elements
+    find smallest  
+    eliminate -th row and -th column of 
+    
+
+
+
+
+Evaluation Scenarios
+Simulation
+The microphones are simulated to be omnidirectional, meaning they possess equal gain for all directions, and are mounted at 1m height. The value of for a domestic or office environment usually ranges between  seconds and  seconds 0.6s . For the most realistic simulation, the reflection order should be unconstrained, which means that more reverberation leads to more images being created during simulation of the rir. In this case however, where a lot of trials are required to reliably show the effects different values for a single parameter could have on the localisation performance of the algorithm, a maximum order of 3 was chosen to reduce the computational complexity. For trials, where specifically the reverberation is examined, this constraint is lifted and the reflection order is unconstrained, meaning that the only limiting factor on the number of images created during the rir simulation is T. The sound velocity  is set to , corresponding to a signal travelling through dry air at C.
+
+
+Source Signals
+
+The individual speech samples might have an effect on the localisation performance, as different samples show activity in different frequency spectra over time. Preliminary trials showed that this indeed was the case. Therefore, the order of speech samples used for each trial is randomised for all source localisation trials. The set of speech samples itself consists of 7 anechoic recordings, that can be accessed by visiting the website referenced in .  The time-domain signals as well as their corresponding spectogram are also included in app:signals.
+
+Acoustic Source Localisation
+
+To validate the implementation of the algorithm, the experiments in  for static source localisation are replicated. Then, the initialisation of  is examined. The remaining source localisation trials will estimate  instead of . First, some base scenarios are defined that resemble ideal and more adverse conditions in order to see, how the localisation algorithm performs in each of these scenarios. To benchmark the results, the results of an additional trial is reported, where location estimates are guessed, providing a natural upper bound for the localisation error. After the results for these scenarios are discussed, individual parameters are evaluated, including the reflection order , reverberation T, number of em iterations , noise, initial variance , fixed variance  as well as the constraints on the possible source locations. These constraints are set in form of the minimum distance between sources  and the minimum required distance of sources from the wall . The full set of parameters is reported in table:parameterset, where the base parameters are indicated by bold numbers. The alternatives for some parameters indicate, which other parameter values are used to examine their effect on the localisation performance.
+
+
+Similar to the static case, the source tracking algorithms will be evaluated by comparing their performance across predefined scenarios. The scenarios, in which both crem and trem will be tested, are described in the following paragraph.
+
+
+
+Acoustic Source Tracking
+
+
+To compare both the trem and crem variants of the source tracking algorithm, three scenarios with two sources each will be compared which are presented in fig:evalScenariosTracking. In the first scenario, the sources move on a linear trajectory parallel to each other. In the second scenario, they move in a linear trajectory and cross paths. The last scenario consists of the two sources moving on a curved trajectory, each following the shape of a half-circle. All other parameters are taken from the base parameter set described in table:parameterset.
+
+
+
+
+Implementation Details
+
+
+At the beginning of this chapter, the topic of computational complexity is addressed. After that, the simulation framework is laid out and the procedure that has been followed for the evaluation trials is described. In the end, certain evaluation scenarios are established to analyse the possibilities and limitations of this implementation. This will assist in drawing conclusions about the strengths and shortcomings of the algorithm in this particular setup and may allow for more general findings to be deducted.
+
+Computational Complexity As computational complexity, and therefore execution time, is one of the measures to compare different algorithms and their implementations, the hardware on which these evaluations have been executed, needs to be mentioned. All trials and profiling benchmarks have been done on a Retina Macbook Pro 13" (MGX92LL/A), that is equipped with a 2.8 GHz Core i5-4308U CPU and 16GB of DDR3L-1600Mhz RAM. Although there were no explicit efforts made to parallelise the implementation, R2017a utilises both available CPU cores of the i5 for certain operations. During the implementation and initial trial phase it became obvious that computational complexity is an issue that has to be addressed on most hardware configurations to successfully execute the proposed algorithms. First, execution speed had been seen as the main bottleneck, which is why the implementation has been vectorised where possible. However, this vectorisation came with the drawback of higher memory requirements, which proofed to be an issue on conventional hardware, especially for the replication trials.
+
+
+While trying to replicate the results from  for the static case, the 16GB RAM did not suffice the memory requirements of the fully vectorized implementation of the algorithm. Therefore, these trials have been carried out on different hardware with 32GB RAM, which was utilized to almost full capacity. This is due to the fact, that the experiments in  estimated the model parameters for all grid points and not only those shown in white in fig:setup, which increased  from  to , more than double in size. They also choose a wider frequency band (64 frequency bins instead of 24). Lastly, in their implementation the Gaussian component weights  are calculated seperately for each source, doubling the size of the intermediary results for each em yet again. The size of the largest temporary results in matlab with these parameters is around GB.
+
+Simulation Framework
+
+
+The simulation framework consists of the functions and methods not directly related to the actual source localisation and tracking, which have been described in detail in chap:algorithms. A brief introduction to the procedure of running different trials with varying parameter sets shall be given in the following section to provide a better understanding of the evaluation process and facilitate the ability to reproduce the results of this thesis.
+
+Trial Procedure
+At the beginning of every trial, a parameter set has to be defined and saved in a way to be accessed by all routines throughout the runtime of the trial. Then, the environment is simulated and, within this environment, the received signals can be computed. The received signals for each microphone pair are obtained by convoluting the simulated room impulse response with the source signals, summing up the results per microphone and adding an amount of noise, that corresponds to the snr defined in the parameter set. This signal is now transformed into the stft-domain, in order for the prp measure to be computed. For the stft, a hanning-window of  seconds and a step size of  seconds have been selected. This concludes the preparation of the input parameters for either the source localisation or source tracking algorithm.
+
+
+After the algorithm is executed, the location estimates, together with intermediary results, like the variances and weights of each Gaussian component per em iteration, are returned. This data is now used to analyse, how good the source localisation or source tracking performed. For this purpose, the location estimates are assigned to their true source locations, according to the guidelines stated in sec:performanceMeasure, and the estimation error is calculated. When there are many trials with the same parameter set and only varying source locations (this is the case for the evaluation trials of the source localisation algorithm described in sec:evalScenariosLoc), the estimation error is then aggregated, after all trials of this type have been executed, and visualised through box plots, which summarise the results in a way so that they are easily comparable.
+
+
+Simulating Sources in Reverberant Conditions
+Most of the computational complexity, apart from the actual algorithms themselves, accrue when simulating the rir for multiple sources and microphones. For the simulation of the rir for the static location estimation case, the rir-Generator, an implementation of the image method described in chap:2theory by Emanuël *Habets2014, is used. Although the premise of the image method is to reduce computational complexity and therefore execution time on a CPU, a total of 168 rir for trials with 7 sources and 24 microphones had to be computed for this setup, which accumulates to substantial execution times when running trials with a sufficient sample size. The simulation of these 168 rir took about 40 seconds on average for a trial with the base configuration. Choosing T s and the maximum reflection order for 7 sources results in execution times of more than 2 minutes per simulation, which is quite long but was deemed acceptable for the static case. For the source trajectory simulation however, the execution time of the rir-Generator is prohibitively high. Therefore, the fastISM package  by Lehmann2010 is used, which achieves reduced computational complexity by statistically approximating the diffuse reverberation instead of calculating all higher-order reflections exactly . The authors reported a possible speed-up factor of up to 150 at  s within their testing environment. For a thorough comparison of this technique and its gains in execution speed compared to the traditional implementations of the image-method across different configurations, see .
+
+
+
+
+Results
+
+
+The source localisation results will be presented in the form of box plots, where the x-axis displays the number of sources  and the y-Axis displays the mae, as defined in eq:mae, in metre. A common box plot as shown in fig:boxplot-reference consists of the following elements: the median, displayed as a horizontal line, represents the 50 percentile (also: second quantile) or the "middle" of the dataset by datapoints ordered from low to high values. The box around the median indicates the 25 and 75 percentile (also called first and third quantile). The range between the first and third quantile is called the iqr. The mean value of the data is represented by a cross. The vertical lines originating from the box are called whiskers and span  times the iqr repectively. Every datapoint with a value higher (lower) than the value corresponding to the 75 (25) percentile plus (minus) iqr is considered an outlier and plotted as a transparent dot. The more outliers there are with the same value, the darker the corresponding dot will appear.
+
+
+
+
+
+Source Localisation
+
+
+
+
+Replication of Experiments in Schwartz2014 Schwartz2014
+As already remarked in Chapter , the algorithm developed in  included the calculation of multiple , one for each source . In their evaluation of static localisation of two sources, they initialised  to have a uniform distribution across the left side of the room and  to have a uniform distribution across the right side of the room. This initialisation is shown in fig:schwartzInitialisation The variance has been initialised to  and was held constant across all em iterations. The complete parameter set that was used in  is shown in Table . The position of the microphone pairs was not stated explicitely, but could be inferred from a diagram that displayed the setup, similar to Figure . To verify our implementation of the acoustic source localisation algorithm in , their localisation experiments are replicated below.
+
+
+
+
+
+The results for both trials presented in fig:resultsReplication look almost identical to those reported in . The positions of both sources are identified and the localisation error is zero for both  s and  s. Although smaller, the peaks of  are still clearly identifiable in the more reverberant case. Most of the non-zero weights that do not correspond to one of the sources emerge in between the upper microphone pairs and between the microphone pairs and the wall. 
+
+
+
+
+In fig:schwartzInitialisation, the initialisation of  can be seen. It seems this initialisation has been deliberately choosen to optimise the localisation algorithm for this particular arrangement of sources, as the demarkation of the initial values exactly follows a line between the two sources. For random source positions, such an ideal initialisation cannot be guaranteed without prior knowledge about both the number and approximate positions of the sources. The natural question now is, how the localisation performance is affected, when the initialisation is choosen less carefully.
+Variations on Experiments in Schwartz2014 Schwartz2014
+For these variations on the replication trials above, the results of which are presented in fig:resultsReplicationAlternativeRotated and fig:resultsReplicationAlternativeEqual, the original initialisation has been modified. In the first trial, it has been rotated by , now horizontally dividing the room. With this initialisation, both sources are located in the non-zero area of a single , which should render the seperation into two different  meaningless. In the second trial, 
+ is initialised equal across the whole room for both sources. This shows, how the localisation performs when only a single  is used and no prior knowledge about the sources is introduced before starting the em iterations.
+
+
+
+
+First, the results show that the localisation performance was not altered by using these alternative initialisations. In both trials, the sources were identified correctly and the mae is zero. Even the pattern of the spurious Gaussian component weights is identical to the original replication trial. Therefore it can be concluded that the different initialisations of  used above does not impact the results of the source localisation algorithm. Further, the identical performance exhibited when equally initialising all , effectively removing the -dimension like proposed at the end of sec:algLocEst, allows for the optimisation of the algorithms complexity and memory requirements. This, in turn, permits trials with larger , as the memory requirement does no longer increase with additional sources. Therefore, the upcoming trials can be performed for 2–7 sources, which allows for the evaluation of the localisation performance in a less sparse environment. 
+
+
+
+Static Scenario Evaluation
+
+
+To see, what localisation performance is achievable by the source localisation algorithm in this setup, a first evaluation of different scenarios compares an environment considered ideal for source localisation (no noise, no reverberation) to more adverse conditions. The parameters used in this evaluation are summarised in table:parametersBestCase.
+
+
+
+In ideal conditions, the algorithm is able to successfully localise two sources in virtually every trial. However, with an increasing number of sources , the mae still increases, despite the lack of any disturbances other than different sources. Also, only in ideal conditions does the localisation error continuously increase with every new source that is being added. For the base and worst case scenario, at some point the localisation decreases when adding more sources. This effect is best demonstrated in the case, where location estimates were only guessed. When guessing location estimates, more sources lead to a lower localisation error, as each estimate has a better chance of being close to one of the original source locations. This is the reason, why the mae decreases for the worst case when adding additional sources for  and for the base case, when adding a seventh source. Further, the results for the base case seem to validate the assessment of a rather conservative choice of default parameters, as the mean mae of the base case is closer to the best case than the worst case for any . Last, the performance of the worst case scenario converges with the results of the guessing trial with increasing . For , for example, the difference in error is only about  m. However, this could be due to the relatively small room of 6 m  6 m, as the guessing estimates trial resulted in a mean absolute error of below  m. For larger rooms, the algorithm could still perform better than guessing.
+
+
+Single Parameter Evaluations
+
+For the following trials, the base parameter set described in table:parameterset is used while one parameter is isolated and localisation performance is analysed across a range of values for this parameter. The sample size  for each evaluation is reported with each box plot. A target of  should provide a large enough sample to get meaningful results. Where the sample size exceeds , results of other evaluation trials could be reused for this particular evaluation. The author was careful not to introduce any bias by selectively stopping or continuing data collection until a certain result was reached.
+Reflection Order
+
+
+
+For this evaluation, the amount of reverberation has been increased to T s. As expected, the reflection order  has a significant negative effect on localisation performance. In addition,  seems to strike a good balance between a realistic simulation environment and managable computational complexity. The mae is right in between of either having no reverberation () or fully simulating all reverberations ( max). In general, this validates the choice of  as default parameter for most other evaluations. However, it has to be noted that the effect other parameters might exhibit to have on mae, might be diminished by not fully simulating all parts of the reverberation. Therefore, for trials where reverberation is the explicit target of the evaluation (e.g., for the evaluation of T), the additional computational complexity is accepted in order to achieve more accurate results. For all other trials, where  is choosen to achieve a larger sample size, the additional negative effect of a more realistic simulation with  max has to be kept in mind when interpreting the results.
+
+
+Reverberation Time
+
+
+
+For this trial, the maximum reflection order  has been adjusted from its base value of  to maximum, in order to allow for full simulation of all reverberations for  s and not cut off the rir prematurely due to a low . The general effect to be observed is that a longer reverberation time strongly increases the localisation error. This effect is especially accentuated for fewer sources, as for these, the localisation error usually is quite low.  s has a significant negative effect on the localisation performance for two sources, as it increases the median localisation error to around m, the mean to over m and the upper whisker reaches up to m. Localisation in these conditions is much less reliable and the variance of the localisation error is increased strongly. Interestingly, the upper whisker of  s is generally lower the more sources are added to the simulation and the mean mae for both  s and  s when adding a seventh source. This reflects the effect additional sources had on the trials in fig:trialCases, where location estimates have been guessed. This does not mean that the algorithm performs better the more sources there are, but rather indicates that there is less chance for the location estimates to be wrong.
+snr
+
+
+
+
+In fig:trialSNR the results of the snr evaluation are presented. These show that, from SNR dB onwards, adding more noise to the received signal increases the localisation error and therefore decreases localisation performance. However, comparing the trials without noise to those with the least amount of noise (SNR dB) suggests, that a minimal amount of noise does not always decrease localisation performance. In fact, for  and  the algorithm performs best with SNR dB, marginally better than in a noiseless environment. For all other , the results for SNR dB and no noise are about the same, in regards to the variance, median and mean of the mae.
+Minimum Distance of Sources
+
+
+The expected effect of a higher required minimum distance of sources is, that it improves localisation, as it eliminates the cases, in which localisation fails due to the sources being too close together. The results for  to  shown in fig:trialMD seem to indicate a tendency of this being the case, but in general, this effect could not be validated. In contrast, a minimum required distance of 1.0m increases the mean localisation error significantly for  compared to mdm. This is surprising, as intuitively, the more space there is between the sources, the easier it should be for the algorithm to estimate the location for each individual source more precisely. One presumption that could explain this behaviour is, that a minimum required distance of 1m is actually disadvantageous, because it forces more sources to be closer to the microphones. The space in the middle of the room is considered favorable for localisation, as each microphone pair will provide good readings of sources there. Therefore, the space close to or around the microphone pairs is deemed unfavourable, as the microphones close to the source might have a steep angle of incidence in relation to the source signal, and the other microphones are far away and presumably dominated by other sources signals. The liberal space requirements could mean, that more sources are placed in these unfavourable positions, thereby decreasing localisation performance. A preliminary investigation in the extreme coordinates of these trials did provide some evidence that this is indeed the case, but further examination is necessary to fully account for this behaviour.
+Wall Distance
+
+
+
+fig:trialWD shows, that restricting the source positions by requiring a minimum wall distances only has a very small effect on the localisation error. For ,4 and 7, the median, mean and upper whisker of the mae for a required minimum wall distance of  m are slightly below the other two parameter values. All other differences are small enough to be attributed to chance.
+EM Iterations
+
+
+
+
+Trials with the same parameter set have been carried out for a different number of fixed em iterations, from  to . The results suggest, that increasing the number of em iterations on average decreases the localisation error. This effect is small but consistent across all number of sources, although there are diminishing returns for higher iterations. In fact, the localisation error between 3, 5, 10 and 20 iterations does not differ by much and may not warrant the increased computational complexity that is involved in increasing the number of iterations by a factor of two, four or even seven. As we can see for  and , having only one iteration does yield significantly worse results. However, already two or three iterations suffice for a localisation performance that is comparable to much higher number of iterations. This result validates  as a good balance between computational complexity and localisation performance for a base parameter set for the evaluation trials below.
+
+
+
+
+Initial Variance
+
+
+
+
+For this trial the number of em iterations is increased to , as the convergence properties of the variance is examined. As fig:trialVarianceNotFixed shows, the initial variance  does not have a consistent effect on the localisation performance. For  there is a slight improvement evident for higher , but for  lower initial variances seem to do slightly better. Overall, the difference among different  is very small and likely not attributable to any advantage, a certain initial value might have over another. This could be explained by a fast convergence speed of the variance, so that initial values within a reasonable range as those that have been tested in this trial have no bearing on the localisation performance. As  used a fixed variance, the next evaluation will show, whether setting a fixed variance will lead to an advantage in localisation performance.
+Fixed Variance
+
+
+
+
+
+
+
+
+
+
+
+
+The results in fig:trialVarianceFixed show, that the extreme values  and  yield significantly higher localisation errors across all  compared to the other initial variances. Overall,  performs best for all but , where  results in a slightly lower mean and median mae. Comparing these results with the evaluation above, where the variance has not been fixed, does reveal that there is no performance advantage in fixing the variance. However, estimating the variance uses about 30 of the computation time per iteration. Therefore, not estimating the variance reduces the runtime of the em algorithm by 30, which amounts to about  second per iteration (on the hardware described in sec:computationalComplexity). This improvement, however, comes with the challenge of choosing a good initial value for . As we have seen in fig:trialVarianceFixed, a bad fixed variance can lead to a significant worse localisation performance, at least for . Therefore, according to these results, estimating the variance is the better option when trying to optimise the localisation algorithm for performance.
+
+
+
+Source Tracking
+
+Comparison of Variance Estimation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+As has been shown in sec:algSrcTrack, the trem and crem variants of the tracking algorithm only differ in the estimation of the variance parameter. fig:trackVarComp shows, how both algorithms update  for different initial values  over time. Note, that the time-axis is now given in seconds to make it easier to align the estimated parameters over time with the source signals shown in fig:signalRepresentation. The progression of the variance estimate over time shows, that crem converges significantly faster from the initial value to the variance inherent to the data. While crem seems to follow the inherent variance from  onwards, trem takes until  to fully converge for an initial variance of . This means, that an initial variance that is far from the inherent variance will lead to inferior localisation performance with the trem algorithm in the beginning, while the variance estimation of the crem algorithm is more robust to such an initialisation. After both algorithms variance estimates have converged onto the inherent variance, the estimates are the same for both crem and trem. So the difference in variance estimation only has an effect on the convergence speed. In conclusion, if the initial variance is choosen to be close to the inherent variance, variance estimation yields the same results for both algorithms. Should the initial variance deviate from the variance inherent to the data, crem offers variance estimates that converge faster than trem in the beginning. After a certain amount of timesteps have been processed, both algorithms have converged onto the same variance estimates, that seem to range from  to  for the scenario of two sources moving along crossing paths with the reverberation time set to . As both algorithms produce the same variance estimates after they have converged, it can be assumed that the location estimates will be similar as well.
+
+
+
+
+
+Dynamic Scenario Evaluation
+
+In the following section, the three movement scenarios parallel, crossing and arc defined in sec:evalScenariosTracking are evaluated for both crem and trem. The results will be presented in individual plots for x- and y-coordinate estimates. The dashed lines indicate the true source trajectories and the red markers indicate the coordinate estimates over time. Additionally, a third plot will show the estimated positions, where time has been coded as a color gradient from blue to red. But first, the two source signals should be examined to see, how their speech activity progresses over time. fig:signalRepresentation in the Appendix shows, that the first source signal has a distinctive pause around . Further, the STFT-representation shows, that the lower frequencies are missing around . The second source signal has two pauses, one at  and the other at  until the end. It is expected that source tracking will exhibit difficulties estimating the true source trajectories in those instances.
+
+
+Parallel Movement
+In the parallel movement scenario, the first source moves from  up to , while the second source moves from  down to . From a top-down view, the source on the left is moving down while the source on the right is moving up. This is the reason, why the true source trajectories cross in the y-dimension, despite the sources moving parallel to each other. The trajectory length is  m, therefore the sources move along the trajectory at a speed of . 
+
+
+
+The crem algorithm is able to identify the x- and y-coordinates for both sources successfully for most of the trial. fig:trackingParallelCREM clearly shows, how the missing activity of  around  and  immediately leads to spurious x-coordinate estimates close to the microphone pairs. Otherwise the location estimates closely track the true source trajectories.
+
+
+
+Although not identical, trem behaves similar to crem as the results in fig:trackingParallelTREM demonstrate. As expected, there are more wrong x-coordinate estimates until  and the variance has fully converged. Then, both algorithms display very similar behaviour. From  to  trem accurately estimates the x-coordinate , whereas crem missed the true trajectory by 1 grid point. An overview of the position estimates over time for both trem and crem is provided in fig:trackingParallelRoom.
+
+
+
+
+Crossing Movement
+In the crossing movement scenario, the first source moves from  up to , while the second source moves from  up to . From a top-down view, both sources move up diagonally and cross paths in  at .
+
+
+
+
+
+
+As with the parallel movement scenario, both algorithms give erroneous estimates between  and  and around , due to the inactivity of the first source. In fig:trackingCrossingCREM we can see, that the location estimates seem to have collapsed onto the second source between  and , as only two location estimates are close to the first source during this time. Here, trem performs better, as it estimated more positions close to the first source in this time frame. The trem algorithm also more closely tracks the second source in the first second, while crem seems to be stuck in a local optima at  for almost the entire second. An overview of the position estimates over time for both trem and crem for the crossing movement scenario is provided in fig:trackingCrossingRoom.
+
+
+
+
+
+Arc Movement
+In the arc movement scenario, the first source moves from  up to , while the second source moves from  down to . From a top-down view, both sources move along a half-circle, until they reach the starting point of the respective other source.
+
+
+
+
+
+For this scenario, both algorithms were able to reliably track the second source shown in violett in fig:trackingArcCREM and fig:trackingArcTREM. Again, crem seems to lag behind the actual x-trajectory of the second source until , but after that both algorithms yield similar x-coordinate estimates. After , trem was unable to identify the y-coordinates for the first source. In this case, crem performed more reliably, correctly identifying y-coordinates around the true y-trajectory of the first source from  onwards. The overview of the position estimates over time for both trem and crem in fig:trackingArcRoom shows, that overall, trem seems to more different position estimates than crem. While some of these correspond to the source trajectories, it produces are also more false position estimates compared to crem, which yields less erroneous estimates, but also less estimates close to the true source trajectories.
+
+
+
+Conclusions
+
+This thesis concludes with a summary of the main findings as well as a critical review to identify avenues for further research based on the algorithms and results presented here.
+
+Summary of Main Findings
+
+The replication of the experiments conducted in  has shown, that the algorithm has been correctly implemented, as the results of the exact replication trials closely resembled the original results. Different prior initialisations for the estimated parameters did not have an effect on the result. Removing the -dimension from the estimation alltogether proofed to make no difference and provides the opportunity to reduce the memory requirements of the proposed algorithm. This allowed for the evaluation trials with up to seven sources. Testing the localisation performance in ideal conditions showed that the algorithm is capable to determining the location of up to seven sources at once with an average mae of  m for . The adverse conditions lead to significantly worse localisation performance, which was close to guessing source locations for larger . In the single parameter evaluations, reverberation time and noise had a strong, negative influence on the localisation performance, while geometric constraints on the setup only had a small effect overall. Examining the em algorithm itself showed, that more iterations yield better estimates. The initial variance does not affect localisation performance, when a total of  iterations are computed, and fixing the variance did also not improve the algorithm's localisation capability. However, if a reasonable fixed variance is chosen, computational complexity can be reduced by about  without significantly decreasing the average mae.
+
+
+Analysis of the source tracking algorithm showed, that the variance estimates of trem converged significantly slower than those of 
+glscrem. Otherwise, both algorithms performed similarly across all movement scenarios. The errors made in the dynamic scenario evaluations could mostly be attributed to missing speech activity. When a source was active, both algorithms were generally able to identify and track its position.
+
+Critical Review
+
+
+The main issue with the current implementation of the algorithm is the computational burden. Not only does it take rather long for the algorithm to complete one trial (for the base scenario in a static environment about 4 seconds per iteration on average), but the memory requirement imposed severe limitations on the parameter choice. For example, the frequency bins  and gridpoints  both had to be reduced from the original values used by  to allow trials on the hardware described in ). Only when moving from consumer grade hardware to a more professional setup could the original trials be replicated. As most of the applications, which have been discussed at the beginning of this thesis (e.g., smart home appliances), are constrained by their processing power and memory, the practicality of the evaluated algorithms is rather limited in those contexts. 
+
+
+This thesis has covered many of the parameters that are involved in the simulation, localisation and tracking of multiple sources in a noisy, reverberant environment. However, some of the parameters have been choosen out of necessity (to reduce the memory requirements and optimise for execution speed), while others have simply not been scrutinised. Examples are the room size, which could have an effect on how each parameter affects the localisation performance. Another example is the microphone layout, which could be examined to see, whether there are other configurations that yield better localisation performance.
+
+
+To improve upon the computational burden, which has been discussed in detail throughout this thesis, a technique that is usually used in srp-based beamformer called stochastic region contraction could be introduced, to iteratively reduce the search space and gradually lower the complexity. Adapting this to the gridpoints introduced in this thesis, the first iteration could subsample these gridpoints and only evaluate every -th gridpoint in the first iteration. When there is activity detected in a certain region, this region is sampled with a higher resolution, providing the necessary accuracy for localisation comparable to the one demonstrated in this thesis. Another opportunity for improvement is the incorporation of voice activity detection to reduce the amount of spurious location estimates of the source tracking algorithm, when there is no source activity. This has also been used with other source tracking techniques  for the same purpose. As most of the errors during the tracking evaluation could be attributed to source inactivity, this should reduce the number of false location estimates in these instances.
+
+

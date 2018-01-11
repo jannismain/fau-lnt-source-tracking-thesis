@@ -4,25 +4,25 @@
 		Parameter                      & Unit & Symbol           & Tested Values                  \\
 		\midrule
 		Room dimensions                & m    &                  & 6 x 6 x 6.1                    \\
-		Evaluated grid points           &      & $\pall$          & $41\cdot41=1,681$                    \\
+		Evaluated grid points          &      & $P=|\pall|$     & $41\cdot41=1,681$           \\
 		Number of microphone pairs     &      & $M$              & 12                             \\
 		Distance between microphones   & m    & $d_m$            & 0.2                            \\
-		Microphone's distance from wall & m    & $d^w_m$           & 1                            \\
+		Microphone's distance from wall & m   & $d^w_m$           & 1                            \\
 		Microphone positions           & m    & $\bm p_m^i$      & see \autoref{fig:setup}        \\
 		Minimum distance between sources & m    & $d_{s,\text{min}}$            & 0.5             \\
 		Minimum source distance from wall & m    & $d^w_{s,\text{min}}$           & 1.2           \\
 		Number of sources              &      & $S$              & \default{2 - 7}                \\
 		Source positions               & m    & $\bm p_s$        & random ($\bm p_s\in \pall$)  \\
 		Sampling frequency             & Hz   & $f_s$            & 16,000                         \\
-		Number of \glsentryshort{stft} frequency bins &      & $K$                    & 65 (bins 32-96)                             \\
-		Selected frequency band                       & Hz   &                        & 500 - 1500                                  \\
+		Number of \glsentryshort{stft} frequency bins &      & $K$  & 26 (40:65)                \\
+		Selected frequency band                       & Hz   &   & 625 - 1015       \\
 		Reflection order               &      & $r$              & 1, \default{3}, max            \\
 		Reverberation time             & s    & \Tsixty          & 0.0, \default{0.3}, 0.6, 0.9   \\
 		SNR                            & dB   &                  & \default{no noise}, 5, 10, 15, 30     \\
 		EM iterations                  &      & $L$              & 1, 2, 3, \default{5}, 10, 20   \\
 		Initial variance               &      & $\sigma^{2,(0)}$ & \default{0.1}, $0.5$, 1, 2, 5  \\
 		Fixed variance                 &      &                  & \default{false}, true          \\
-		Step size of recursion         &      & $\gamma_t$                 & \default{false}, true          \\
+		Step size of recursion         &      & $\gamma_t$                 & 1         \\
 		\bottomrule
 	\end{tabular}
 	\caption[Parameter Set for Evaluation]{Parameter Set for Evaluation: \itshape The \textbf{default values} are set in bold. They provide a simulation environment that includes some reverberation, while keeping the computational complexity low enough to allow for a range of different evaluations and a large sample size per trial. Note, that both \Tsixty and the reflection order are chosen conservatively compared to real-world scenarios, where \Tsixty$\in [0.2, 0.8]$ for a domestic or office environment \cite[p.695]{Gannot2017}.}

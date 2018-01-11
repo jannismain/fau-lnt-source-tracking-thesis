@@ -14,7 +14,6 @@
 \cleardoublepage
 
 \renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
-%\renewcommand{\chaptermark}[1]{\markright{\uppercase{\thechapter.\ #1}}{}}
 \renewcommand{\sectionmark}[1]{\markright{\uppercase{\thesection.\ #1}}{}}
 
 % Table of Contents
@@ -24,25 +23,35 @@
 \clearpage
 
 %% Summary
-%\renewcommand{\chaptermark}[1]{}
-\chaptermark{Abstract}
+\renewcommand{\chaptermark}[1]{ \markboth{ \uppercase{#1}}{}} 
+
 \chapter*{Abstract}
+\chaptermark{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
+%\renewcommand{\chaptermark}[1]{\markright{\uppercase{\thechapter.\ #1}}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\uppercase{\thesection.\ #1}}{}}
 \input{structure/abstract}
 \clearpage
+
+\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thechapter \ #1}}{}}
+\renewcommand{\chaptermark}[1]{ \markboth{ \uppercase{#1}}{}} 
+\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{#1}}{}} 
 \include{helpers/empty-page}
-%\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{\thechapter \ #1}}{}}
-%\renewcommand{\chaptermark}[1]{ \markboth{ \uppercase{#1}}{}} 
-%\renewcommand{\sectionmark}[1]{ \markright{ \uppercase{#1}}{}} 
+
 
 %% List of Abbreviations
+\renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}} 
+\chaptermark{List of Abbreviations}
 \input{other/acronyms}
 
-%% List of Symbols
+
+%% Symbols
 \input{structure/symbols}
 \clearpage
-
 \include{helpers/empty-page}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%  Main Text  %%%%%%%%%%%%%%%%%%%
 
@@ -56,7 +65,6 @@
 \setcounter{page}{0}
 \pagenumbering{arabic}
 
-%TODO: Fix Header Font Consistency (uppercase everywhere)
 
 \renewcommand{\chaptermark}[1]{\markboth{\uppercase{\chaptername \ \thechapter.\ #1}}{}}
 %\renewcommand{\chaptermark}[1]{\markright{\uppercase{\thechapter.\ #1}}{}}

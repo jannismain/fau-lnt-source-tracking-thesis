@@ -1,1 +1,20 @@
+- Certain Parameters have not been evaluated
+    - Static
+        - Correct Choice for K
+        - Other Microphone types (Omnidirectional probably do not yield best performance, Hypercardioid might be better choice)
+        - Other Microphone Layout have not been tested
+        - Performance in different Room layout (bigger, smaller)
+        - Grid Resolution?
+        - Issues with certain wall reflections are not examined
+        - Other, better prior values for psi? (favor grid points in the middle of the room to counter bad reading directly at microphones)
+    - Tracking
+        - More continuous speech samples
+        - Closer examine role of gamma (in our trials, smaller gamma worked better. In Schwartz2014, Gamma=1 worked better)
+        - More than 2 sources
+        - Performance Measure for Tracking required for more data-driven evaluation
 
+- Further Research
+    - Integration with VAD for more reliable tracking
+    - Improvement through optimised grid search (from coarse to fine)
+        - solves memory issue
+        - provides faster execution time

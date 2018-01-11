@@ -1,22 +1,21 @@
 \chapter{Conclusions}
 \label{chap:concl}
-\input{chapters/5conclusion/conclusion-intro}
+This thesis concludes with a summary of the main findings as well as a critical review to identify avenues for further research based on the algorithms and results presented here.
 
 \section{Summary of Main Findings}
+
+The replication of the experiments conducted in \cite{Schwartz2014} has shown, that the algorithm has been correctly implemented, as the results of the exact replication trials closely resembled the original results. Different prior initialisations for the estimated parameters did not have an effect on the result. Removing the $S$-dimension from the estimation alltogether proved to make no difference and provides the opportunity to reduce the memory requirements of the proposed algorithm. This allowed for the evaluation trials with up to seven sources. Testing the localisation performance in ideal conditions showed that the algorithm is capable to determine the location of up to seven sources at once with an average \gls{mae} of $0.25$~m for $S=7$. The adverse conditions lead to significantly worse localisation performance, which was close to guessing source locations for larger $S$. In the single parameter evaluations, reverberation time and noise had a strong, negative influence on the localisation performance, while geometric constraints on the setup only had a small effect overall. Examining the \gls{em} algorithm itself showed, that more iterations yield better estimates. The initial variance does not affect localisation performance, when a total of $L=10$ iterations are computed, and fixing the variance did also not improve the algorithm's localisation capability. However, if a reasonable fixed variance is chosen, computational complexity can be reduced by about $30\%$ without significantly decreasing the average \gls{mae}.\\
+
+
+Analysis of the source tracking algorithm showed, that the variance estimates of \gls{trem} converged significantly slower than those of \gls{crem}. Otherwise, both algorithms performed similarly across all movement scenarios. The errors made in the dynamic scenario evaluations could mostly be attributed to missing speech activity. When a source was active, both algorithms were generally able to identify and track its position.
 
 \section{Critical Review}
 \label{sec:critical-review}
 
-\begin{itemize}
-    \item Algorithm
-    \begin{itemize}
-        \item Phase unwrapping -> Increase frequency band \ref{Chen2017}
-    \end{itemize}
-    \item Implementation
-    \begin{itemize}
-        \item Mix signals in STFT-Domain directly, instead of calculating $Y*X$ in the STFT-Domain, transforming back into time-domain to mix signals only to transform back into STFT domain for PRP calculation.
-        \item Is this really the best model for this problem?
-        \item Could remove reliance on grid points by also estimating mean and only having $S$ Gaussian components instead of $T\cdot K\cdot |\mathcal{P}|$
-        \item Incorporate further research directions in this section
-    \end{itemize}
-\end{itemize}
+The main issue with the current implementation of the algorithm is the computational burden. Not only does it take rather long for the algorithm to complete one trial (for the base scenario in a static environment about 4 seconds per iteration on average), but the memory requirement imposed severe limitations on the parameter choice. For example, the frequency bins $K$ and gridpoints $P$ both had to be reduced from the original values used by \cite{Schwartz2014} to allow trials on the hardware described in \ref{sec:computationalComplexity}). Only when moving from consumer grade hardware to a more professional setup could the original trials be replicated. As most of the applications, which have been discussed at the beginning of this thesis (e.g., smart home appliances), dispose of very limited processing power and memory, the practical use of the evaluated algorithms is questionable in those contexts.\\
+
+
+This thesis has covered many of the parameters that are involved in the simulation, localisation and tracking of multiple sources in a noisy, reverberant environment. However, some of the parameters have been chosen out of necessity (to reduce the memory requirements and optimise for execution speed), while others have not been scrutinised as much. Examples are the room size, which could have an effect on how each parameter affects the localisation performance. Another example is the microphone layout, which could be examined to see, whether there are other configurations that yield better localisation performance.
+
+\paragraph{Further Improvements}
+To improve upon the computational burden, which has been discussed in detail throughout this thesis, a technique that is usually used in \gls{srp}-based beamformer called \emph{stochastic region contraction} could be introduced, to reduce the search space and gradually lower the complexity. Adapting this to the gridpoints introduced in this thesis, the first iteration could subsample these gridpoints and only evaluate every $n$-th gridpoint in the first iteration. When there is activity detected in a particular region, this region is sampled with a higher resolution, providing the necessary accuracy for localisation comparable to the one demonstrated in this thesis. Another opportunity for improvement is the incorporation of voice activity detection to reduce the number of spurious location estimates of the source tracking algorithm when there is no source activity. This was also successfully implemented with other source tracking techniques \cite{Lehmann2007} for the same purpose. As most of the errors during the tracking evaluation could be attributed to source inactivity, this should reduce the number of false location estimates in these instances.

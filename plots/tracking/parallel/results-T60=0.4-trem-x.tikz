@@ -1036,15 +1036,15 @@ legend style={%
 495	2\\
 496	2\\
 };
-\addplot [color=mycolor4, mark=none, dashed, line width=\trajDashedLinewidth]
-  table[row sep=crcr]{%
-1	2\\
-496	2\\
-};
 \addplot [color=mycolor3, mark=none, dashed, line width=\trajDashedLinewidth]
   table[row sep=crcr]{%
 1	4\\
 496	4\\
+};
+\addplot [color=mycolor4, mark=none, dashed, line width=\trajDashedLinewidth]
+  table[row sep=crcr]{%
+1	2\\
+496	2\\
 };
 \end{axis}
 \end{tikzpicture}%

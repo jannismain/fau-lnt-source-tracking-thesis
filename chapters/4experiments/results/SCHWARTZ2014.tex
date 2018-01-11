@@ -30,7 +30,7 @@ As already remarked in Chapter \ref{chap:algorithms}, the algorithm developed in
 The results for both trials presented in \autoref{fig:resultsReplication} look almost identical to those reported in \cite{Schwartz2014}. The positions of both sources are identified and the localisation error is zero for both \nolinebreak{\Tsixty$=0.4$~s} and \nolinebreak{\Tsixty$=0.7$~s}. Although smaller, the peaks of $\psips$ are still clearly identifiable in the more reverberant case. Most of the non-zero weights that do not correspond to one of the sources emerge in between the upper microphone pairs and between the microphone pairs and the wall. 
 
 \begin{figure}[!htbp]
-	\iftoggle{nice}{%
+	\iftoggle{quick}{%
 		\includegraphics[width=\textwidth]{plots/schwartz2014/s=2-sloc=schwartz2014-T60=0.4-prior=schwartz2014-overview-sc}
 	}{%
 		\setlength{\figurewidth}{\textwidth}
@@ -57,4 +57,4 @@ The results for both trials presented in \autoref{fig:resultsReplication} look a
 
 \FloatBarrier
 
-In \autoref{fig:schwartzInitialisation}, the initialisation of $\psips$ can be seen. It seems this initialisation has been deliberately choosen to optimise the localisation algorithm for this particular arrangement of sources, as the demarkation of the initial values exactly follows a line between the two sources. For random source positions, such an ideal initialisation cannot be guaranteed without prior knowledge about both the number and approximate positions of the sources. The natural question now is, how the localisation performance is affected, when the initialisation is choosen less carefully.
+In \autoref{fig:schwartzInitialisation}, the initialisation of $\psips$ can be seen. It seems this initialisation has been deliberately chosen to optimise the localisation algorithm for this particular arrangement of sources, as the demarkation of the initial values exactly follows a line between the two sources. For random source positions, such an ideal initialisation cannot be guaranteed without prior knowledge about both the number and approximate positions of the sources. The natural question now is, how the localisation performance is affected, when the initialisation is choosen less carefully.
